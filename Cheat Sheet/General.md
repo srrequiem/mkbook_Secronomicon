@@ -40,6 +40,8 @@ export TERM=xterm-256color
 
 #### Nmap
 
-# Hydra
+TODO: Poner comando
 
-`hydra -l <USER> -p <PASSWORD> <IP_ADDRESS> http-post-form "<LOGIN_PAGE>:<REQUEST_BODY>:<ERROR_MESSAGE>"`
+# Proxy debugging
+
+TODO: Agregar comandos de shellhacks.com para redireccionar todo el tráfico de la consola a burpsuite

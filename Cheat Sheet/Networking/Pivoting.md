@@ -67,10 +67,14 @@ TODO: Añadir imagen de flujo de data en puertos y evidencia
 
 Ref: https://0xdf.gitlab.io/2020/08/10/tunneling-with-chisel-and-ssf-update.html
 
-## Server
+## Servidor
 
 `chisel server -p 9001 --reverse`
 
-## Client
+## Cliente
 
-`chisel client ip_server:server_port R:socks`
+| Comando | Descripción |
+|---|---|
+| `chisel client 10.10.14.3:8000 R:80:127.0.0.1:80` | Listen on Kali 80, forward to localhost port 80 on client |
+| `chisel client 10.10.14.3:8000 R:4444:10.10.10.240:80` | Listen on Kali 4444, forward to 10.10.10.240 port 80 |
+| `chisel client 10.10.14.3:8000 R:socks` | Create SOCKS5 listener on 1080 on Kali, proxy through client |

@@ -33,6 +33,8 @@ set disassembly-flavor intel
 ## Tips n' tricks
 
 
+### getenvvar.c
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>

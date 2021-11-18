@@ -1,7 +1,0 @@
-# Buffer Overflow
-
-## Windows
-
-
-
-## Linux
