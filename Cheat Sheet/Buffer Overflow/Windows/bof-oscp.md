@@ -11,7 +11,7 @@
 
 #### Traza ICMP
 
-En la sección de configuración avanzada habilitar reglas **tanto de entrada como de salida** de ICMP v4 y v6 para.
+En la sección de configuración avanzada habilitar reglas **tanto de entrada como de salida** de ICMP v4 y v6 para permitir comunicación entre la máquina que se ocupará para debuggear el binario y la máquina de donde se lanzará el exploit.
 
 ![Reglas de Firewall](./images/bof_1.png)
 
@@ -19,12 +19,13 @@ En la sección de configuración avanzada habilitar reglas **tanto de entrada co
 
 En un command prompt como administrador ejecutar: `bcdedit.exe /set {current} nx AlwaysOff` para deshabilitar la *prevención de ejecución de datos (DEP)*. Después de ejecutarlo y reiniciar el sistema se puede validar que se deshabilitó correctamente entrando a `Panel de Control > Sistema y seguridad > Sistema > Configuración avanzada del sistema > Opciones avanzadas > Configuración (de rendimiento) > Prevención de ejecución de datos` este deberá salir sombreado de gris.
 
+![Deshabilitado de DEP](./images/bof_2.png)
+
 1. Configuración avanzada del sistema.
 2. Configuración de rendimiento.
 3. Pestaña de prevención de ejecución de datos.
 4. Sombreado gris de correcto deshabilitado.
 
-![Deshabilitado de DEP](./images/bof_2.png)
 ### Instalación de herramientas (Mona)
 
 Para añadir el script de `mona.py` a inmmunity debugger, es necesario descargar el script del [repositorio](https://github.com/corelan/mona) y meterlo en la ruta `C:\Program Files (x86)\Immunity Inc\Immunity Debugger\PyCommands`.
@@ -33,7 +34,7 @@ Para añadir el script de `mona.py` a inmmunity debugger, es necesario descargar
 
 ### Generación de workspace para `mona.py` (opcional)
 
-Para facilitar el uso de `mona.py`, se puede generar un entorno de trabajo (a secas es una carpeta) que contendría lo que `mona.py` genere a partir de los comandos que se utilicen (payloads, patrones, badchars, etc). Ejecutando `!mona config -set workingfolder C:\Users\SrRequiem\Desktop\%p` se indicaría el lugar y partir del primer uso de `mona.py` que genere archivos se podrá ver reflejado en el sistema de archivos.
+Para facilitar el uso de `mona.py`, se puede generar un entorno de trabajo (a secas es una carpeta) que contendría lo que `mona.py` genere a partir de los comandos que se utilicen (payloads, patrones, badchars, etc). Ejecutando `!mona config -set workingfolder C:\Users\SrRequiem\Desktop\%p` se indicaría el lugar y a partir del primer comando de `mona.py` que genere archivos, se podrá ver reflejado en el sistema de archivos.
 
 ## Fuzzing
 
@@ -104,7 +105,7 @@ Después de provocar el fallo con el patrón, la dirección `EIP` se sustituirí
 1. Offset.
 2. EIP.
 
-*Nota: Siempre corroborar con un payload propio modificando después del offset un valor que se identifique facilmente.*
+*Nota: Siempre corroborar con un payload propio modificando después del offset un valor que se identifique facilmente. Ejemplo: 1052 'A' y 4 'B' en este caso el `EIP` valdría `42424242`*
 
 ## Identificar Bad Chars
 
@@ -112,7 +113,7 @@ Después de provocar el fallo con el patrón, la dirección `EIP` se sustituirí
 
 Si bien es bueno saber el proceso que se realiza, es una tarea que consume mucho tiempo y que existe una gran posibilidad de cometer errores al realizarlo ya que es muy fácil perder algún byte de vista muy fácil.
 
-El proceso se centra en enviar el payload con los badchars y directamente seguir los caracteres ASCII obtenidos del `ESP` y buscar cuales son los que no se visualizan correctamente, identificandolos así uno a uno. Se puede generar la colección de bytes con `mona` con el comando `!mona bytearray` dentro de Immunity Debugger para tener la colección y poder incorporarla al payload.
+El proceso se centra en enviar el payload con los badchars y directamente seguir los caracteres ASCII obtenidos del `ESP` y buscar cuales son los que no se visualizan correctamente, identificandolos así uno a uno. Se puede generar la colección de bytes con `mona.py` con el comando `!mona bytearray` dentro de Immunity Debugger para tener la colección y poder incorporarla al payload.
 
 #### Colección plana
 
@@ -153,20 +154,21 @@ Se anexan ejemplos de cómo se verían los badchars en el dump de hexadecimal (s
 
 ### Automático
 
-El proceso se puede optimizar usando `mona` de manera iterativa, con los siguientes comandos `mona` nos devolverá los badchars identificados.
+El proceso se puede optimizar usando `mona.py` de manera iterativa, con los siguientes comandos `mona.py` nos devolverá los badchars identificados.
 
 1. `!mona bytearray`: Generará archivos con arreglo de badchars.
 2. `!mona compare -f <ubicacion de byte array .bin> -a <dirección de ESP>`: Comparará los badchars contenidos respecto al payload ubicado en el `ESP` (recordando que payload = filler + eip + badchars).
 3. `!mona bytearray -cpb '\x00'`: Generará archivos con arreglo de badchars exceptuando los indicados.
-4. Repetir hasta encontrar todos los badchars.
+4. Repetir proceso hasta encontrar todos los badchars.
 
 ## Búsqueda de dirección
+
+Aquí se realiza la búsqueda de la instrucción `JMP ESP` (valores hexadecimales `\xff\xe4`) en las dlls del binario, siempre tratando de identificar aquellas que no cuenten con protecciones (todas la banderas dadas por `mona.py` en `False`).
 
 *Nota: se puede hacer uso de `msf-nasm_shell` para ver el valor de los `OP codes` (en este caso `jmp ESP`) en caso que se requiera.*
 
 ![OP code jmp ESP](./images/bof_7.png)
 
-Aquí se realiza la búsqueda de la instrucción `JMP ESP` (valores hexadecimales `\xff\xe4`) en las dlls de, binario siempre tratando de identificar aquellas que no cuenten con protecciones (todas la banderas dadas por `mona.py` en `False`).
 
 **Comando de mona.py**
 
@@ -209,7 +211,7 @@ Tener en consideración:
 - Variables de escucha y/o comando a ejecutar.
 - Encoding (extra: `-i 3` para número de iteraciones para encodear).
 - BadChars.
-- Función de salida (para evitar que el proceso termine usar `SEH` `thread`).
+- Función de salida (para evitar que el proceso termine usar `seh` o `thread`).
 
 ***Si se da el caso que los badchars sean bastantes tal que la generación del shellcode no se realice satisfactoriamente, considerar quitar el encoder `x86/shikata_ga_nai` para que automáticamente se utilicé el encoder que cumpla con los requisitos (colección de badchars a evitar).***
 
