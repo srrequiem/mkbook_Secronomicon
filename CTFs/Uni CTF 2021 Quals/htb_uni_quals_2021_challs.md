@@ -1,3 +1,5 @@
+# Tabla de contenidos
+
 - [Web](#web)
   - [Slippy](#slippy)
     - [Estadísticas](#estadísticas)
