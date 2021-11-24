@@ -1,3 +1,31 @@
+- [Web](#web)
+  - [Slippy](#slippy)
+    - [Estadísticas](#estadísticas)
+  - [SteamCoin](#steamcoin)
+  - [AnalyticalEngine](#analyticalengine)
+- [Pwn](#pwn)
+  - [Arachnoid Heaven](#arachnoid-heaven)
+  - [Robot Factory](#robot-factory)
+  - [Steam Driver](#steam-driver)
+- [Crypto](#crypto)
+  - [Space Pirates](#space-pirates)
+  - [Oracle Leaks](#oracle-leaks)
+  - [Waiting List](#waiting-list)
+- [Reversing](#reversing)
+  - [Upgrades](#upgrades)
+  - [The Vault](#the-vault)
+  - [Pneumatic Validator](#pneumatic-validator)
+- [Forensics](#forensics)
+  - [Peel back the layers](#peel-back-the-layers)
+  - [Strike Back](#strike-back)
+  - [Keep the steam activated](#keep-the-steam-activated)
+- [Hardware](#hardware)
+  - [Out of time](#out-of-time)
+  - [Mechanical madness](#mechanical-madness)
+- [Misc](#misc)
+  - [Tree of danger](#tree-of-danger)
+  - [Sigma Technology](#sigma-technology)
+
 # Web
 
 ## Slippy
@@ -111,8 +139,7 @@
 | Atributo | Descripción |
 |---|---|
 | Dificultad | 1/4 |
-| Info | An unknown maintainer managed to push an update to one of our public docker images. Our SOC team reported suspicious traffic coming from some of our steam factories ever since. The update got retracted making us unable to investigate further. We are concerned that this might refer to a supply-chain attack. Could you investigate?
-Docker Image: steammaintainer/gearrepairimage |
+| Info | An unknown maintainer managed to push an update to one of our public docker images. Our SOC team reported suspicious traffic coming from some of our steam factories ever since. The update got retracted making us unable to investigate further. We are concerned that this might refer to a supply-chain attack. Could you investigate? Docker Image: steammaintainer/gearrepairimage |
 | Archivo | Docker Image: steammaintainer/gearrepairimage |
 
 ## Strike Back
