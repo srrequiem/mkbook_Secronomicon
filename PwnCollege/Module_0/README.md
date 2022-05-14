@@ -262,13 +262,278 @@ Hoy en día, esto es hecho hecho cuando el binario es cargado y es mucho más se
 
 Se explorará este punto más adelante.
 
-### Cat is initialized - 13:38
+### Interacting with the environment
 
-### Cat is initialized
+Casi todos los programas tienen que interactuar con el mundo exterior.
 
-### Cat is initialized
+Esto es realizado principalmente via llamadas a sistema (`man syscalls`). Cada llamada a sistema se encuentra bien documentada en la sección 2 de las páginas del manual. (ejemplo `man 2 open`).
 
-### Cat is initialized
+Se le puede dar seguimiento a los procesos de las llamadas a sistema usando `strace`.
+
+### System Calls
+
+Las llamadas a sistema tienen interfaces bien definidas que rara vez cambian.
+
+Existen más de 300 llamadas a sistema en Linux. Por ejemplo:
+
+- `int open(const char *pathname, int flags)` - retorna un archivo y un nuevo descriptor de archivo del archivo que se abrió (esto también aparece en `/proc/self/fd`).
+- `ssize_t read(int fd, void *buf, size_t count)` - lee la data del descriptor de archivo.
+- `ssize_t write(int fd, void *buf, size_t count)` - escribe la data en el descriptor de archivo.
+- `pid_t fork()` - bifurca o crea un proceso identico como hijo. Retorna 0 si eres el hijo y el PID del hijo si eres el padre.
+- `int execve(const char *filename, char **argv, char **envp)` - remplaza tus procesos.
+- `pid_t wait(int *wstatus)` - espera el termino del hijo, retorna su PID, escribe su estatus en *wstatus.
+- `long syscall(long syscall, ...)` - invoca el syscall especificado.
+
+Combinaciones de señales típicas:
+
+- fork, execve, wait (como una shell).
+- open, read, write (cat).
+
+### Signals
+
+Las llamadas a sistema son una forma en la el proceso interactúa con el sistema operativo. Pero ¿qué pasa al revés?
+
+Llamadas a sistema relevantes:
+
+- `sighandler_t signal(int signum, sighandler_t handler)` - registra un manejador de señales.
+- `int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)` - una forma más moderna de registrar un manejador de señales.
+- `int kill(pid_t pid, int sig)` - manda una señal a un proceso.
+
+Las señales pausan la ejecución del proceso e invocan el manejador.
+
+Los mandejadores son funciones que toman un argumento: el número de señal.
+
+Sin un manejador para una señal, la acción por defecto es usada (casi siempre, kill).
+
+SIGKILL (signal 9) y SIGSTOP (signal 19) no pueden ser gestionadas.
+
+Lista completa en la sección 7 del manual (`man 7 signal`) y `kill -l`. Señales comúnes:
+
+| Señal | Tipo | Descripción |
+|---|---|---|
+| `SIGHUP` | Term | Hangup detectado de terminal controlada o muerte de proceso controlado |
+| `SIGINT` | Term | Interrupción por teclado |
+| `SIGQUIT` | Core | Abandono por teclado |
+| `SIGILL` | Core | Instrucción Ilegal |
+| `SIGABRT` | Core | Señal de aborto de abort(3) |
+| `SIGFPE` | Core | Excepción de punto flotante |
+| `SIGKILL` | Term | Señal de kill |
+| `SIGSEGV` | Core | Referencia de memoria inválida |
+| `SIGPIPE` | Term | Pipe rota: escritura a pipe sin lectores; ver pipe(7) |
+| `SIGALRM` | Term | Señal de timer de alarm(2) |
+| `SIGTERM` | Term | Señal de termino |
+| `SIGUSR1` | Term | Señal 1 definida por usuario |
+| `SIGUSR2` | Term | Señal 2 definida por usuario |
+| `SIGCHLD` | Ign | Hijo pausado o terminado |
+| `SIGCONT` | Cont | Reanudar si estaba pausado |
+| `SIGSTOP` | Stop | Parar proceso |
+| `SIGTSTP` | Stop | Parar escrito en terminal |
+| `SIGTTIN` | Stop | Input de terminal para proceso en segundo plano |
+| `SIGTTOU` | Stop | Output de terminal para proceso en segundo plano |
+
+### Shared memory
+
+Otra manera de interactuar con el mundo exterior es mediante la compartición de memoria con otros procesos.
+
+Requiere que se establezcan llamadas a sistema, pero una vez establecidas la comunicación ocurre sin ellas.
+
+La forma más fácil es usar el archivo de shared memory-mapped ubicado en `/dev/shm`.
+
+### Process termination
+
+Los procesos terminan de alguna de estas dos formas:
+
+1. Recibiendo una señal no gestionada.
+2. Llamando llamada a sistema `exit()`: `int exit(int status)`.
+
+Todos los procesos tienen que ser "cosechados":
+
+- Después de su termino, permanecerán en un estado zombie hasta use el `wait()` de sus padres.
+- Cuando esto pasa, su código de salida será retornado al padre y el proceso será liberado.
+- Si el padre muere win usar `wait()` en ellos, son reparentados al PID 1 y permanecerán ahí hasta que sean limpiados.
+
+## Assembly Code
+
+### Assembly
+
+Es el único verdadero lenguaje de programación, en que se refiere a un CPU.
+
+Conceptos:
+
+- Intrucciones.
+  - Manipulación de data.
+  - Comparación.
+  - Control de flujo.
+  - System calls
+- Registros.
+- Memoria.
+  - Programa.
+  - Pila.
+  - Otra memoria mapeada.
+
+### Registers
+
+Los registros son bastante rápidos, temporalmente guardan data.
+
+Algunos utilizados para "propósitos generales":
+
+- 8085: a, c, d, b, e, h, l.
+- 8086: ax, cx, dx, bx, **sp**, **bp**, si, di.
+- x86: eax, ecx, edx, ebx, **esp**, **ebp**, esi, edi.
+- amd64: rax, rcx, rdx, rbx, **rsp**, **rbp**, rsi, rdi, r8, r9, r10, r11, r12, r13, r14, r15.
+- arm: r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, **r14**, **r15**.
+
+La dirección para la siguiente instrucción se encuentra en los registros:
+
+eip (x86), rip (amd64), r15 (arm)
+
+Varias extensiones añaden otros registros (x87, MMX, SSE, etc).
+
+### Partial Register Access
+
+![Acceso parcial de registros](images/reg_partial.png)
+
+Los registros pueden ser accedidos parcialmente.
+
+Debido a una rareza histórica, acceder a **eax** convertirá en cero el resto del **rax**. Esto fue diseñado como medida de seguridad para conservar partes sin tocar del registro.
+
+### All partial accesses on amd64 (that I know of)
+
+| 64 | 32 | 16 | 8H | 8L |
+|---|---|---|---|---|
+| rcx | ecx | cx | ah | al |
+| rdx | edx | dx | ch | cl |
+| rax | eax | ax | dh | dl |
+| rbx | ebx | bx | bh | bl |
+| rsp | esp | sp |  | spl |
+| rbp | ebp | bp |  | bpl |
+| rsi | esi | si |  | sil |
+| rdi | edi | di |  | dil |
+| r8 | r8d | r8w |  | r8b |
+| r9 | r9d | r9w |  | r9b |
+| r10 | r10d | r10w |  | r10b |
+| r11 | r11d | r11w |  | r11b |
+| r12 | r12d | r12w |  | r12b |
+| r13 | r13d | r13w |  | r13b |
+| r14 | r14d | r14w |  | r14b |
+| r15 | r15d | r15w |  | r15b |
+
+### Instructions
+
+Forma general:
+
+`OPCODE OPERAND OPERAND, ...`
+
+`OPCODE` - Que hacer
+`OPERANDS` - Que hacer en/con
+
+```asm
+mov rax, rbx
+add rax, 1
+cmp rax, rbx
+jmp some_location
+```
+
+### Instructions (data manipulation)
+
+Las intrucciones pueden mover y manipular data en registros y memoria.
+
+```asm
+mov rax, rbx # mover el valor de rbx a rax
+mov rax, [rbx+4] # de la dirección de rbx + 4 posiciones extraer el valor y moverlo a rax
+add rax, rbx # sumar el rbx a rax y guardar en rax
+mul rsi # multiplicar el valor en rax por rsi y guardar en rax
+inc rax # incrementa rax en 1
+inc [rax] # incrementa el puntero de rax en 1
+```
+
+### Instructions (control flow)
+
+El flujo de control es determinado por saltos condicionales e incondicionales.
+
+Incondicionales: call, jmp, ret
+
+Condicionales:
+
+| Operación | Descripción |
+|---|---|
+| je <br/> jne | jump si es igual <br/> jump si no es igual |
+| jg <br/> jl | jump si es mayor <br/> jump si es menor |
+| jle <br/> jge | jump si es menor o igual <br/> jump si es mayor o igual |
+| ja <br/> jb | jump si se cumple instrucción anterior (arriba) <br/> jump si se cumple siguiente instrucción (abajo) |
+| jae <br/> jbe | jump si se cumple instrucción anterior (arriba) o igual <br/> jump si se cumple siguiente instrucción (abajo) o igual |
+| js <br/> jns | jump si tiene signo <br/> jump si no tiene signo |
+| jo <br/> jno | jump si desborda <br/> jump si no desborda |
+| jz <br/> jnz | jump si es cero <br/> jump si no es cero |
+
+### Instructions (conditionals)
+
+Las conficionales utilizan el registro de "flags" como apoyo:
+
+- eflags (x86), rflags (amd64), aspr (arm).
+
+Actualizado para (x86/amd64):
+
+- Operaciones aritméticas.
+- cmp - sustracción (`cmp rax, rbx`).
+- test - operador and (`test rax, rax`).
+
+| Operación | Descripción | Banderas |
+|---|---|---|
+| je <br/> jne | jump si es igual <br/> jump si no es igual | ZF=1 <br/> ZF=0 |
+| jg <br/> jl | jump si es mayor <br/> jump si es menor | ZF=0 y SF=OF <br/> SF!=OF |
+| jle <br/> jge | jump si es menor o igual <br/> jump si es mayor o igual | ZF=1 y SF!=OF <br/> SF=OF |
+| ja <br/> jb | jump si se cumple instrucción anterior (arriba) <br/> jump si se cumple siguiente instrucción (abajo) | CF=0 y ZF=0 <br/> CF=1 |
+| jae <br/> jbe | jump si se cumple instrucción anterior (arriba) o igual <br/> jump si se cumple siguiente instrucción (abajo) o igual | CF=0 <br/> CF=1 o ZF=1 |
+| js <br/> jns | jump si tiene signo <br/> jump si no tiene signo | SF=1 <br/> SF=0 |
+| jo <br/> jno | jump si desborda <br/> jump si no desborda | OF=1 <br/> OF=0 |
+| jz <br/> jnz | jump si es cero <br/> jump si no es cero | ZF=1 <br/> ZF=0 |
+
+### Instructions (system calls)
+
+Las system calls (en amd64) son disparadas por:
+
+1. Guardar número de la system call en rax.
+2. Guardar los argumentos en rdi, rsi, etc.
+3. Llamar a la instrucción `syscall`.
+
+### Memory (stack)
+
+El stack cubre 4 usos principales:
+
+1. Dar seguimiento al "callstack" de un programa.
+   1. Los valores retornados son "empujados" a la stack durante su llamada y "desapilados" durante un retorno (push y pop).
+2. Contienen variables locales de funciones.
+3. Proveer espacio de ejecución para evitar el uso elevado de registros.
+4. Pasar argumentos de funciones.
+
+Registros relevantes (amd64): rsp, rbp.
+
+Instrucciones relevantes (amd64): push, pop.
+
+### Memory (other mapped regions)
+
+Otras regiones podrían ser mapeadas en memoria. Anteriormente fueron mencionadas que ciertas regiones son cargadas en relación a las directivas de las cabeceras de los ELF pero las funcionalidades como `mmap` y `malloc` pueden causar que otras regiones puedan ser mapeadas también.
+
+Esta funcionalidad será tomada en cuenta en módulos posteriores.
+
+### Memory (endianess)
+
+Data en la mayoría de los sistemas actuales es alojada hacia atrás, en *little endian*.
+
+![Endianess](images/endianess.png)
+
+¿Por qué?
+
+- Rendimiento (histórico).
+- Facilitar la aseignación de direcciones para diferentes tamaños.
+- Compatibilidad 8086 (apócrifa).
+
+### Signedness: Two's Compliment 29:33
+
+### Instructions
+
+### Instructions
 
 # Further Reading
 
@@ -278,4 +543,9 @@ Se explorará este punto más adelante.
 - Executable and Linkable Format 101 Part 1-4 - https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/
 - System calls in the Linux kernel. Part 4. -  https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-4.html
 - Understanding the Memory Layout of Linux Executables - https://gist.github.com/CMCDragonkai/10ab53654b2aa6ce55c11cfc5b2432a4
-- 
+
+
+# Referencias
+
+- X86 Opcode and Instruction Reference - http://ref.x86asm.net/
+- Linux System Call Table for x86_64 - https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
