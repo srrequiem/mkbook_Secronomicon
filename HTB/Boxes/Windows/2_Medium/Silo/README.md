@@ -17,9 +17,6 @@
 
 ```bash
 └─$ sudo nmap -sS --min-rate 5000 -vvv -open -p- -n -Pn -oG nmap/all_ports_ss $TARGET
-[sudo] password for srrequiem:
-Sorry, try again.
-[sudo] password for srrequiem:
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-23 23:09 EDT
 Initiating SYN Stealth Scan at 23:09
