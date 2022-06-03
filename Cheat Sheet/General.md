@@ -45,3 +45,9 @@ TODO: Poner comando
 # Proxy debugging
 
 TODO: Agregar comandos de shellhacks.com para redireccionar todo el tráfico de la consola a burpsuite
+
+# Windows
+
+## Crackmapexec `(Pwn3d!)`
+
+`cmd.exe /c reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f`

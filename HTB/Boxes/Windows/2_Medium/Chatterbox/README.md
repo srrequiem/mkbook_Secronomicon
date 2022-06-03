@@ -2,7 +2,7 @@
 
 | Característica | Descripción |
 |---|---|
-| Nombre | [Active](https://www.hackthebox.com/home/machines/profile/123) |
+| Nombre | [Chatterbox](https://www.hackthebox.com/home/machines/profile/123) |
 | OS | Windows |
 | Dificultad oficial | Medium |
 | Dificultad de comunidad | ![Dificultad](images/difficulty.png) |
