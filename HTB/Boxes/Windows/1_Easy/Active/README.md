@@ -170,7 +170,11 @@ Al identificar qué tipo de credencial es la que se encuentra en `Groups.xml` se
 
 ### Ejecución
 
-Dados los puertos abiertos que tiene la máquina se puede intuir que la máquina objetivo es un Domain Controller, contemplado esto y que se cuenta con credenciales se puede hacer uso de `impacket-GetUserSPNs` para buscar conseguir un hash de alguna otra cuenta que permita el acceso a la máquina. Comando completo: `impacket-GetUserSPNs active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10.100 -request`.
+Dados los puertos abiertos que tiene la máquina se puede intuir que la máquina objetivo es un Domain Controller, contemplado esto y que se cuenta con credenciales se puede hacer uso de `impacket-GetUserSPNs` para buscar conseguir un hash de alguna otra cuenta que permita el acceso a la máquina. Utilizando:
+
+```bash
+impacket-GetUserSPNs active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10.100 -request
+```
 
 ![Error de sesión por sincronización](images/exploit_2.png)
 

