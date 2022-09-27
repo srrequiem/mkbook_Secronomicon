@@ -1,0 +1,11 @@
+[book]
+authors = ["SrRéquiem"]
+description = "The example book covers examples."
+language = "es"
+multilingual = false
+src = "src"
+title = "SecNotes"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
