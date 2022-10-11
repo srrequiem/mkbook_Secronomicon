@@ -1,4 +1,4 @@
-# Linux pwning
+# Linux Pwning
 
 ## Validaciones iniciales
 

@@ -13,6 +13,25 @@ Box
 ### Contenido de `README.md`
 
 ````markdown
+# Introducción
+
+## Técnicas vistas / Tags
+
+- Técnica 1
+- Técnica 2
+- Técnica 3
+
+## Estadísticas
+
+| Característica | Descripción |
+|---|---|
+| Nombre | [Box]() |
+| OS | Windows / Linux |
+| Dificultad oficial | Easy |
+| Dificultad de comunidad | ![Dificultad]() |
+| Puntos | 20 |
+| Creadores | [Creator]() |
+
 # Reconocimiento
 
 ## Escaneo de host
@@ -66,7 +85,14 @@ nmap -sCV -p80,27017,37500 -oN nmap/targeted $BOX_TARGET
 ## Escalación de privilegios
 
 
+# Conclusión
+
+
+# Notas adicionales
+
+
 # Referencias
+
 
 ````
 

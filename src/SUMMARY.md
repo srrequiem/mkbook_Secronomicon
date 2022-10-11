@@ -29,6 +29,8 @@
 
 # CTFs
 
+- [22/09/2022 - IPN Core 2022 CTF](ctfs/20220922_ctf-core2022/README.md)
+
 # Hack The Box
 
 - [Challenges]()
