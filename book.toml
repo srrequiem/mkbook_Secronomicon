@@ -9,3 +9,4 @@ title = "SecNotes"
 [output.html]
 default-theme = "ayu"
 preferred-dark-theme = "ayu"
+site-url = "/SecNotes/"

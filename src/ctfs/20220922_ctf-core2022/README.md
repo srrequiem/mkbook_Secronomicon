@@ -17,7 +17,7 @@
 | Attribute | Info |
 |---|---|
 | Description | Uhmm no necesitas contexto... |
-| Files | [web_pentest_web_1.zip](files/web_pentest_web_1.zip) |
+| Files | [web_pentest_web_1.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_1.zip) |
 
 #### Solution
 
@@ -42,7 +42,7 @@ Flag: `CTF{9700cbd3cd4dc8c2010953ca1a029bd0}`
 | Attribute | Info |
 |---|---|
 | Description | Uhmm nop, no necesitas descripción... ¿o sí? |
-| Files | [web_pentest_web_2.zip](files/web_pentest_web_2.zip) |
+| Files | [web_pentest_web_2.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_2.zip) |
 
 #### Solution
 
@@ -75,7 +75,7 @@ Flag: `CTF{d4bac92d0e15c50d3431043e27c62163}`
 | Attribute | Info |
 |---|---|
 | Description | Es divertido el pentest web desde Blackbox ¿no? :) |
-| Files | [web_pentest_web_3.zip](files/web_pentest_web_3.zip) |
+| Files | [web_pentest_web_3.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_3.zip) |
 
 #### Solution
 
@@ -104,7 +104,7 @@ Flag: `CTF{e4b50e71a8f7ec1f5c3b8db6a91ce2ff}`
 | Attribute | Info |
 |---|---|
 | Description | ¿Qué tal? Estoy por terminar mi blog y un colega de {\|4_p4nd1\|\|4_m4nt3q1\|\|4}  me hizo favor de revisar el sitio, había encontrado algo pero aún no termina.  Mientras tanto me gustaría saber que encontró, ¿me ayudas también a revisarlo? |
-| Files | [web_cic_blog.zip](files/web_cic_blog.zip) |
+| Files | [web_cic_blog.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_cic_blog.zip) |
 
 #### Solution
 
@@ -157,7 +157,7 @@ Flag: `LPM{4h_p3rr1n_lf1_4_7h3_w1n}`
 | Attribute | Info |
 |---|---|
 | Description | Me hice la promesa de ya entrar a mis clases de desarrollo web y le hice a mi tío Chano un sitio para que que pueda gestionar sus órdenes de tacos, pero de un momento a otro se ha estado comportando medio raro... y estoy teniendo errores inesperados, ¿qué crees que pueda estar mal? |
-| Files | [web_tacos_don_chano.zip](files/web_tacos_don_chano.zip) |
+| Files | [web_tacos_don_chano.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_tacos_don_chano.zip) |
 
 #### Solution
 
@@ -226,9 +226,15 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | ¿Qué tanto sabes de encoding? |
-| Files | [crypto_encoding.txt](files/crypto_encoding.txt) |
+| Files | [crypto_encoding.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_encoding.txt) |
 
 #### Solution
+
+Después de pasar el texto obtenido a [Cyberchef](https://gchq.github.io/CyberChef/) se obtuvo el resultado de la [receta](https://gchq.github.io/CyberChef/#recipe=From_Base85('!-u',true)From_Base32('A-Z2-7%3D',false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Hex('None')&input=OG00Vl8xLzFEOjhRJi9OPSZgJ3I4ayhbLDEsYCZkOi9YVlE8RSlYSThsZTtLO2JdVlQ6LmVQZDc5PERmOUxXLGIxZmNBODduUTxROFFKTT84bTRuaDtiXjFjOi5lI1U1dV5mPThsXSJfMkhFMUs6ZUY4SDc5KXI7), mediante un múltiple encoding de bases: Base85 -> Base32 -> Base64 -> A hexadecimal para por último obtener el valor de la bandera.
+
+![Valor de bandera](images/crypto_encoding_1.png)
+
+Flag: `LPM{3nc0ding_iS_b4sIc}`
 
 ### Esoteric0
 
@@ -237,9 +243,15 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | ¡¡Esto es del diablo!! ¿puedes recuperar la flag? |
-| Files | [crypto_esoteric.txt](files/crypto_esoteric.txt) |
+| Files | [crypto_esoteric.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_esoteric.txt) |
 
 #### Solution
+
+Después de repasar el nombre y la descripción se pudo identificar que se trataba de un [lenguaje de programación esotérico](https://en.wikipedia.org/wiki/Esoteric_programming_language) y partiendo directamente de la descripción va acorde a la descripción que se puede leer en el lenguaje **Malbolge**. Por lo que al usar un [intérprete de este lenguaje](https://malbolge.doleczek.pl/) se puede obtener el valor de la bandera pegando el contenido proporcionado y ejecutando el programa.
+
+![Valor de bandera](images/crypto_esoterico_1.png)
+
+Flag: `LPM{3Xel3ntE_C0noC3s_LaS_4rTes_0scUr4s}`
 
 ### AESy
 
@@ -248,9 +260,66 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | ¿Podrás romper la cookie y obtener acceso como admin? |
-| Files | [crypto_aesy_chall.py](files/crypto_aesy_chall.py) |
+| Files | [crypto_aesy_chall.py](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_aesy_chall.py) |
 
 #### Solution
+
+Realizando un análisis al código fuente se identificó que al realizar el proceso de login se genera una cookie de sesión compuesta por 64 caracteres (en hexadecimal), de los cuales la mitad corresponde al `iv` que es utilizado en el proceso de cifrado y descifrado de la aplicación. Y la otra mitad a lo cifrado del usuario según las siguientes líneas de código:
+
+![Creación de cookie](images/crypto_aesy_1.png)
+
+1. Método de cifrado invocado.
+2. Retorno de valor `iv` + texto cifrado.
+
+Al buscar vulnerabilidades con el método empleado de AES CBC se encontró el [blog](https://derekwill.com/2021/01/01/aes-cbc-mode-chosen-plaintext-attack/) y el [video](https://www.youtube.com/watch?v=QG-z0r9afIs) en donde se explica la razón de la vulnerabilidad que parte de conocer los bytes correspondientes del `iv` y los bytes de lo cifrado.
+
+Dado que el proceso de AES CBC hace uso de XOR y se nos proporciona el resultado, en resumen bastaría en calcular el byte correspondiente de sólo una de las letras dado que espera obtener `admin`. Extrayendo la cookie de sesión generada con `bdmin` por medio de `/login?username=bdmin` se obtiene `53456027e7f7e1022fa753f620aeac956f8b13fcc80f33b5a5b6feb140b2878f`.
+
+![Cookie obtenida](images/crypto_aesy_2.png)
+
+```text
+Cookie obtenida: 53456027e7f7e1022fa753f620aeac956f8b13fcc80f33b5a5b6feb140b2878f
+
+IV (cookie): 53456027e7f7e1022fa753f620aeac95
+
+Cifrado (cookie): 6f8b13fcc80f33b5a5b6feb140b2878f
+```
+
+Tomando en cuenta el proceso que sigue AES CBC lo que se necesitaría sería encontrar el valor del `iv` correspondiente para cambiar la `b` por `a` de `dmin` para ello se debería seguir:
+
+```text
+Primer byte correspondiente de IV: 53
+Primer byte correspondiente de lo cifrado: 6f
+Valor de b en hexadecimal: 62
+
+53 ^ (6f)? = 62
+
+Para encontrar el valor correspondiente de lo cifrado se realiza el siguiente XOR:
+
+53 ^ 62 = 31
+
+Por lo tanto se puede decir que:
+
+53 ^ 31 = 62
+
+Conociendo este valor se puede buscar el varlo de IV que produciría a (61 en hexadecimal):
+
+? ^ 31 = 61
+
+De acuerdo a las propiedades el XOR se podría realizar la siguiente operación para encontrar el segmento faltante:
+
+31 ^ 61 = ? (50)
+
+Por lo tanto se puede decir que:
+
+50 ^ 31 = 61
+```
+
+Tomando en cuenta lo anterior se podría sustituir el primer byte del `iv` de la cookie por 50 para obtener así la bandera.
+
+![Obtención de bandera](images/crypto_aesy_3.png)
+
+Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 
 ### RealBabyRSA
 
@@ -259,7 +328,7 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | RSA... ¡que común! |
-| Files | [crypto_encoding.txt](files/crypto_encoding.txt) |
+| Files | [crypto_encoding.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_encoding.txt) |
 
 #### Solution
 
@@ -270,7 +339,7 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | ¿Seguirás el camino fácil?<br>La flag es en minúsculas |
-| Files | [crypto_baby_fa.txt](files/crypto_baby_fa.txt) |
+| Files | [crypto_baby_fa.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_baby_fa.txt) |
 
 #### Solution
 
@@ -283,7 +352,7 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | Cadena fue de visita a la ESCOM en su nuevo Tsl4. Pero olvidó sus llaves en el laboratorio de redes y estará cerrado hasta mañana por el paro :( . Por suerte tu eres su amigo y le ayudarás a abrir el auto. Lo primero será revisar el firmware buscando la función encargada de validar la llave. |
-| Files | [reversing_t3sla_chall](files/reversing_t3sla_chall) |
+| Files | [reversing_t3sla_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/reversing_t3sla_chall) |
 
 #### Solution
 
@@ -318,7 +387,7 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | Este es otro reto de PWN más, pero no te apures te estaré guiando :) <br> El primer paso para conseguir RCE es buscar algún bug de corrupción de memoria que nos permita tomar control del flujo de ejecución. <br> ¡Suerte! |
-| Files | [pwn_babypwn_chall](files/pwn_babypwn_chall) [pwn_babypwn_chall.c](files/pwn_babypwn_chall.c) |
+| Files | [pwn_babypwn_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall) [pwn_babypwn_chall.c](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall.c) |
 
 #### Solution
 
@@ -353,6 +422,6 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 | Attribute | Info |
 |---|---|
 | Description | Acabamos de descubrir e implementar una característica de Node.js del módulo vm y creamos una calculadora para usarlo, échale un lente crack. <br> ***NOTA: ÉSTE RETO TIENE PUNTAJE DINÁMICO,  MIENTRAS MÁS PERSONAS LO RESUELVAN EL PUNTAJE IRÁ DISMINUYENDO*** <br> https://t.me/node_vm_bot |
-| Files | [misc_bot_bot_calculadora.zip](files/misc_bot_bot_calculadora.zip) |
+| Files | [misc_bot_bot_calculadora.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/misc_bot_bot_calculadora.zip) |
 
 #### Solution
