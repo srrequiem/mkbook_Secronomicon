@@ -7,6 +7,8 @@
 - XXE
 - LFI + php filters
 - SQLi
+- AES CBC Bit Flipping
+- RSA Common Modulus
 
 ## Web
 
@@ -328,9 +330,22 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 | Attribute | Info |
 |---|---|
 | Description | RSA... ¡que común! |
-| Files | [crypto_encoding.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_encoding.txt) |
+| Files | [crypto_real_baby_rsa_output.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_output.txt) [crypto_real_baby_rsa_reto.py](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_reto.py) |
 
 #### Solution
+
+Después de visualizar el código fuente y buscar un [resumen de los ataques a RSA](https://www.rose-hulman.edu/class/ma/holden/Archived_Courses/Math479-0304/resources/attacks-rsa/) se puede percatar que ambos valores de la salida:
+
+```python
+ct1=pow(FLAG,e1,n)
+ct2=pow(FLAG,e2,n)
+```
+
+Estan usando el mismo módulo para las operaciones, por lo que al buscar dentro del resumen antes indicado se encontró [este artículo](https://infosecwriteups.com/rsa-attacks-common-modulus-7bdb34f331a5) en donde se detalla un escenario similar y explica en dónde radica la vulnerabilidad, además de brindar el código fuente de la solución. Por lo que al hacer uso del script se obtiene la bandera.
+
+![Obtención de bandera](images/crypto_real_baby_rsa_1.png)
+
+Flag: `LPM{P3rf3ctO!_c0N0c3s_Rs4_y_Sus_vuln3r4b1l1d4d3zzzz}`
 
 ### Baby-FA
 
@@ -342,6 +357,19 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 | Files | [crypto_baby_fa.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_baby_fa.txt) |
 
 #### Solution
+
+Al identificar el formato de la bandera al final del texto por deducción:
+
+```text
+pkca: ksn{efliaetkag_hctekejcjag_ja_cfckegeg}
+flag: lpm{efliaetkag_hctekejcjag_ja_cfckegeg}
+```
+
+Se concluyó que era algún tipo de sustitución por lo que se utilizó esta [receta de cyberchef](https://gchq.github.io/CyberChef/#recipe=Substitute('abcdefghijklmnopqrstuvwxyz','ebadinshrdlcmmofqrpbuvwxyz')&input=a2NiYmVsYS10Y2dhaiBsaXJzYmRhaWNzaHIgZWcgYmhhIGFhZmFpZWwgYmFpbiBwZGkgbGRmZ2JpbWxiZWRmZyBkcCBsaXJzYmRhaWNzaGVsIHNpZW5lYmV1YWcgYmhjYiBlZnVka3VhIGtjYmJlbGFnLCBhZWJoYWkgZWYgYmhhIGxkZmdiaW1sYmVkZiBlYmdha3AgZGkgZWYgYmhhIGdhbG1pZWJyIHNpZGRwLiBrY2JiZWxhLXRjZ2FqIGxkZmdiaW1sYmVkZmcgY2lhIGxtaWlhZmJrciBlbnNkaWJjZmIgbGNmamVqY2JhZyBwZGkgc2RnYi15bWNmYm1uIGxpcnNiZGFpY3Noci4gbWZrZXZhIG5kaWEgb2VqYWtyIG1nYWogY2ZqIHZmZG9mIHNtdGtlbC12YXIgZ2xoYW5hZyBnbWxoIGNnIGJoYSBpZ2MsIGplcHBlYS1oYWtrbmNmIGRpIGFra2VzYmVsLWxtaXVhIGxpcnNiZGdyZ2JhbmfigJRvaGVsaCBsZG1raiwgYmhhZGlhYmVsY2trciwgdGEgamFwYWNiYWogbWdlZmEgZ2hkaSdnIGNrYWRpZWJobiBkZiBjIHltY2ZibW4gbGRuc21iYWnigJRnZG5hIGtjYmJlbGEtdGNnYWogbGRmZ2JpbWxiZWRmZyBjc3NhY2kgYmQgdGEgaWFnZWdiY2ZiIGJkIGNiYmNsdiB0ciB0ZGJoIGxrY2dnZWxjayBjZmogeW1jZmJtbiBsZG5zbWJhaWcuIHBtaWJoYWluZGlhLCBuY2ZyIGtjYmJlbGEtdGNnYWogbGRmZ2JpbWxiZWRmZyBjaWEgbGRmZ2VqYWlhaiBiZCB0YSBnYWxtaWEgbWZqYWkgYmhhIGNnZ21uc2JlZGYgYmhjYiBsYWliY2VmIG9ha2stZ2JtamVhaiBsZG5zbWJjYmVkZmNrIGtjYmJlbGEgc2lkdGthbmcgbGNmZmRiIHRhIGdka3VhaiBhcHBlbGVhZmJrci4KcGtjYToga3Nue2VmbGlhZXRrYWdfaGN0ZWtlamNqYWdfamFfY2Zja2VnZWd9), adicional buscando un tipo de fuerza bruta respecto a la sustitución se encontró esta [calculadora en línea](https://planetcalc.com/8047/) en donde al copiar el texto dado se obtuvo el valor de la bandera.
+
+![Obtención de bandera](images/crypto_baby_fa_1.png)
+
+Flag: `lpm{increibles_habilidades_de_analisis}`
 
 ## Reversing
 
@@ -356,6 +384,14 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 
 #### Solution
 
+Al pasar el binario por ghidra y ver la función indicada (`chequeo`) se pueden visualizar múltiples variables con valores hexadecimales, al convertir los valores se puede extraer la bandera, considerando que la distribución de los valores se encuentra en little-endian:
+
+![Variables en hexadecimal](images/rev_tesla_1.png)
+
+![Conversión de hexadecimal a ascii](images/rev_tesla_2.png)
+
+Flag: `flag{Fl4G_0cULtA-R3vErS1n}`
+
 ### T3SLA - Parte 2
 
 #### Stats
@@ -367,6 +403,12 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 
 #### Solution
 
+Posteriormente en la misma función de `chequeo` se verifican el PIN 1 a 1 respecto los argumentos recibidos, completando así el PIN que se verifica.
+
+![Validación de PIN](images/rev_tesla_3.png)
+
+Flag: `flag{EncontrasteMiPin=7395}`
+
 ### T3SLA - Parte 3
 
 #### Stats
@@ -377,6 +419,15 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 | Files | - |
 
 #### Solution
+
+Dándole seguimiento al código fuente obtenido, se puede ver que:
+
+
+1. Se realiza una validación respeto al tamaño de la variable donde será almacenada la contraseña, validando que sea de 28 caracteres (0x1c).
+2. Del valor que se pone se realiza un XOR de cada uno de sus elementos.
+3. Se realiza otra validación en memoria si
+
+Flag: `flag{}`
 
 ## Pwning
 
