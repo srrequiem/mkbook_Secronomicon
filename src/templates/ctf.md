@@ -1,5 +1,9 @@
 # Nombre CTF
 
+## Tabla de Contenidos
+
+## Resumen de Vulnerabilidades
+
 ## Web
 
 ### Web Reto 1
@@ -64,3 +68,4 @@
 | Files | - |
 
 #### Solution
+

@@ -1,5 +1,13 @@
 # Transferencia de archivos
 
+## Linux
+
+Descarga recursiva de archivos en FTP:
+
+```bash
+wget -r --no-passive ftp://<user>:<password>@<ip>/
+```
+
 ## Windows
 
 ```powershell

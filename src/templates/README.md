@@ -13,6 +13,8 @@ Box
 ### Contenido de `README.md`
 
 ````markdown
+# Tabla de Contenidos
+
 # Introducción
 
 ## Técnicas vistas / Tags
@@ -101,69 +103,73 @@ nmap -sCV -p80,27017,37500 -oN nmap/targeted $BOX_TARGET
 ```markdown
 # Nombre CTF
 
+## Tabla de Contenidos
+
+## Resumen de Vulnerabilidades
+
 ## Web
 
 ### Web Reto 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | - |
-| Files | - |
+| Descripción | - |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ## Crypto
 
 ### Crypto Reto 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | - |
-| Files | - |
+| Descripción | - |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ## Reversing
 
 ### Reversing Reto 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | - |
-| Files | - |
+| Descripción | - |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ## Pwning
 
 ### Pwning Reto 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | - |
-| Files | - |
+| Descripción | - |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ## Forense
 
 ### Forense Reto 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | - |
-| Files | - |
+| Descripción | - |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ```

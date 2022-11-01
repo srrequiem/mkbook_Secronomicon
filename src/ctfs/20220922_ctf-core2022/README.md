@@ -1,5 +1,65 @@
 # IPN Core 2022 CTF - Writeup
 
+## Tabla de Contenido <!-- omit from toc -->
+
+- [Resumen de vulnerabilidades](#resumen-de-vulnerabilidades)
+- [Web](#web)
+  - [Pentest web Parte 1](#pentest-web-parte-1)
+    - [Info](#info)
+    - [Solución](#solución)
+  - [Pentest web Parte 2](#pentest-web-parte-2)
+    - [Info](#info-1)
+    - [Solución](#solución-1)
+  - [Pentest web Parte 3](#pentest-web-parte-3)
+    - [Info](#info-2)
+    - [Solución](#solución-2)
+  - [CIC Blog](#cic-blog)
+    - [Info](#info-3)
+    - [Solución](#solución-3)
+  - [Tacos Don Chano](#tacos-don-chano)
+    - [Info](#info-4)
+    - [Solución](#solución-4)
+- [Crypto](#crypto)
+  - [Encoding](#encoding)
+    - [Info](#info-5)
+    - [Solución](#solución-5)
+  - [Esoteric0](#esoteric0)
+    - [Info](#info-6)
+    - [Solución](#solución-6)
+  - [AESy](#aesy)
+    - [Info](#info-7)
+    - [Solución](#solución-7)
+  - [RealBabyRSA](#realbabyrsa)
+    - [Info](#info-8)
+    - [Solución](#solución-8)
+  - [Baby-FA](#baby-fa)
+    - [Info](#info-9)
+    - [Solución](#solución-9)
+- [Reversing](#reversing)
+  - [T3SLA](#t3sla)
+    - [Info](#info-10)
+    - [Solución](#solución-10)
+  - [T3SLA - Parte 2](#t3sla---parte-2)
+    - [Info](#info-11)
+    - [Solución](#solución-11)
+  - [T3SLA - Parte 3](#t3sla---parte-3)
+    - [Info](#info-12)
+    - [Solución](#solución-12)
+- [Pwning](#pwning)
+  - [BabyPWN](#babypwn)
+    - [Info](#info-13)
+    - [Solución](#solución-13)
+  - [BabyPWN - Parte 2](#babypwn---parte-2)
+    - [Info](#info-14)
+    - [Solución](#solución-14)
+  - [BabyPWN - Parte 3](#babypwn---parte-3)
+    - [Info](#info-15)
+    - [Solución](#solución-15)
+- [Misc](#misc)
+  - [Bot Calculadora](#bot-calculadora)
+    - [Info](#info-16)
+    - [Solución](#solución-16)
+
 ## Resumen de vulnerabilidades
 
 - SSRF
@@ -14,14 +74,14 @@
 
 ### Pentest web Parte 1
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Uhmm no necesitas contexto... |
-| Files | [web_pentest_web_1.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_1.zip) |
+| Descripción | Uhmm no necesitas contexto... |
+| Archivos | [web_pentest_web_1.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_1.zip) |
 
-#### Solution
+#### Solución
 
 Al interactuar con la página web, se puede visualizar en el código fuente un comentario que indica el lugar donde se encuentra ubicada la bandera.
 
@@ -39,14 +99,14 @@ Flag: `CTF{9700cbd3cd4dc8c2010953ca1a029bd0}`
 
 ### Pentest web Parte 2
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Uhmm nop, no necesitas descripción... ¿o sí? |
-| Files | [web_pentest_web_2.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_2.zip) |
+| Descripción | Uhmm nop, no necesitas descripción... ¿o sí? |
+| Archivos | [web_pentest_web_2.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_2.zip) |
 
-#### Solution
+#### Solución
 
 Se puede visualizar un input el cuál al enviar/completar la petición se refleja nuestro contenido.
 
@@ -72,14 +132,14 @@ Flag: `CTF{d4bac92d0e15c50d3431043e27c62163}`
 
 ### Pentest web Parte 3
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Es divertido el pentest web desde Blackbox ¿no? :) |
-| Files | [web_pentest_web_3.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_3.zip) |
+| Descripción | Es divertido el pentest web desde Blackbox ¿no? :) |
+| Archivos | [web_pentest_web_3.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_pentest_web_3.zip) |
 
-#### Solution
+#### Solución
 
 Al entrar en la web se visualizan dos enlaces en los cuales, en uno de ellos nos revela la ubicación de la flag (`/flag`) y en el otro nos permite interactuar con un submit brindándonos una caja de texto en la que podamos mandar un saludo (`/rest`). Al mandar una prueba se puede visualizar una excepción relacionada con XML.
 
@@ -101,14 +161,14 @@ Flag: `CTF{e4b50e71a8f7ec1f5c3b8db6a91ce2ff}`
 
 ### CIC Blog
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | ¿Qué tal? Estoy por terminar mi blog y un colega de {\|4_p4nd1\|\|4_m4nt3q1\|\|4}  me hizo favor de revisar el sitio, había encontrado algo pero aún no termina.  Mientras tanto me gustaría saber que encontró, ¿me ayudas también a revisarlo? |
-| Files | [web_cic_blog.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_cic_blog.zip) |
+| Descripción | ¿Qué tal? Estoy por terminar mi blog y un colega de {\|4_p4nd1\|\|4_m4nt3q1\|\|4}  me hizo favor de revisar el sitio, había encontrado algo pero aún no termina.  Mientras tanto me gustaría saber que encontró, ¿me ayudas también a revisarlo? |
+| Archivos | [web_cic_blog.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_cic_blog.zip) |
 
-#### Solution
+#### Solución
 
 Al buscar información dentro del código fuente se puede visualizar un wrapper de contenido dentro de la barra lateral izquierda, indicando mediante el parámetro `page` la página a cargar.
 
@@ -154,14 +214,14 @@ Flag: `LPM{4h_p3rr1n_lf1_4_7h3_w1n}`
 
 ### Tacos Don Chano
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Me hice la promesa de ya entrar a mis clases de desarrollo web y le hice a mi tío Chano un sitio para que que pueda gestionar sus órdenes de tacos, pero de un momento a otro se ha estado comportando medio raro... y estoy teniendo errores inesperados, ¿qué crees que pueda estar mal? |
-| Files | [web_tacos_don_chano.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_tacos_don_chano.zip) |
+| Descripción | Me hice la promesa de ya entrar a mis clases de desarrollo web y le hice a mi tío Chano un sitio para que que pueda gestionar sus órdenes de tacos, pero de un momento a otro se ha estado comportando medio raro... y estoy teniendo errores inesperados, ¿qué crees que pueda estar mal? |
+| Archivos | [web_tacos_don_chano.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/web_tacos_don_chano.zip) |
 
-#### Solution
+#### Solución
 
 Se permite interactuar con el sitio mediante un input que en resumen manda una petición a `/orden.php?id=1` indicando el supuesto id de la orden de tacos, modificando el id se pueden visualizar todas las órdenes disponibles en la plataforma la cuál se puede sospechar que está interactuando con una base de datos.
 
@@ -223,14 +283,14 @@ Flag: `LPM{54l3n_2_d3_5u4p3rr0_p4r4_3l_j0v3n}`
 
 ### Encoding
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | ¿Qué tanto sabes de encoding? |
-| Files | [crypto_encoding.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_encoding.txt) |
+| Descripción | ¿Qué tanto sabes de encoding? |
+| Archivos | [crypto_encoding.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_encoding.txt) |
 
-#### Solution
+#### Solución
 
 Después de pasar el texto obtenido a [Cyberchef](https://gchq.github.io/CyberChef/) se obtuvo el resultado de la [receta](https://gchq.github.io/CyberChef/#recipe=From_Base85('!-u',true)From_Base32('A-Z2-7%3D',false)From_Base64('A-Za-z0-9%2B/%3D',true,false)From_Hex('None')&input=OG00Vl8xLzFEOjhRJi9OPSZgJ3I4ayhbLDEsYCZkOi9YVlE8RSlYSThsZTtLO2JdVlQ6LmVQZDc5PERmOUxXLGIxZmNBODduUTxROFFKTT84bTRuaDtiXjFjOi5lI1U1dV5mPThsXSJfMkhFMUs6ZUY4SDc5KXI7), mediante un múltiple encoding de bases: Base85 -> Base32 -> Base64 -> A hexadecimal para por último obtener el valor de la bandera.
 
@@ -240,14 +300,14 @@ Flag: `LPM{3nc0ding_iS_b4sIc}`
 
 ### Esoteric0
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | ¡¡Esto es del diablo!! ¿puedes recuperar la flag? |
-| Files | [crypto_esoteric.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_esoteric.txt) |
+| Descripción | ¡¡Esto es del diablo!! ¿puedes recuperar la flag? |
+| Archivos | [crypto_esoteric.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_esoteric.txt) |
 
-#### Solution
+#### Solución
 
 Después de repasar el nombre y la descripción se pudo identificar que se trataba de un [lenguaje de programación esotérico](https://en.wikipedia.org/wiki/Esoteric_programming_language) y partiendo directamente de la descripción va acorde a la descripción que se puede leer en el lenguaje **Malbolge**. Por lo que al usar un [intérprete de este lenguaje](https://malbolge.doleczek.pl/) se puede obtener el valor de la bandera pegando el contenido proporcionado y ejecutando el programa.
 
@@ -257,14 +317,14 @@ Flag: `LPM{3Xel3ntE_C0noC3s_LaS_4rTes_0scUr4s}`
 
 ### AESy
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | ¿Podrás romper la cookie y obtener acceso como admin? |
-| Files | [crypto_aesy_chall.py](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_aesy_chall.py) |
+| Descripción | ¿Podrás romper la cookie y obtener acceso como admin? |
+| Archivos | [crypto_aesy_chall.py](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_aesy_chall.py) |
 
-#### Solution
+#### Solución
 
 Realizando un análisis al código fuente se identificó que al realizar el proceso de login se genera una cookie de sesión compuesta por 64 caracteres (en hexadecimal), de los cuales la mitad corresponde al `iv` que es utilizado en el proceso de cifrado y descifrado de la aplicación. Y la otra mitad a lo cifrado del usuario según las siguientes líneas de código:
 
@@ -325,14 +385,14 @@ Flag: `LPM{c0nOc3sl4||4v3_c13rt0?}`
 
 ### RealBabyRSA
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | RSA... ¡que común! |
-| Files | [crypto_real_baby_rsa_output.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_output.txt) [crypto_real_baby_rsa_reto.py](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_reto.py) |
+| Descripción | RSA... ¡que común! |
+| Archivos | [crypto_real_baby_rsa_output.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_output.txt) [crypto_real_baby_rsa_reto.py](https://github.com/srrequiem/CTF-Challenge-Compilation/blob/main/20220922_ipn_core_2022/files/crypto_real_baby_rsa_reto.py) |
 
-#### Solution
+#### Solución
 
 Después de visualizar el código fuente y buscar un [resumen de los ataques a RSA](https://www.rose-hulman.edu/class/ma/holden/Archived_Courses/Math479-0304/resources/attacks-rsa/) se puede percatar que ambos valores de la salida:
 
@@ -349,14 +409,14 @@ Flag: `LPM{P3rf3ctO!_c0N0c3s_Rs4_y_Sus_vuln3r4b1l1d4d3zzzz}`
 
 ### Baby-FA
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | ¿Seguirás el camino fácil?<br>La flag es en minúsculas |
-| Files | [crypto_baby_fa.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_baby_fa.txt) |
+| Descripción | ¿Seguirás el camino fácil?<br>La flag es en minúsculas |
+| Archivos | [crypto_baby_fa.txt](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/crypto_baby_fa.txt) |
 
-#### Solution
+#### Solución
 
 Al identificar el formato de la bandera al final del texto por deducción:
 
@@ -375,14 +435,14 @@ Flag: `lpm{increibles_habilidades_de_analisis}`
 
 ### T3SLA
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Cadena fue de visita a la ESCOM en su nuevo Tsl4. Pero olvidó sus llaves en el laboratorio de redes y estará cerrado hasta mañana por el paro :( . Por suerte tu eres su amigo y le ayudarás a abrir el auto. Lo primero será revisar el firmware buscando la función encargada de validar la llave. |
-| Files | [reversing_t3sla_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/reversing_t3sla_chall) |
+| Descripción | Cadena fue de visita a la ESCOM en su nuevo Tsl4. Pero olvidó sus llaves en el laboratorio de redes y estará cerrado hasta mañana por el paro :( . Por suerte tu eres su amigo y le ayudarás a abrir el auto. Lo primero será revisar el firmware buscando la función encargada de validar la llave. |
+| Archivos | [reversing_t3sla_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/reversing_t3sla_chall) |
 
-#### Solution
+#### Solución
 
 Al pasar el binario por ghidra y ver la función indicada (`chequeo`) se pueden visualizar múltiples variables con valores hexadecimales, al convertir los valores se puede extraer la bandera, considerando que la distribución de los valores se encuentra en little-endian:
 
@@ -394,14 +454,14 @@ Flag: `flag{Fl4G_0cULtA-R3vErS1n}`
 
 ### T3SLA - Parte 2
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Cuando la llave se comunica con el auto lo primero que hace es enviar una clave de 4 dígitos (que llegan a la función de chequeo como los primeros 4 parámetros).  ¿Cuáles son esos 4 dígitos correctos? <br> La flag es: flag{EncontrasteMiPin=PIN} Reemplazando PIN por los 4 dígitos correctos. <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto T3SLA** |
-| Files | - |
+| Descripción | Cuando la llave se comunica con el auto lo primero que hace es enviar una clave de 4 dígitos (que llegan a la función de chequeo como los primeros 4 parámetros).  ¿Cuáles son esos 4 dígitos correctos? <br> La flag es: flag{EncontrasteMiPin=PIN} Reemplazando PIN por los 4 dígitos correctos. <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto T3SLA** |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 Posteriormente en la misma función de `chequeo` se verifican el PIN 1 a 1 respecto los argumentos recibidos, completando así el PIN que se verifica.
 
@@ -411,14 +471,14 @@ Flag: `flag{EncontrasteMiPin=7395}`
 
 ### T3SLA - Parte 3
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Ahora que conocemos el PIN, lo único que nos resta para poder abrir el auto es conocer el password que se envía junto a la clave de 4 dígitos. Esta password la lee la misma función de chequeo. La flag es la password. <br> ej.  flag{PASSWORD} <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto T3SLA** |
-| Files | - |
+| Descripción | Ahora que conocemos el PIN, lo único que nos resta para poder abrir el auto es conocer el password que se envía junto a la clave de 4 dígitos. Esta password la lee la misma función de chequeo. La flag es la password. <br> ej.  flag{PASSWORD} <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto T3SLA** |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 Dándole seguimiento al código fuente obtenido, se puede ver que:
 
@@ -433,46 +493,46 @@ Flag: `flag{}`
 
 ### BabyPWN
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Este es otro reto de PWN más, pero no te apures te estaré guiando :) <br> El primer paso para conseguir RCE es buscar algún bug de corrupción de memoria que nos permita tomar control del flujo de ejecución. <br> ¡Suerte! |
-| Files | [pwn_babypwn_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall) [pwn_babypwn_chall.c](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall.c) |
+| Descripción | Este es otro reto de PWN más, pero no te apures te estaré guiando :) <br> El primer paso para conseguir RCE es buscar algún bug de corrupción de memoria que nos permita tomar control del flujo de ejecución. <br> ¡Suerte! |
+| Archivos | [pwn_babypwn_chall](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall) [pwn_babypwn_chall.c](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/pwn_babypwn_chall.c) |
 
-#### Solution
+#### Solución
 
 ### BabyPWN - Parte 2
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Para mala suerte la función cuenta con un mecanismo de seguridad conocido como stack canary que es una variable en la pila con un valor que si se modifica entonces el programa sabe que esta bajo un posible ataque. La buena noticia es que este stack canary tiene siempre el mismo valor.  Esta vez, cuando hagas el overflow asegúrate de escribir sobre el stack canary el valor correcto. <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto BabyPWN** |
-| Files | - |
+| Descripción | Para mala suerte la función cuenta con un mecanismo de seguridad conocido como stack canary que es una variable en la pila con un valor que si se modifica entonces el programa sabe que esta bajo un posible ataque. La buena noticia es que este stack canary tiene siempre el mismo valor.  Esta vez, cuando hagas el overflow asegúrate de escribir sobre el stack canary el valor correcto. <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto BabyPWN** |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ### BabyPWN - Parte 3
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Como último paso necesitamos controlar ese flujo de ejecución;  por suerte, el programa imprime la cadena que le dimos usando la función system y como parámetro le pasa una cadena que almacena... ¡¡¡EN LA PILA!!!,  por lo que con nuestro overflow podremos modificar ese argumento para ejecutar system con lo que nosotros queramos ¡Suerte! :) <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto BabyPWN** |
-| Files | - |
+| Descripción | Como último paso necesitamos controlar ese flujo de ejecución;  por suerte, el programa imprime la cadena que le dimos usando la función system y como parámetro le pasa una cadena que almacena... ¡¡¡EN LA PILA!!!,  por lo que con nuestro overflow podremos modificar ese argumento para ejecutar system con lo que nosotros queramos ¡Suerte! :) <br> **NOTA: Para este reto deberás utilizar los mismo archivos del reto BabyPWN** |
+| Archivos | - |
 
-#### Solution
+#### Solución
 
 ## Misc
 
 ### Bot Calculadora
 
-#### Stats
+#### Info
 
-| Attribute | Info |
+| Atributo | Valor |
 |---|---|
-| Description | Acabamos de descubrir e implementar una característica de Node.js del módulo vm y creamos una calculadora para usarlo, échale un lente crack. <br> ***NOTA: ÉSTE RETO TIENE PUNTAJE DINÁMICO,  MIENTRAS MÁS PERSONAS LO RESUELVAN EL PUNTAJE IRÁ DISMINUYENDO*** <br> https://t.me/node_vm_bot |
-| Files | [misc_bot_bot_calculadora.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/misc_bot_bot_calculadora.zip) |
+| Descripción | Acabamos de descubrir e implementar una característica de Node.js del módulo vm y creamos una calculadora para usarlo, échale un lente crack. <br> ***NOTA: ÉSTE RETO TIENE PUNTAJE DINÁMICO,  MIENTRAS MÁS PERSONAS LO RESUELVAN EL PUNTAJE IRÁ DISMINUYENDO*** <br> https://t.me/node_vm_bot |
+| Archivos | [misc_bot_bot_calculadora.zip](https://github.com/srrequiem/CTF-Challenge-Compilation/tree/main/20220922_ipn_core_2022/files/misc_bot_bot_calculadora.zip) |
 
-#### Solution
+#### Solución
