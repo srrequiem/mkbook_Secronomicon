@@ -1,12 +1,12 @@
 [book]
 authors = ["SrRéquiem"]
-description = "The example book covers examples."
+description = "Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias."
 language = "es"
 multilingual = false
 src = "src"
-title = "SecNotes"
+title = "Secronomicón"
 
 [output.html]
 default-theme = "ayu"
 preferred-dark-theme = "ayu"
-site-url = "/SecNotes/"
+site-url = "/Secronomicon/"

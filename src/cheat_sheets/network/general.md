@@ -10,15 +10,48 @@
 
 ### Linux
 
-#### Bash one-liner
+#### Bash
 
 ```bash
-subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip"; done
+fping -a -g X.X.X.0/24 2>/dev/null # Opción 1
+
+subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip"; done # Opción 2
 ```
 
 #### Nmap
 
-TODO: Poner comando
+```bash
+nmap -sL 10.10.110.0/24 # List Scan
+nmap -sP 10.10.110.0/24 # Ping Sweep
+nmap -PS 10.10.110.0/24 # TCP SYN Ping
+nmap -sA 10.10.110.0/24 # TCP ACK Ping
+nmap -PE 10.10.110.0/24 # ICMP Echo Ping
+```
+
+# Port scanning
+
+## Netcat
+
+```bash
+netcat -v -z -n -w 1 <ip> 1-65535 > host.nc 2>&1
+grep -v "refused" host.nc
+```
+
+## Bash
+
+```bash
+host=<ip>
+for port in {1..65535}; do
+  timeout 1 bash -c "echo >/dev/tcp/$host/$port" && echo "port $port is open" || echo "port $port is closed"
+done
+```
+
+```bash
+host=<ip>
+for port in {1..65535}; do
+  timeout 1 bash -c "echo >/dev/tcp/$host/$port" 2>/dev/null && echo "port $port is open"
+done
+```
 
 # MAC Address
 
