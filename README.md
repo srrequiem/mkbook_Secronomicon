@@ -1,2 +1,2 @@
-# SecNotes
+# Secronomicón
 

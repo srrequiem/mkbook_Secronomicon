@@ -4,6 +4,7 @@
 
 - Hardening de Tomcat.
 - Buscar métodos de persistencia.
+- Parchar LFI en PHP.
 
 ## Preparación
 
