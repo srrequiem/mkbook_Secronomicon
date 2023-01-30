@@ -2,7 +2,7 @@
 
 Write-up de la máquina gogo-yubari de la plataforma [echoCTF](https://echoCTF.red).
 
-![cover gogo-yubari](images/cover-gogo.jpg)
+![Cover gogo-yubari](images/cover-gogo.jpg)
 
 ## Tabla de Contenido <!-- omit from toc -->
 
@@ -33,9 +33,8 @@ Write-up de la máquina gogo-yubari de la plataforma [echoCTF](https://echoCTF.r
 
 ### Técnicas vistas / Tags
 
-- Server Side Request Forgery (SSRF)
-- SQL Injection
-- Técnica 3
+- Server Side Request Forgery (SSRF).
+- SQL Injection.
 
 ### Estadísticas
 
@@ -268,7 +267,6 @@ Al ejecutar `sudo -l` se puede visualizar que el usuario no tiene restricción a
 Después de realizar búsquedas recursivas en los directorios que ocupan la intrusión, encontré la bandera en el archivo que se interpreta como binario `/var/lib/mysql/event.MYD`. Al realizar el submit de la misma me encontré que el nombre hace alusión a los eventos de MySQL, al no conocerlos decídi buscar información al repecto y la manera de consultarlos correctamente a través del cliente `mysql`. Encontrando que estos pueden ser configurados a través del `Event Scheduler` para ejecutar consultas definidas por el usuario para completar una tarea (algo similar a los cron jobs en linux). Permitiendo consultar su nombre y su contenido con:
 
 ```bash
-# Una vez seleccionada la base de datos
 MariaDB [(none)]> use scrapper;
 use scrapper;
 Reading table information for completion of table and column names
