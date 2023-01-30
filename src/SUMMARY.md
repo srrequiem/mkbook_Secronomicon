@@ -71,5 +71,5 @@
   - [Intermedio]()
   - [Avanzado]()
   - [Experto]()
-    - [Gogo Yubari](echoCTF/targets/4_expert/chef/README.md)
+    - [Gogo Yubari](echoCTF/targets/5_expert/gogo-yubari/README.md)
   - [Guru]()
