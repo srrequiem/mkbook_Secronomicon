@@ -1,5 +1,20 @@
 # General
 
+## Utilidades
+
+### Linux
+
+#### tree.sh
+
+```bash
+#!/bin/bash
+pwd=$(pwd)
+echo Tree of: $pwd
+find $pwd -print | sed -e "s;$pwd;\.;g;s;[^/]*\/;|__;g;s;__|; |;g"
+#very simple script. REALLY!
+echo '|__end tree'
+```
+
 ## Herramientas
 
 ### Hydra

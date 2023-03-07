@@ -12,11 +12,36 @@
 
 #### Bash
 
+##### Opción 1
+
 ```bash
 fping -a -g X.X.X.0/24 2>/dev/null # Opción 1
-
-subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip"; done # Opción 2
 ```
+
+##### Opción 2
+
+```bash
+#!/bin/bash
+# host_discovery.sh
+subnet="10.10.110."
+for ip in {0..254}; do
+  timeout 1 bash -c "ping -c 1 $subnet$ip" &> /dev/null && echo "[+] Host found $subnet$ip" &
+done; wait
+```
+
+Ejecución:
+
+```bash
+bash host_discovery.sh
+bash host_discovery.sh 2>/dev/null
+```
+
+##### Opción 3
+
+```bash
+subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip" & ; done
+```
+
 
 #### Nmap
 
@@ -30,14 +55,16 @@ nmap -PE 10.10.110.0/24 # ICMP Echo Ping
 
 # Port scanning
 
-## Netcat
+## TCP
+
+### Netcat
 
 ```bash
 netcat -v -z -n -w 1 <ip> 1-65535 > host.nc 2>&1
 grep -v "refused" host.nc
 ```
 
-## Bash
+### Bash
 
 ```bash
 host=<ip>
@@ -51,6 +78,12 @@ host=<ip>
 for port in {1..65535}; do
   timeout 1 bash -c "echo >/dev/tcp/$host/$port" 2>/dev/null && echo "port $port is open"
 done
+```
+
+### Nmap a través de pivote
+
+```bash
+seq 1 65535 | xargs -P 500 -I {} proxychains nmap -sT -Pn -p{} -open -T5 -v -n <ip> 2>&1 | grep "tcp open"
 ```
 
 # MAC Address

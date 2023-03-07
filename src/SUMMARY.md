@@ -12,6 +12,13 @@
 - [Active Directory](guides/active_directory/README.md)
   - [Teoría General](guides/active_directory/0_general.md)
   - [Atacando AD](guides/active_directory/1_attacking.md)
+- [eCPPTv2 s4viLab](guides/ecpptv2_lab/README.md)
+  - [Aragog](guides/ecpptv2_lab/1_aragog/README.md)
+  - [Nagini](guides/ecpptv2_lab/2_nagini/README.md)
+  - [Fawkes](guides/ecpptv2_lab/3_fawkes/README.md)
+  - [Matrix 1]()
+  - [Brainpan]()
+- [Nightmare](guides/nightmare/README.md)
 
 # Misc
 
@@ -72,4 +79,5 @@
   - [Avanzado]()
   - [Experto]()
     - [Gogo Yubari](echoCTF/targets/5_expert/gogo-yubari/README.md)
+    - [Hajmetr](echoCTF/targets/5_expert/hajmetr/README.md)
   - [Guru]()
