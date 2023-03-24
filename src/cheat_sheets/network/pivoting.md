@@ -78,7 +78,11 @@ proxychains nmap --top-ports=20 -sT -Pn 192.168.1.110
 socat TCP-LISTEN:<puerto_local>,fork TCP:<ip>:<puerto>
 ```
 
+# Windows - Redirección redirección de puertos
 
+```powershell
+netsh interface portproxy add v4tov4 listenaddress=localaddress listenport=localport connectaddress=destaddress connectport=destport
+```
 
 
 

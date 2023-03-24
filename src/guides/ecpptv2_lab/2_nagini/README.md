@@ -2,7 +2,7 @@
 
 Write-up de la máquina nagini de la plataforma [vulnhub](https://www.vulnhub.com) (en un ejercicio de laboratorio para eCPPTv2).
 
-![Aragog cover](images/cover.jpg)
+![Nagini cover](images/cover.jpg)
 
 ## Tabla de Contenido <!-- omit from toc -->
 

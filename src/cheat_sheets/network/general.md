@@ -2,10 +2,37 @@
 
 ## Ping Sweep
 
-### Windows - Powershell
+### Windows
+
+#### Powershell
+
+##### Opción 1
 
 ```powershell
+# Ejecutar en límea de comandos o como script
 1..255 | % {echo "172.16.2.$_"; ping -n 1 -w 100 172.16.2.$_} | Select-String ttl
+```
+
+##### Opción 2
+
+```bash
+# Pendiente sólo imprimir True
+Import-Module Microsoft.PowerShell.Management
+
+$ips = 1..255 | % { "192.168.1.$_" } 
+
+$ips | ForEach-Object {
+   
+   $result = Test-Connection -Count 1 -ComputerName $_ -Quiet
+   "$($_) $result"
+}
+```
+
+#### MSDOS
+
+```powershell
+for /L %a in (1,1,254) do @start /b ping 192.168.0.%a -w 100 -n 2 >nul
+arp -a
 ```
 
 ### Linux
@@ -39,7 +66,7 @@ bash host_discovery.sh 2>/dev/null
 ##### Opción 3
 
 ```bash
-subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip" & ; done
+subnet="10.10.110." && for ip in {0..254}; do ping -c 1 -t 1 $subnet$ip  > /dev/null && echo "[+] Host found $subnet$ip"; done
 ```
 
 
