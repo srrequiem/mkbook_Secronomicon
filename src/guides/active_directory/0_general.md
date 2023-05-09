@@ -74,7 +74,7 @@
 - Puede tener dominios hijos adicionales.
 - Predeterminadamente crea confianza transitiva de dos vías con otros dominios.
 
-![Trees](./images/trees.png)
+![Trees](images/trees.png)
 
 ### Forests
 
@@ -85,7 +85,7 @@
 - Habilita confianza entre todos los dominios en el forest.
 - Comparte los Enterprise Admins y los grupos de Schema Admins.
 
-![Forests](./images/forests.png)
+![Forests](images/forests.png)
 
 ### Organizational Units (OUs)
 
@@ -95,7 +95,7 @@
 - Delega permisos para administrar grupos de objetos.
 - Aplica políticas.
 
-![OUs](./images/ous.png)
+![OUs](images/ous.png)
 
 ### Trusts
 
@@ -103,8 +103,8 @@
 
 | Tipos de Trusts | Descripción | Diagrama |
 |---|---|---|
-| Direccional | La dirección de confianza fluye de dominio de confianza a dominio de confianza.  | ![Trust directional](./images/t_directional.png) |
-| Transitivo | La relación de confianza es extendida más allá de la relación de confianza de dos dominios, incluyendo otros dominios en los que se confía | ![Trust transitive](./images/t_transitive.png) |
+| Direccional | La dirección de confianza fluye de dominio de confianza a dominio de confianza.  | ![Trust directional](images/t_directional.png) |
+| Transitivo | La relación de confianza es extendida más allá de la relación de confianza de dos dominios, incluyendo otros dominios en los que se confía | ![Trust transitive](images/t_transitive.png) |
 
 - Todos los dominios de un bosque confían en otros dominios del bosque.
 - La confianza puede ser extendida afuera del bosque.

