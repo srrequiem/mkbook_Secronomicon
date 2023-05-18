@@ -1,0 +1,637 @@
+<!DOCTYPE HTML>
+<html lang="es" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Módulo 0 - Secronomicón</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Libro de notas donde encontrarás cada truco/técnica/guía de hacking que he aprendido y recolectado de CTFS, aplicaciones reales, lectura de writeups y noticias.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Secronomicón</a></li><li class="chapter-item expanded affix "><li class="part-title">Guías / Cursos</li><li class="chapter-item expanded "><a href="../../../guides/oscp_bof/index.html"><strong aria-hidden="true">1.</strong> OSCP Buffer Overflow</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Port Swigger Academy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/port_swigger_academy/sql_injection.html"><strong aria-hidden="true">2.1.</strong> SQL Injection</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/pwncollege/index.html"><strong aria-hidden="true">3.</strong> PwnCollege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/pwncollege/0_module/index.html" class="active"><strong aria-hidden="true">3.1.</strong> Módulo 0</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/active_directory/index.html"><strong aria-hidden="true">4.</strong> Active Directory</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/active_directory/0_general.html"><strong aria-hidden="true">4.1.</strong> Teoría General</a></li><li class="chapter-item expanded "><a href="../../../guides/active_directory/1_attacking.html"><strong aria-hidden="true">4.2.</strong> Atacando Active Directory</a></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/index.html"><strong aria-hidden="true">5.</strong> eCPPTv2 s4viLab</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/1_aragog/index.html"><strong aria-hidden="true">5.1.</strong> Aragog</a></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/2_nagini/index.html"><strong aria-hidden="true">5.2.</strong> Nagini</a></li><li class="chapter-item expanded "><a href="../../../guides/ecpptv2_lab/3_fawkes/index.html"><strong aria-hidden="true">5.3.</strong> Fawkes</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Matrix 1</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.5.</strong> Brainpan</div></li></ol></li><li class="chapter-item expanded "><a href="../../../guides/nightmare/index.html"><strong aria-hidden="true">6.</strong> Nightmare</a></li><li class="chapter-item expanded affix "><li class="part-title">Misc</li><li class="chapter-item expanded "><a href="../../../templates/index.html"><strong aria-hidden="true">7.</strong> Templates</a></li><li class="chapter-item expanded affix "><li class="part-title">Cheat Sheets</li><li class="chapter-item expanded "><a href="../../../cheat_sheets/general.html"><strong aria-hidden="true">8.</strong> General</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/active_directory.html"><strong aria-hidden="true">9.</strong> Active Directory</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/network/general.html"><strong aria-hidden="true">10.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../cheat_sheets/network/pivoting.html"><strong aria-hidden="true">10.1.</strong> Pivoting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> Pwning</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../cheat_sheets/pwning/linux.html"><strong aria-hidden="true">11.1.</strong> Linux pwning</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/pwning/bof-oscp.html"><strong aria-hidden="true">11.2.</strong> OSCP Buffer Overflow</a></li></ol></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/fuzzing.html"><strong aria-hidden="true">12.</strong> Fuzzing</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/inyecciones.html"><strong aria-hidden="true">13.</strong> Inyecciones</a></li><li class="chapter-item expanded "><a href="../../../cheat_sheets/transfer.html"><strong aria-hidden="true">14.</strong> Transferencia de archivos</a></li><li class="chapter-item expanded affix "><li class="part-title">CTFs</li><li class="chapter-item expanded "><a href="../../../ctfs/20220922_ctf-core2022/index.html"><strong aria-hidden="true">15.</strong> 22/09/2022 - IPN Core 2022 CTF</a></li><li class="chapter-item expanded affix "><li class="part-title">Hack The Box</li><li class="chapter-item expanded "><div><strong aria-hidden="true">16.</strong> Battlegrounds</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/battlegrounds/mayhem/index.html"><strong aria-hidden="true">16.1.</strong> Cyber Mayhem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">17.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.</strong> Boxes</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.</strong> Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.1.</strong> Fácil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.2.</strong> Medio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.3.</strong> Difícil</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.1.4.</strong> Locura</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.</strong> Windows</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.1.</strong> Fácil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Active/index.html"><strong aria-hidden="true">18.2.1.1.</strong> Active</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Devel/index.html"><strong aria-hidden="true">18.2.1.2.</strong> Devel</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Remote/index.html"><strong aria-hidden="true">18.2.1.3.</strong> Remote</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/1_facil/Access/index.html"><strong aria-hidden="true">18.2.1.4.</strong> Access</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.2.</strong> Medio</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Chatterbox/index.html"><strong aria-hidden="true">18.2.2.1.</strong> Chatterbox</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Jeeves/index.html"><strong aria-hidden="true">18.2.2.2.</strong> Jeeves</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/SecNotes/index.html"><strong aria-hidden="true">18.2.2.3.</strong> SecNotes</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/2_medio/Silo/index.html"><strong aria-hidden="true">18.2.2.4.</strong> Silo</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.3.</strong> Difícil</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/3_dificil/Control/index.html"><strong aria-hidden="true">18.2.3.1.</strong> Control</a></li><li class="chapter-item expanded "><a href="../../../htb/boxes/windows/3_dificil/Search/index.html"><strong aria-hidden="true">18.2.3.2.</strong> Search</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">18.2.4.</strong> Locura</div></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">echoCTF</li><li class="chapter-item expanded "><div><strong aria-hidden="true">19.</strong> Challenges</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">20.</strong> Networks</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.</strong> Targets</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">21.1.</strong> Principiante</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.2.</strong> Básico</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../echoCTF/targets/2_basic/Flanders/index.html"><strong aria-hidden="true">21.2.1.</strong> Flanders</a></li><li class="chapter-item expanded "><a href="../../../echoCTF/targets/2_basic/Smithers/index.html"><strong aria-hidden="true">21.2.2.</strong> Smithers</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.3.</strong> Intermedio</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.4.</strong> Avanzado</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.5.</strong> Experto</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../echoCTF/targets/5_expert/gogo-yubari/index.html"><strong aria-hidden="true">21.5.1.</strong> Gogo Yubari</a></li><li class="chapter-item expanded "><a href="../../../echoCTF/targets/5_expert/hajmetr/index.html"><strong aria-hidden="true">21.5.2.</strong> Hajmetr</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">21.6.</strong> Guru</div></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Secronomicón</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction-what-is-computer-systems-security"><a class="header" href="#introduction-what-is-computer-systems-security">Introduction: What is Computer Systems Security</a></h1>
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1YlTxeZg03P234EgG4E4JNGcit6LZovAxfYGL1YSLwfc/edit?usp=sharing">Diapositivas</a></li>
+<li><a href="https://www.youtube.com/watch?v=2chgNhxt-Kc">Extended Q&amp;A 8/19/2021</a></li>
+</ul>
+<h1 id="fundamentals"><a class="header" href="#fundamentals">Fundamentals</a></h1>
+<h2 id="computer-architecture"><a class="header" href="#computer-architecture">Computer Architecture</a></h2>
+<ul>
+<li>John Mauchly (Físico).</li>
+<li>John Presper Eckbert (Ingeniero eléctrico).</li>
+<li>John Von Neumann (Matemático).</li>
+</ul>
+<p>John Von Neumann, EDVAC, 1945.</p>
+<p><img src="images/computer_arch.png" alt="Arquitectura de computadoras como se conoce al día de hoy" /></p>
+<h2 id="introduction-to-binary-files"><a class="header" href="#introduction-to-binary-files">Introduction to Binary Files</a></h2>
+<p>Partiendo de un binario de sistema como lo es <code>/bin/cat</code>, buscando responder a la pregunta:</p>
+<pre><code class="language-bash">❯ file /bin/cat
+/bin/cat: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=7b3c4131450fabd010fe74ac5589074c9431cf4a, for GNU/Linux 3.2.0, stripped
+</code></pre>
+<h3 id="what-is-an-elf"><a class="header" href="#what-is-an-elf">What is an ELF?</a></h3>
+<ul>
+<li>Executable and Linkable Format.</li>
+<li>ELF es un formato de archivo binario.</li>
+<li>Contiene el programa y su data.</li>
+<li>Describe como un programa debería ser cargado (program/segment headers).</li>
+<li>Contiene metadata que describen los componentes del programa (section headers).</li>
+</ul>
+<h3 id="elf-program-headers"><a class="header" href="#elf-program-headers">ELF Program Headers</a></h3>
+<ul>
+<li>Especifícan la información requerida para preparar el programa para su ejecución. Los tipos de entrada más importantes son:
+<ul>
+<li><strong>INTERP:</strong> define la librería que debería ser usada para cargar este ELF en la memoria.</li>
+<li><strong>LOAD:</strong> define una parte del archivo que debería ser cargada en la memoria.</li>
+</ul>
+</li>
+<li>Son la fuente de información usada cuando se carga un archivo.</li>
+</ul>
+<p><em>Extracción de <code>readelf -a /bin/cat</code>:</em></p>
+<pre><code class="language-bash">Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
+                 0x0000000000000268 0x0000000000000268  R      0x8
+  INTERP         0x00000000000002a8 0x00000000000002a8 0x00000000000002a8
+                 0x000000000000001c 0x000000000000001c  R      0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000001540 0x0000000000001540  R      0x1000
+  LOAD           0x0000000000002000 0x0000000000002000 0x0000000000002000
+                 0x0000000000004819 0x0000000000004819  R E    0x1000
+  LOAD           0x0000000000007000 0x0000000000007000 0x0000000000007000
+                 0x0000000000001f28 0x0000000000001f28  R      0x1000
+  LOAD           0x0000000000009c50 0x000000000000ac50 0x000000000000ac50
+                 0x0000000000000630 0x00000000000007c8  RW     0x1000
+  DYNAMIC        0x0000000000009df8 0x000000000000adf8 0x000000000000adf8
+                 0x00000000000001e0 0x00000000000001e0  RW     0x8
+  NOTE           0x00000000000002c4 0x00000000000002c4 0x00000000000002c4
+                 0x0000000000000044 0x0000000000000044  R      0x4
+  GNU_EH_FRAME   0x0000000000007eb0 0x0000000000007eb0 0x0000000000007eb0
+                 0x00000000000002e4 0x00000000000002e4  R      0x4
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     0x10
+  GNU_RELRO      0x0000000000009c50 0x000000000000ac50 0x000000000000ac50
+                 0x00000000000003b0 0x00000000000003b0  R      0x1
+</code></pre>
+<h3 id="elf-section-headers"><a class="header" href="#elf-section-headers">ELF Section Headers</a></h3>
+<ul>
+<li>Son una vista diferente de un ELF con información útil para introspección, debuggeo, etc.</li>
+<li>Secciones importantes:
+<ul>
+<li><strong>.text:</strong> el código ejecutable del programa.</li>
+<li><strong>.plt</strong> y <strong>.got:</strong> usado para resolver y despachar llamadas de librerías.</li>
+<li><strong>.data:</strong> usado por data global pre-inicializada que se puede modificar (así como arreglos globales con valores iniciales).</li>
+<li><strong>.rodata:</strong> usada por data de sólo lectura (tal como cadenas de caracteres constantes).</li>
+<li><strong>.bss:</strong> usada por data global no inicializada que se puede modificar (así como arreglos globales sin valores iniciales).</li>
+</ul>
+</li>
+<li>Los Section headers <em>no</em> son necesariamente una parte del ELF, sólo segmentos definidos por los program headers son necesarios para su carga y su operación.</li>
+<li>Los Section headers son sólo metadata.</li>
+</ul>
+<h3 id="symbols"><a class="header" href="#symbols">Symbols</a></h3>
+<ul>
+<li>Binarios (y librerías) que usen librerías cargadas dinámicamente dependen de los <code>symbols</code> (los nombres) para encontrar las librerías, y resolver las llamadas a funciones a esas librerías, etc.</li>
+</ul>
+<p><img src="images/symbols.jpg" alt="Tabla de symbols" /></p>
+<h3 id="interacting-with-your-elf"><a class="header" href="#interacting-with-your-elf">Interacting with your ELF</a></h3>
+<ul>
+<li><strong>gcc</strong> para crear el ELF.</li>
+<li><strong>readelf</strong> para analizar el header del ELF.</li>
+<li><strong>objdump</strong> para analizar el header del ELF y desensamblar el código fuente.</li>
+<li><strong>nm</strong> para visualizar los symbols del ELF.</li>
+<li><strong>patchelf</strong> para cambiar algunas propiedades del ELF.</li>
+<li><strong>objcopy</strong> para intercambiar secciones del ELF.</li>
+<li><strong>strip</strong> para remover información relevante (tal como los symbols).</li>
+<li><strong>katai</strong> struct (http://ide.kaitai.io/) para visualizar a través del ELF interactivamente.</li>
+</ul>
+<h2 id="linux-process-loading"><a class="header" href="#linux-process-loading">Linux Process Loading</a></h2>
+<h3 id="portrait-of-a-process"><a class="header" href="#portrait-of-a-process">Portrait of a process</a></h3>
+<p>Cada proceso de Linux tiene:</p>
+<ul>
+<li>estado (running, waiting, stopped, zombie).</li>
+<li>prioridad (y otro tipo de información relacionada a la programación/planificación).</li>
+<li>padre, hermanos, hijos.</li>
+<li>recursos compartidos (archivos, pipes, sockets).</li>
+<li>espacio en memoria virtual.</li>
+<li>contexto de seguridad.
+<ul>
+<li>uid y gid efectivos.</li>
+<li>uid y gid guardados.</li>
+<li>capabilities.</li>
+</ul>
+</li>
+</ul>
+<h3 id="but-where-do-processes-come-from"><a class="header" href="#but-where-do-processes-come-from">But where do processes come from?</a></h3>
+<p>En Linux, los procesos ¡se progagan por mitosis!</p>
+<p>Mediante <strong>fork</strong> y (más reciente) <strong>clone</strong> son llamadas a sistema que crean una casi idéntica copia  del proceso del que lo está llamando: un padre y un hijo.</p>
+<p>Después, el proceso hijo usualmente usa la syscall <strong>execve</strong> para remplazarse a sí mismo con otro proceso.</p>
+<p>Ejemplo:</p>
+<ul>
+<li>Cuando se usa <code>/bin/cat</code> en bash.</li>
+<li>bask hace un <strong>fork</strong> de sí mismo a un viejo proceso padre y al proceso hijo.</li>
+<li>El proceso hijo usa <strong>execve</strong> <code>/bin/cat</code> transformándose en <code>/bin/cat</code>.</li>
+</ul>
+<h3 id="can-we-load"><a class="header" href="#can-we-load">Can we load?</a></h3>
+<p>Antes que cualquier cosa sea cargada, el kernel verifica los permisos de ejecución.</p>
+<p>Si un archivo no es ejecutable, <strong>execve</strong> fallará.</p>
+<h3 id="what-to-load"><a class="header" href="#what-to-load">What to load?</a></h3>
+<p>Para identificar que cargar, el kernel de Linux lee la primera parte del archivo (<code>/bin/cat</code> por ejemplo) y toma una decisión:</p>
+<ol>
+<li>Si el archivo empieza con <strong>#!</strong> (lo que es conocido como el shebang), el kernel extrae el intérprete del resto de la línea y ejecuta el intérprete con el archivo original como argumento.</li>
+<li>Si el archivo corresponde al formato de <code>/proc/sys/fs/binfmt_misc</code>, el kernel ejecuta el intérprete especificado por ese formato con el archivo original como argumento.</li>
+<li>Si el archivo es un ELF enlazado dinámicamente, el kernel lee el intérprete/loader definido en el ELF, carga el intérprete y el archivo original, y deja que el intérprete tome el control.</li>
+<li>Si el archivo es un ELF enlazado estáticamente, el kernel lo cargará.</li>
+<li>Otros formatos de archivos legacy son verificados.</li>
+</ol>
+<p>¡Esto puede ser recursivo!</p>
+<h3 id="dynamically-linked-elfs-the-interpreter"><a class="header" href="#dynamically-linked-elfs-the-interpreter">Dynamically linked ELFS: the interpreter</a></h3>
+<p>La carga del proceso es realizada por el intérprete del ELF específicado en el binario.</p>
+<pre><code class="language-bash">❯ readelf -a /bin/cat | grep interpreter
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+</code></pre>
+<p>Coloquialmente conocido como &quot;the loader&quot;.</p>
+<p>Puede ser sobreescrito: <code>/lib64/ld-linux-x86-64.so.2 /bin/cat /flag</code></p>
+<p>O cambiado permanentemente <code>patchelf --set-interpreter</code></p>
+<h3 id="dynamically-linked-elfs-the-loading-process"><a class="header" href="#dynamically-linked-elfs-the-loading-process">Dynamically linked ELFS: the loading process</a></h3>
+<ol>
+<li>El programa y su intérprete son cargados por el kernel.</li>
+<li>El intérprete ubica las librerías.
+<ol>
+<li>La variable de entorno <code>LD_PRELOAD</code>, y cualquier cosa que se encuentre en <code>/etc/ld.so.preload</code>.</li>
+<li>La variable de entorno <code>LD_LIBRARY_PATH</code> (puede ser configurada en la shell).</li>
+<li><code>DT_RUNPATH</code> o <code>DT_RPATH</code> especificados en el binario (ambos pueden ser modificados por patchelf).</li>
+<li>Configuración del sistema (<code>/etc/ld.so.conf</code>).</li>
+<li><code>/lib</code> y <code>/usr/lib</code>.</li>
+</ol>
+</li>
+<li>El intérprete carga las librerías.
+<ol>
+<li>Estas librerías pueden depender de otras, causando que también sean cargadas.</li>
+<li>Actualización de reubicaciones.</li>
+</ol>
+</li>
+</ol>
+<h3 id="where-is-all-this-getting-loaded-to"><a class="header" href="#where-is-all-this-getting-loaded-to">Where is all this getting loaded to?</a></h3>
+<p>Cada proceso en Linux tiene un espacio de memoria virtual. El cuál contiene:</p>
+<ul>
+<li>El binario.</li>
+<li>Las librerías.</li>
+<li>El &quot;heap&quot; (para la memoria asignada dinámicamente).</li>
+<li>El &quot;stack&quot; (para variables locales de funciones).</li>
+<li>Cualquier memoria escíficamente mapeada por el programa.</li>
+<li>Algunas regiones de apoyo.</li>
+<li>Código de kernel en la &quot;mitad superior&quot; de la memoria (arriba de 0x80000000000000 en arquitecturas de 64 bits), inaccesibles por el proceso.</li>
+</ul>
+<p>La memoria virtual es dedicada al proceso.</p>
+<p>La memoria física es compartida por todo el sistema.</p>
+<p>Se puede visualizar todo el espacio mirando en <code>/proc/self/maps</code>.</p>
+<h3 id="the-standard-c-library"><a class="header" href="#the-standard-c-library">The Standard C library</a></h3>
+<p>libc.so es enlazada a casi cada proceso.</p>
+<p>Provee de funcionalidada para:</p>
+<ul>
+<li>printf().</li>
+<li>scanf().</li>
+<li>socket().</li>
+<li>atoi().</li>
+<li>malloc().</li>
+<li>free().</li>
+</ul>
+<p>...y a otro tipo de cosas</p>
+<ul>
+<li>xdr_keystatus()</li>
+</ul>
+<h3 id="the-loading-process-for-statically-linked-binaries"><a class="header" href="#the-loading-process-for-statically-linked-binaries">The loading process (for statically linked binaries)</a></h3>
+<ol>
+<li>El binario es cargado.</li>
+</ol>
+<h3 id="cat-is-initialized"><a class="header" href="#cat-is-initialized">Cat is initialized</a></h3>
+<p>Cada binario ELF puede especificar constructores, los cuales son funciones que son ejecutados antes de que el programa sea lanzado.</p>
+<p>Por ejemplo, dependiendo en la versión, libc puede inicializar regiones en la memoria para asignaciones dinámicas (malloc/free) cuando el programa sea ejecutado.</p>
+<p>¡Es posible especificar los propios!</p>
+<pre><code class="language-c">__attribute__((constructor)) void haha() {
+    write(1, &quot;Hello world!\n&quot;, 6);
+}
+</code></pre>
+<p>Permitiendo ser válido también para <code>LD_PRELOAD</code>.</p>
+<h2 id="linux-process-runtime"><a class="header" href="#linux-process-runtime">Linux Process Runtime</a></h2>
+<h3 id="cat-is-launched"><a class="header" href="#cat-is-launched">Cat is launched</a></h3>
+<p>Un ELF normal automáticamente llama <code>__libc_start_main()</code> en libc, lo cuál llama a la función <code>main()</code> del programa.</p>
+<p>¡El código se está ejecutando!</p>
+<p>¿Ahora qué?</p>
+<h3 id="cat-reads-its-arguments-and-environment"><a class="header" href="#cat-reads-its-arguments-and-environment">Cat reads its arguments and environment</a></h3>
+<p><code>int main(int argc, void **argv, void **envp);</code></p>
+<p>Todo el input del programa proveniente del mundo exterior, al momento de la ejecución, comprende de:</p>
+<ul>
+<li>Los objetos cargados (binarios y librerías).</li>
+<li>Argumentos de la línea de comandos en argv.</li>
+<li>Variables de entorno o &quot;environment&quot; en envp.</li>
+</ul>
+<p>Por supuesto, el programa necesita seguir interactuando con el mundo exterior.</p>
+<h3 id="using-library-functions"><a class="header" href="#using-library-functions">Using library functions</a></h3>
+<p>La operación del binaro <em>import symbols</em> necesita ser resuelta usando la operación <em>export symbols</em> de las librerías.</p>
+<p>En el pasado, esto era un proceso on-demand y llevaba consigo un gran peligro.</p>
+<p>Hoy en día, esto es hecho hecho cuando el binario es cargado y es mucho más seguro.</p>
+<p>Se explorará este punto más adelante.</p>
+<h3 id="interacting-with-the-environment"><a class="header" href="#interacting-with-the-environment">Interacting with the environment</a></h3>
+<p>Casi todos los programas tienen que interactuar con el mundo exterior.</p>
+<p>Esto es realizado principalmente via llamadas a sistema (<code>man syscalls</code>). Cada llamada a sistema se encuentra bien documentada en la sección 2 de las páginas del manual. (ejemplo <code>man 2 open</code>).</p>
+<p>Se le puede dar seguimiento a los procesos de las llamadas a sistema usando <code>strace</code>.</p>
+<h3 id="system-calls"><a class="header" href="#system-calls">System Calls</a></h3>
+<p>Las llamadas a sistema tienen interfaces bien definidas que rara vez cambian.</p>
+<p>Existen más de 300 llamadas a sistema en Linux. Por ejemplo:</p>
+<ul>
+<li><code>int open(const char *pathname, int flags)</code> - retorna un archivo y un nuevo descriptor de archivo del archivo que se abrió (esto también aparece en <code>/proc/self/fd</code>).</li>
+<li><code>ssize_t read(int fd, void *buf, size_t count)</code> - lee la data del descriptor de archivo.</li>
+<li><code>ssize_t write(int fd, void *buf, size_t count)</code> - escribe la data en el descriptor de archivo.</li>
+<li><code>pid_t fork()</code> - bifurca o crea un proceso identico como hijo. Retorna 0 si eres el hijo y el PID del hijo si eres el padre.</li>
+<li><code>int execve(const char *filename, char **argv, char **envp)</code> - remplaza tus procesos.</li>
+<li><code>pid_t wait(int *wstatus)</code> - espera el termino del hijo, retorna su PID, escribe su estatus en *wstatus.</li>
+<li><code>long syscall(long syscall, ...)</code> - invoca el syscall especificado.</li>
+</ul>
+<p>Combinaciones de señales típicas:</p>
+<ul>
+<li>fork, execve, wait (como una shell).</li>
+<li>open, read, write (cat).</li>
+</ul>
+<h3 id="signals"><a class="header" href="#signals">Signals</a></h3>
+<p>Las llamadas a sistema son una forma en la el proceso interactúa con el sistema operativo. Pero ¿qué pasa al revés?</p>
+<p>Llamadas a sistema relevantes:</p>
+<ul>
+<li><code>sighandler_t signal(int signum, sighandler_t handler)</code> - registra un manejador de señales.</li>
+<li><code>int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)</code> - una forma más moderna de registrar un manejador de señales.</li>
+<li><code>int kill(pid_t pid, int sig)</code> - manda una señal a un proceso.</li>
+</ul>
+<p>Las señales pausan la ejecución del proceso e invocan el manejador.</p>
+<p>Los mandejadores son funciones que toman un argumento: el número de señal.</p>
+<p>Sin un manejador para una señal, la acción por defecto es usada (casi siempre, kill).</p>
+<p>SIGKILL (signal 9) y SIGSTOP (signal 19) no pueden ser gestionadas.</p>
+<p>Lista completa en la sección 7 del manual (<code>man 7 signal</code>) y <code>kill -l</code>. Señales comúnes:</p>
+<div class="table-wrapper"><table><thead><tr><th>Señal</th><th>Tipo</th><th>Descripción</th></tr></thead><tbody>
+<tr><td><code>SIGHUP</code></td><td>Term</td><td>Hangup detectado de terminal controlada o muerte de proceso controlado</td></tr>
+<tr><td><code>SIGINT</code></td><td>Term</td><td>Interrupción por teclado</td></tr>
+<tr><td><code>SIGQUIT</code></td><td>Core</td><td>Abandono por teclado</td></tr>
+<tr><td><code>SIGILL</code></td><td>Core</td><td>Instrucción Ilegal</td></tr>
+<tr><td><code>SIGABRT</code></td><td>Core</td><td>Señal de aborto de abort(3)</td></tr>
+<tr><td><code>SIGFPE</code></td><td>Core</td><td>Excepción de punto flotante</td></tr>
+<tr><td><code>SIGKILL</code></td><td>Term</td><td>Señal de kill</td></tr>
+<tr><td><code>SIGSEGV</code></td><td>Core</td><td>Referencia de memoria inválida</td></tr>
+<tr><td><code>SIGPIPE</code></td><td>Term</td><td>Pipe rota: escritura a pipe sin lectores; ver pipe(7)</td></tr>
+<tr><td><code>SIGALRM</code></td><td>Term</td><td>Señal de timer de alarm(2)</td></tr>
+<tr><td><code>SIGTERM</code></td><td>Term</td><td>Señal de termino</td></tr>
+<tr><td><code>SIGUSR1</code></td><td>Term</td><td>Señal 1 definida por usuario</td></tr>
+<tr><td><code>SIGUSR2</code></td><td>Term</td><td>Señal 2 definida por usuario</td></tr>
+<tr><td><code>SIGCHLD</code></td><td>Ign</td><td>Hijo pausado o terminado</td></tr>
+<tr><td><code>SIGCONT</code></td><td>Cont</td><td>Reanudar si estaba pausado</td></tr>
+<tr><td><code>SIGSTOP</code></td><td>Stop</td><td>Parar proceso</td></tr>
+<tr><td><code>SIGTSTP</code></td><td>Stop</td><td>Parar escrito en terminal</td></tr>
+<tr><td><code>SIGTTIN</code></td><td>Stop</td><td>Input de terminal para proceso en segundo plano</td></tr>
+<tr><td><code>SIGTTOU</code></td><td>Stop</td><td>Output de terminal para proceso en segundo plano</td></tr>
+</tbody></table>
+</div>
+<h3 id="shared-memory"><a class="header" href="#shared-memory">Shared memory</a></h3>
+<p>Otra manera de interactuar con el mundo exterior es mediante la compartición de memoria con otros procesos.</p>
+<p>Requiere que se establezcan llamadas a sistema, pero una vez establecidas la comunicación ocurre sin ellas.</p>
+<p>La forma más fácil es usar el archivo de shared memory-mapped ubicado en <code>/dev/shm</code>.</p>
+<h3 id="process-termination"><a class="header" href="#process-termination">Process termination</a></h3>
+<p>Los procesos terminan de alguna de estas dos formas:</p>
+<ol>
+<li>Recibiendo una señal no gestionada.</li>
+<li>Llamando llamada a sistema <code>exit()</code>: <code>int exit(int status)</code>.</li>
+</ol>
+<p>Todos los procesos tienen que ser &quot;cosechados&quot;:</p>
+<ul>
+<li>Después de su termino, permanecerán en un estado zombie hasta use el <code>wait()</code> de sus padres.</li>
+<li>Cuando esto pasa, su código de salida será retornado al padre y el proceso será liberado.</li>
+<li>Si el padre muere win usar <code>wait()</code> en ellos, son reparentados al PID 1 y permanecerán ahí hasta que sean limpiados.</li>
+</ul>
+<h2 id="assembly-code"><a class="header" href="#assembly-code">Assembly Code</a></h2>
+<h3 id="assembly"><a class="header" href="#assembly">Assembly</a></h3>
+<p>Es el único verdadero lenguaje de programación, en que se refiere a un CPU.</p>
+<p>Conceptos:</p>
+<ul>
+<li>Intrucciones.
+<ul>
+<li>Manipulación de data.</li>
+<li>Comparación.</li>
+<li>Control de flujo.</li>
+<li>System calls</li>
+</ul>
+</li>
+<li>Registros.</li>
+<li>Memoria.
+<ul>
+<li>Programa.</li>
+<li>Pila.</li>
+<li>Otra memoria mapeada.</li>
+</ul>
+</li>
+</ul>
+<h3 id="registers"><a class="header" href="#registers">Registers</a></h3>
+<p>Los registros son bastante rápidos, temporalmente guardan data.</p>
+<p>Algunos utilizados para &quot;propósitos generales&quot;:</p>
+<ul>
+<li>8085: a, c, d, b, e, h, l.</li>
+<li>8086: ax, cx, dx, bx, <strong>sp</strong>, <strong>bp</strong>, si, di.</li>
+<li>x86: eax, ecx, edx, ebx, <strong>esp</strong>, <strong>ebp</strong>, esi, edi.</li>
+<li>amd64: rax, rcx, rdx, rbx, <strong>rsp</strong>, <strong>rbp</strong>, rsi, rdi, r8, r9, r10, r11, r12, r13, r14, r15.</li>
+<li>arm: r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, <strong>r14</strong>, <strong>r15</strong>.</li>
+</ul>
+<p>La dirección para la siguiente instrucción se encuentra en los registros:</p>
+<p>eip (x86), rip (amd64), r15 (arm)</p>
+<p>Varias extensiones añaden otros registros (x87, MMX, SSE, etc).</p>
+<h3 id="partial-register-access"><a class="header" href="#partial-register-access">Partial Register Access</a></h3>
+<p><img src="images/reg_partial.png" alt="Acceso parcial de registros" /></p>
+<p>Los registros pueden ser accedidos parcialmente.</p>
+<p>Debido a una rareza histórica, acceder a <strong>eax</strong> convertirá en cero el resto del <strong>rax</strong>. Esto fue diseñado como medida de seguridad para conservar partes sin tocar del registro.</p>
+<h3 id="all-partial-accesses-on-amd64-that-i-know-of"><a class="header" href="#all-partial-accesses-on-amd64-that-i-know-of">All partial accesses on amd64 (that I know of)</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>64</th><th>32</th><th>16</th><th>8H</th><th>8L</th></tr></thead><tbody>
+<tr><td>rcx</td><td>ecx</td><td>cx</td><td>ah</td><td>al</td></tr>
+<tr><td>rdx</td><td>edx</td><td>dx</td><td>ch</td><td>cl</td></tr>
+<tr><td>rax</td><td>eax</td><td>ax</td><td>dh</td><td>dl</td></tr>
+<tr><td>rbx</td><td>ebx</td><td>bx</td><td>bh</td><td>bl</td></tr>
+<tr><td>rsp</td><td>esp</td><td>sp</td><td></td><td>spl</td></tr>
+<tr><td>rbp</td><td>ebp</td><td>bp</td><td></td><td>bpl</td></tr>
+<tr><td>rsi</td><td>esi</td><td>si</td><td></td><td>sil</td></tr>
+<tr><td>rdi</td><td>edi</td><td>di</td><td></td><td>dil</td></tr>
+<tr><td>r8</td><td>r8d</td><td>r8w</td><td></td><td>r8b</td></tr>
+<tr><td>r9</td><td>r9d</td><td>r9w</td><td></td><td>r9b</td></tr>
+<tr><td>r10</td><td>r10d</td><td>r10w</td><td></td><td>r10b</td></tr>
+<tr><td>r11</td><td>r11d</td><td>r11w</td><td></td><td>r11b</td></tr>
+<tr><td>r12</td><td>r12d</td><td>r12w</td><td></td><td>r12b</td></tr>
+<tr><td>r13</td><td>r13d</td><td>r13w</td><td></td><td>r13b</td></tr>
+<tr><td>r14</td><td>r14d</td><td>r14w</td><td></td><td>r14b</td></tr>
+<tr><td>r15</td><td>r15d</td><td>r15w</td><td></td><td>r15b</td></tr>
+</tbody></table>
+</div>
+<h3 id="instructions"><a class="header" href="#instructions">Instructions</a></h3>
+<p>Forma general:</p>
+<p><code>OPCODE OPERAND OPERAND, ...</code></p>
+<p><code>OPCODE</code> - Que hacer
+<code>OPERANDS</code> - Que hacer en/con</p>
+<pre><code class="language-asm">mov rax, rbx
+add rax, 1
+cmp rax, rbx
+jmp some_location
+</code></pre>
+<h3 id="instructions-data-manipulation"><a class="header" href="#instructions-data-manipulation">Instructions (data manipulation)</a></h3>
+<p>Las intrucciones pueden mover y manipular data en registros y memoria.</p>
+<pre><code class="language-asm">mov rax, rbx # mover el valor de rbx a rax
+mov rax, [rbx+4] # de la dirección de rbx + 4 posiciones extraer el valor y moverlo a rax
+add rax, rbx # sumar el rbx a rax y guardar en rax
+mul rsi # multiplicar el valor en rax por rsi y guardar en rax
+inc rax # incrementa rax en 1
+inc [rax] # incrementa el puntero de rax en 1
+</code></pre>
+<h3 id="instructions-control-flow"><a class="header" href="#instructions-control-flow">Instructions (control flow)</a></h3>
+<p>El flujo de control es determinado por saltos condicionales e incondicionales.</p>
+<p>Incondicionales: call, jmp, ret</p>
+<p>Condicionales:</p>
+<div class="table-wrapper"><table><thead><tr><th>Operación</th><th>Descripción</th></tr></thead><tbody>
+<tr><td>je <br/> jne</td><td>jump si es igual <br/> jump si no es igual</td></tr>
+<tr><td>jg <br/> jl</td><td>jump si es mayor <br/> jump si es menor</td></tr>
+<tr><td>jle <br/> jge</td><td>jump si es menor o igual <br/> jump si es mayor o igual</td></tr>
+<tr><td>ja <br/> jb</td><td>jump si se cumple instrucción anterior (arriba) <br/> jump si se cumple siguiente instrucción (abajo)</td></tr>
+<tr><td>jae <br/> jbe</td><td>jump si se cumple instrucción anterior (arriba) o igual <br/> jump si se cumple siguiente instrucción (abajo) o igual</td></tr>
+<tr><td>js <br/> jns</td><td>jump si tiene signo <br/> jump si no tiene signo</td></tr>
+<tr><td>jo <br/> jno</td><td>jump si desborda <br/> jump si no desborda</td></tr>
+<tr><td>jz <br/> jnz</td><td>jump si es cero <br/> jump si no es cero</td></tr>
+</tbody></table>
+</div>
+<h3 id="instructions-conditionals"><a class="header" href="#instructions-conditionals">Instructions (conditionals)</a></h3>
+<p>Las conficionales utilizan el registro de &quot;flags&quot; como apoyo:</p>
+<ul>
+<li>eflags (x86), rflags (amd64), aspr (arm).</li>
+</ul>
+<p>Actualizado para (x86/amd64):</p>
+<ul>
+<li>Operaciones aritméticas.</li>
+<li>cmp - sustracción (<code>cmp rax, rbx</code>).</li>
+<li>test - operador and (<code>test rax, rax</code>).</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Operación</th><th>Descripción</th><th>Banderas</th></tr></thead><tbody>
+<tr><td>je <br/> jne</td><td>jump si es igual <br/> jump si no es igual</td><td>ZF=1 <br/> ZF=0</td></tr>
+<tr><td>jg <br/> jl</td><td>jump si es mayor <br/> jump si es menor</td><td>ZF=0 y SF=OF <br/> SF!=OF</td></tr>
+<tr><td>jle <br/> jge</td><td>jump si es menor o igual <br/> jump si es mayor o igual</td><td>ZF=1 y SF!=OF <br/> SF=OF</td></tr>
+<tr><td>ja <br/> jb</td><td>jump si se cumple instrucción anterior (arriba) <br/> jump si se cumple siguiente instrucción (abajo)</td><td>CF=0 y ZF=0 <br/> CF=1</td></tr>
+<tr><td>jae <br/> jbe</td><td>jump si se cumple instrucción anterior (arriba) o igual <br/> jump si se cumple siguiente instrucción (abajo) o igual</td><td>CF=0 <br/> CF=1 o ZF=1</td></tr>
+<tr><td>js <br/> jns</td><td>jump si tiene signo <br/> jump si no tiene signo</td><td>SF=1 <br/> SF=0</td></tr>
+<tr><td>jo <br/> jno</td><td>jump si desborda <br/> jump si no desborda</td><td>OF=1 <br/> OF=0</td></tr>
+<tr><td>jz <br/> jnz</td><td>jump si es cero <br/> jump si no es cero</td><td>ZF=1 <br/> ZF=0</td></tr>
+</tbody></table>
+</div>
+<h3 id="instructions-system-calls"><a class="header" href="#instructions-system-calls">Instructions (system calls)</a></h3>
+<p>Las system calls (en amd64) son disparadas por:</p>
+<ol>
+<li>Guardar número de la system call en rax.</li>
+<li>Guardar los argumentos en rdi, rsi, etc.</li>
+<li>Llamar a la instrucción <code>syscall</code>.</li>
+</ol>
+<h3 id="memory-stack"><a class="header" href="#memory-stack">Memory (stack)</a></h3>
+<p>El stack cubre 4 usos principales:</p>
+<ol>
+<li>Dar seguimiento al &quot;callstack&quot; de un programa.
+<ol>
+<li>Los valores retornados son &quot;empujados&quot; a la stack durante su llamada y &quot;desapilados&quot; durante un retorno (push y pop).</li>
+</ol>
+</li>
+<li>Contienen variables locales de funciones.</li>
+<li>Proveer espacio de ejecución para evitar el uso elevado de registros.</li>
+<li>Pasar argumentos de funciones.</li>
+</ol>
+<p>Registros relevantes (amd64): rsp, rbp.</p>
+<p>Instrucciones relevantes (amd64): push, pop.</p>
+<h3 id="memory-other-mapped-regions"><a class="header" href="#memory-other-mapped-regions">Memory (other mapped regions)</a></h3>
+<p>Otras regiones podrían ser mapeadas en memoria. Anteriormente fueron mencionadas que ciertas regiones son cargadas en relación a las directivas de las cabeceras de los ELF pero las funcionalidades como <code>mmap</code> y <code>malloc</code> pueden causar que otras regiones puedan ser mapeadas también.</p>
+<p>Esta funcionalidad será tomada en cuenta en módulos posteriores.</p>
+<h3 id="memory-endianess"><a class="header" href="#memory-endianess">Memory (endianess)</a></h3>
+<p>Data en la mayoría de los sistemas actuales es alojada hacia atrás, en <em>little endian</em>.</p>
+<p><img src="images/endianess.png" alt="Endianess" /></p>
+<p>¿Por qué?</p>
+<ul>
+<li>Rendimiento (histórico).</li>
+<li>Facilitar la aseignación de direcciones para diferentes tamaños.</li>
+<li>Compatibilidad 8086 (apócrifa).</li>
+</ul>
+<h3 id="signedness-twos-compliment-2933"><a class="header" href="#signedness-twos-compliment-2933">Signedness: Two's Compliment 29:33</a></h3>
+<h3 id="instructions-1"><a class="header" href="#instructions-1">Instructions</a></h3>
+<h3 id="instructions-2"><a class="header" href="#instructions-2">Instructions</a></h3>
+<h1 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h1>
+<ul>
+<li>An awesome intro series that covers some of the fundamentals from <a href="https://www.youtube.com/watch?v=iyAyN3GFM7A&amp;list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN&amp;index=1">LiveOverflow</a>.</li>
+<li>Phineas Fisher’s <a href="https://pwn.college/modules/intro/phisher-hackback.txt">writeup</a> of the hacking team disclosure (discussed in the What is Computer Systems Security video). Originally posted on pastebin by Phineas Fisher, but since removed.</li>
+<li><a href="https://github.com/Alekseyyy/phineas-philes">Some more (mirrored) writeups</a> from Phineas Fisher, for the curious.</li>
+<li>Executable and Linkable Format 101 Part 1-4 - https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/</li>
+<li>System calls in the Linux kernel. Part 4. -  https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-4.html</li>
+<li>Understanding the Memory Layout of Linux Executables - https://gist.github.com/CMCDragonkai/10ab53654b2aa6ce55c11cfc5b2432a4</li>
+</ul>
+<h1 id="referencias"><a class="header" href="#referencias">Referencias</a></h1>
+<ul>
+<li>X86 Opcode and Instruction Reference - http://ref.x86asm.net/</li>
+<li>Linux System Call Table for x86_64 - https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../guides/pwncollege/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../../guides/active_directory/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../guides/pwncollege/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../../guides/active_directory/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
