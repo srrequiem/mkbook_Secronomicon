@@ -29,6 +29,7 @@
   - [Service Permissions (Paths)](#service-permissions-paths)
     - [Binary Paths](#binary-paths)
     - [Unquoted Service Paths](#unquoted-service-paths)
+  - [CVE-2019-1388](#cve-2019-1388)
 - [Recursos y referencias](#recursos-y-referencias)
 
 ## Initial Enumeration
@@ -404,9 +405,29 @@ sc start daclsvc
 
 #### Unquoted Service Paths
 
+En la sección de información de servicios, WinPEAS puede identificar servicios que se pueden iniciar manualmente y se encuentran mal configurados sin comillas en los servicios.
 
+![Servicio sin comillas](images/unquoted_service.png)
 
+Al identificarse se puede generar payload con `msfvenom` y guardar en la ruta sin comillas como:
 
+```powershell
+C:\Program Files\Unquoted Path Service\common.exe
+```
+
+Al iniciar el servicio, se ejecutará el binario:
+
+```powershell
+sc start unquotedsvc
+```
+
+### CVE-2019-1388
+
+Se puede realizar un bypass al UAC mediante este CVE, identificado por WinPEAS mediante la instalación de parches KB.
+
+![WinPEAS CVE-2019-1388](images/cve_2019_1388.png)
+
+https://github.com/jas502n/CVE-2019-1388
 
 ## Recursos y referencias
 

@@ -11,7 +11,7 @@
   - [Módulo 0](guides/pwncollege/0_module/README.md)
 - [Active Directory](guides/active_directory/README.md)
   - [Teoría General](guides/active_directory/0_general.md)
-  - [Atacando AD](guides/active_directory/1_attacking.md)
+  - [Atacando Active Directory](guides/active_directory/1_attacking.md)
 - [eCPPTv2 s4viLab](guides/ecpptv2_lab/README.md)
   - [Aragog](guides/ecpptv2_lab/1_aragog/README.md)
   - [Nagini](guides/ecpptv2_lab/2_nagini/README.md)
@@ -27,6 +27,7 @@
 # Cheat Sheets
 
 - [General](cheat_sheets/general.md)
+- [Active Directory](cheat_sheets/active_directory.md)
 - [Network](cheat_sheets/network/general.md)
   - [Pivoting](cheat_sheets/network/pivoting.md)
 - [Pwning]()
@@ -64,6 +65,7 @@
       - [Silo](htb/boxes/windows/2_medio/Silo/README.md)
     - [Difícil]()
       - [Control](htb/boxes/windows/3_dificil/Control/README.md)
+      - [Search](htb/boxes/windows/3_dificil/Search/README.md)
     - [Locura]()
 
 # echoCTF
